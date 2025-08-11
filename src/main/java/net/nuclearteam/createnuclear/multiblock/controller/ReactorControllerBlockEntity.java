@@ -98,6 +98,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         super(type, pos, state);
         inventory = new ReactorControllerInventory(this);
         configuredPattern = ItemStack.EMPTY;
+        fuelItem = ItemStack.EMPTY;
+        coolerItem = ItemStack.EMPTY;
     }
 
     @Override
@@ -118,14 +120,14 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
             IHeat.HeatLevel.getFormattedHeatText(configuredPattern.getOrCreateTag().getInt("heat")).forGoggles(tooltip);
 
-            if (fuelItem.isEmpty()) {
+            if (fuelItem == null || fuelItem.isEmpty()) {
                 // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
                 IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.asItem(), 1), true).forGoggles(tooltip);
             } else {
                 IHeat.HeatLevel.getFormattedItemText(fuelItem, false).forGoggles(tooltip);
             }
 
-            if (fuelItem.isEmpty()) {
+            if (coolerItem == null || coolerItem.isEmpty()) {
                 // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
                 IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD.asItem(), 1), true).forGoggles(tooltip);
             } else {
@@ -146,12 +148,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
         configuredPattern = ItemStack.of(compound.getCompound("items"));
 
-
-        if (ItemStack.of(compound.getCompound("cooler")) != null || ItemStack.of(compound.getCompound("fuel")) != null) {
-            coolerItem = ItemStack.of(compound.getCompound("cooler"));
-            fuelItem = ItemStack.of(compound.getCompound("fuel"));
-
-        }
+        // Initialize with empty stacks if not present in compound
+        coolerItem = compound.contains("cooler") ? ItemStack.of(compound.getCompound("cooler")) : ItemStack.EMPTY;
+        fuelItem = compound.contains("fuel") ? ItemStack.of(compound.getCompound("fuel")) : ItemStack.EMPTY;
 
         total = compound.getDouble("total");
 
@@ -166,10 +165,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
         compound.put("items", configuredPattern.serializeNBT());
 
-        if (coolerItem != null || fuelItem != null) {
-            compound.put("cooler", coolerItem.serializeNBT());
-            compound.put("fuel", fuelItem.serializeNBT());
-        }
+        // Always write cooler and fuel items, even if they're empty
+        compound.put("cooler", (coolerItem != null ? coolerItem : ItemStack.EMPTY).serializeNBT());
+        compound.put("fuel", (fuelItem != null ? fuelItem : ItemStack.EMPTY).serializeNBT());
 
         compound.putDouble("total", calculateProgress());
 
@@ -212,7 +210,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
                 fuelItem = ItemStack.of(inventoryTag.getCompound(0));
                 coolerItem = ItemStack.of(inventoryTag.getCompound(1));
-                if (fuelItem.getCount() > 0 && coolerItem.getCount() > 0) {
+                if (fuelItem != null && coolerItem != null && fuelItem.getCount() > 0 && coolerItem.getCount() > 0) {
                     configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat(tag));
                     if (updateTimers()) {
                         TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), 1);
