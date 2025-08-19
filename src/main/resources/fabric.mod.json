@@ -22,16 +22,16 @@
 			"net.nuclearteam.createnuclear.CreateNuclearClient"
 		],
 		"fabric-datagen": [
-			"net.nuclearteam.createnuclear.CreateNuclearDataGenerator"
+          "net.nuclearteam.createnuclear.infrastructure.data.CreateNuclearDatagen"
 		],
 		"jei_mod_plugin": [
-			"net.nuclearteam.createnuclear.compact.recipe.jei.CNJei"
+			"net.nuclearteam.createnuclear.compat.jei.CNJei"
 		],
 		"rei_client": [
-			"net.nuclearteam.createnuclear.compact.recipe.rei.CNRei"
+			"net.nuclearteam.createnuclear.compat.rei.CNRei"
 		],
 		"emi": [
-			"net.nuclearteam.createnuclear.compact.recipe.emi.CNEmi"
+			"net.nuclearteam.createnuclear.compat.emi.CNEmi"
 		]
 	},
 	"mixins": [
