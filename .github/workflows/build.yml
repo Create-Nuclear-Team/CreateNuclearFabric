@@ -1,50 +1,45 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+name: Build Mod
 
-name: Build
 on:
   workflow_dispatch:
-    inputs:
-      modtag:
-        required: false
-        description: "Mod Version: Create Nuclear for Release"
-      name:
-        required: true
-        default: CreateNuclear
-        description: Mod file name
-      version: 
-        required: false
-        description: Mod version
-      version-type:
-        required: true
-        default: alpha
-        description: Version type
-      changelog:
-        required: true
-        default: No change log
-        description: Changelog for version
 
 jobs:
   build:
-    strategy:
-      matrix:
-        # Use these Java versions
-        java: [
-          21,    # Current Java LTS & minimum supported by Minecraft
-        ]
-        # and run on both Linux and Windows
-        os: [[ubuntu-22.04]]
-    runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Run a multi-line script
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Make Gradle Wrapper Executable
+        run: chmod +x ./gradlew
+
+      - name: Build the mod
+        run: ./gradlew clean build
+
+      - name: Read version from gradle.properties
+        id: get_version
         run: |
-          echo ${{ github.ref_name }}
-          name=$(git --no-pager tag --sort=creatordate --merged main | tail -2 | head -1)
-          echo "previousTag: $name"
+          VERSION=$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)
+          echo "MOD_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Rename Jar
+        run: |
+          mkdir renamed
+          FILE=$(find build/libs -name "*.jar" | grep -v sources | head -n 1)
+          echo "Found jar: $FILE"
+          cp "$FILE" "renamed/createnuclear-${MOD_VERSION}-fabric.jar"
+        env:
+          MOD_VERSION: ${{ env.MOD_VERSION }}
+
+      - name: Upload Renamed Jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: createnuclear-${{ env.MOD_VERSION }}-fabric.jar
+          path: renamed/

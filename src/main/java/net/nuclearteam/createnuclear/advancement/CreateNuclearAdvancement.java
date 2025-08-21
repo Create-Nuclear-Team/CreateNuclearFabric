@@ -1,10 +1,8 @@
 package net.nuclearteam.createnuclear.advancement;
 
-import com.simibubi.create.Create;
-import com.simibubi.create.foundation.advancement.AllTriggers;
-import com.simibubi.create.foundation.advancement.SimpleCreateTrigger;
 import com.simibubi.create.foundation.utility.Components;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
@@ -23,19 +21,21 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
+@MethodsReturnNonnullByDefault
+@SuppressWarnings({"unused", "DataFlowIssue", "ClassEscapesDefinedScope"})
 public class CreateNuclearAdvancement {
 
     static final ResourceLocation BACKGROUND = CreateNuclear.asResource("textures/block/steel_block.png");
     static final String LANG = "advancement." + CreateNuclear.MOD_ID + ".";
     static final String SECRET_SUFFIX = "\n\u00A77(Hidden Advancement)";
 
-    private Advancement.Builder builder;
+    private final Advancement.Builder builder;
     private SimpleCreateTrigger builtinTrigger;
     private CreateNuclearAdvancement parent;
 
     Advancement datagenResult;
 
-    private String id;
+    private final String id;
     private String title;
     private String description;
 
@@ -48,7 +48,7 @@ public class CreateNuclearAdvancement {
         b.apply(t);
 
         if (!t.externalTrigger) {
-            builtinTrigger = AllTriggers.addSimple(id + "_builtin");
+            builtinTrigger = CNTriggers.addSimple(id + "_builtin");
             builder.addCriterion("0", builtinTrigger.instance());
         }
 
@@ -70,19 +70,6 @@ public class CreateNuclearAdvancement {
         return titleKey() + ".desc";
     }
 
-    public boolean isAlreadyAwardedTo(Player player) {
-        if (!(player instanceof ServerPlayer sp))
-            return true;
-        Advancement advancement = sp.getServer()
-                .getAdvancements()
-                .getAdvancement(CreateNuclear.asResource(id));
-        if (advancement == null)
-            return true;
-        return sp.getAdvancements()
-                .getOrStartProgress(advancement)
-                .isDone();
-    }
-
     public void awardTo(Player player) {
         if (!(player instanceof ServerPlayer sp))
             return;
@@ -99,12 +86,25 @@ public class CreateNuclearAdvancement {
                 .toString());
     }
 
+    public boolean isAlreadyAwardedTo(Player player) {
+        if (!(player instanceof ServerPlayer sp))
+            return true;
+        Advancement advancement = sp.getServer()
+                .getAdvancements()
+                .getAdvancement(CreateNuclear.asResource(id));
+        if (advancement == null)
+            return true;
+        return sp.getAdvancements()
+                .getOrStartProgress(advancement)
+                .isDone();
+    }
+
     void provideLang(BiConsumer<String, String> consumer) {
         consumer.accept(titleKey(), title);
         consumer.accept(descriptionKey(), description);
     }
 
-    static enum TaskType {
+    enum TaskType {
 
         SILENT(FrameType.TASK, false, false, false),
         NORMAL(FrameType.TASK, true, false, false),
@@ -114,12 +114,12 @@ public class CreateNuclearAdvancement {
 
         ;
 
-        private FrameType frame;
-        private boolean toast;
-        private boolean announce;
-        private boolean hide;
+        private final FrameType frame;
+        private final boolean toast;
+        private final boolean announce;
+        private final boolean hide;
 
-        private TaskType(FrameType frame, boolean toast, boolean announce, boolean hide) {
+        TaskType(FrameType frame, boolean toast, boolean announce, boolean hide) {
             this.frame = frame;
             this.toast = toast;
             this.announce = announce;
@@ -174,7 +174,9 @@ public class CreateNuclearAdvancement {
         Builder whenIconCollected() {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(icon.getItem()));
         }
-
+        Builder whenItemEaten(Item item) {
+            return externalTrigger(ConsumeItemTrigger.TriggerInstance.usedItem(item));
+        }
         Builder whenItemCollected(ItemProviderEntry<?> item) {
             return whenItemCollected(item.asStack()
                     .getItem());

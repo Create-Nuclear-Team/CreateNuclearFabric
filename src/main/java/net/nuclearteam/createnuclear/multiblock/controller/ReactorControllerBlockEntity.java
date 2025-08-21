@@ -27,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
@@ -41,6 +42,7 @@ import java.util.List;
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 
+@SuppressWarnings({"unused", "deprecation", "ConstantConditions"})
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
     public boolean destroyed = false;
     public boolean created = false;
@@ -62,13 +64,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     int overFlowHeatTimer = 0;
     int overFlowLimiter = 30;
     double overHeat = 0;
-    public int baseUraniumHeat = 25;
-    public int baseGraphiteHeat = -10;
-    public int proximityUraniumHeat = 5;
-    public int proximityGraphiteHeat = -5;
-    public int maxUraniumPerGraphite = 3;
-    public int graphiteTimer = 3600;
-    public int uraniumTimer = 3600;
+    public int baseUraniumHeat = CNConfigs.common().rods.baseValueUranium.get();
+    public int baseGraphiteHeat = CNConfigs.common().rods.baseValueGraphite.get();
+    public int proximityUraniumHeat = CNConfigs.common().rods.BoProxyUranium.get();
+    public int proximityGraphiteHeat = CNConfigs.common().rods.MaProxigraphite.get();
+    public int maxUraniumPerGraphite = CNConfigs.common().rods.uraMaxGraph.get();
+    public int graphiteTimer = CNConfigs.common().rods.graphiteRodLifetime.get();
+    public int uraniumTimer = CNConfigs.common().rods.uraniumRodLifetime.get();
     public int heat;
     public double total;
     public CompoundTag screen_pattern = new CompoundTag();
@@ -78,7 +80,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     private ItemStack fuelItem;
     private ItemStack coolerItem;
 
-    private int[][] formattedPattern = new int[][]{
+    private final int[][] formattedPattern = new int[][]{
             {99,99,99,0,1,2,99,99,99},
             {99,99,3,4,5,6,7,99,99},
             {99,8,9,10,11,12,13,14,99},
@@ -89,7 +91,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             {99,99,49,50,51,52,53,99,99},
             {99,99,99,54,55,56,99,99,99}
     };
-    private int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+    private final int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
 
 
@@ -104,12 +106,11 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     }
 
-    public boolean getAssembled() { // permet de savoir si le réacteur est assemblé ou pas.
+    public boolean getAssembled() {
         BlockState state = getBlockState();
-        return Boolean.TRUE.equals(state.getValue(ASSEMBLED));
+        return state.getValue(ASSEMBLED);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         if(!configuredPattern.getOrCreateTag().isEmpty()) {
@@ -137,28 +138,33 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     }
 
 
-    //(Si les methode read et write ne sont pas implémenté alors lorsque l'on relance le monde minecraft les items dans le composant auront disparu !)
+    // (Si les methode read et write ne sont pas implémenté alors lorsque l'on relance le monde minecraft les items dans le composant auront disparu !)
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 1/2
+    protected void read(CompoundTag compound, boolean clientPacket) {
         if (!clientPacket) {
             inventory.deserializeNBT(compound.getCompound("pattern"));
         }
+
         configuredPattern = ItemStack.of(compound.getCompound("items"));
+
+
         if (ItemStack.of(compound.getCompound("cooler")) != null || ItemStack.of(compound.getCompound("fuel")) != null) {
             coolerItem = ItemStack.of(compound.getCompound("cooler"));
             fuelItem = ItemStack.of(compound.getCompound("fuel"));
 
         }
+
         total = compound.getDouble("total");
+
         super.read(compound, clientPacket);
     }
 
     @Override
-    protected void write(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 2/2
+    protected void write(CompoundTag compound, boolean clientPacket) {
         if (!clientPacket) {
             compound.put("pattern", inventory.serializeNBT());
-            //compound.putBoolean("powered", isPowered());
         }
+
         compound.put("items", configuredPattern.serializeNBT());
 
         if (coolerItem != null || fuelItem != null) {
@@ -167,11 +173,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         }
 
         compound.putDouble("total", calculateProgress());
+
         super.write(compound, clientPacket);
     }
 
     public enum State {
-        ON, OFF;
+        ON, OFF
     }
 
     private void explodeReactorCore(Level level, BlockPos pos) {
@@ -196,7 +203,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         super.tick();
         if (level.isClientSide)
             return;
-
 
         if (isEmptyConfiguredPattern()) {
 
@@ -383,8 +389,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     public void rotate(BlockState state, BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get()) && rotation > 0) {
-            if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
-                ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+            if (level.getBlockState(pos).getBlock() instanceof ReactorOutput block) {
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
                 if (state.getValue(ASSEMBLED)) { // Starting the energy
                     entity.speed = rotation;
@@ -402,8 +407,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             }
         }
         else {
-            if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
-                ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+            if (level.getBlockState(pos).getBlock() instanceof ReactorOutput block) {
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
                 entity.setSpeed(0);
                 entity.heat = 0;

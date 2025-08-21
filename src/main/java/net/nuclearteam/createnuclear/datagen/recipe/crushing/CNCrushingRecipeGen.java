@@ -1,12 +1,15 @@
 package net.nuclearteam.createnuclear.datagen.recipe.crushing;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,6 +22,7 @@ import net.nuclearteam.createnuclear.item.CNItems;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
+@MethodsReturnNonnullByDefault
 public class CNCrushingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
@@ -34,21 +38,29 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
                 .output(.5f, CNItems.URANIUM_POWDER)
                 .output(1f, Blocks.RED_SAND)
         )
-
     ;
 
     GeneratedRecipe
-        RAW_URANIUM = create(() -> CNItems.RAW_URANIUM, b -> b.duration(250)
+        RAW_URANIUM = create(() -> AllItems.CRUSHED_URANIUM, b -> b.duration(250)
                 .output(1, CNItems.URANIUM_POWDER,9)
-
-
-
-
         ),
-        RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
-            .output(1, CNItems.URANIUM_POWDER,81)
-        )
 
+        RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
+            .output(1, AllItems.CRUSHED_URANIUM,9)
+            .output(.75f, AllItems.EXP_NUGGET, 18)
+        ),
+
+        RAW_LEAD = create(() -> CNItems.RAW_LEAD, b -> b.duration(250)
+                .output(1, AllItems.CRUSHED_LEAD,1)
+        ),
+
+        RAW_LEAD_BLOCK = create(() -> CNBlocks.RAW_LEAD_BLOCK, b -> b.duration(250)
+            .output(1, AllItems.CRUSHED_LEAD,9)
+            .output(.75f, AllItems.EXP_NUGGET, 18)
+        ),
+
+        RAW_ZINC_ORE = rawOre(AllItems.RAW_ZINC::get, AllItems.CRUSHED_ZINC::get, 1),
+        RAW_COPPER_ORE = rawOre(() -> Items.RAW_COPPER, AllItems.CRUSHED_COPPER::get, 1)
     ;
 
     public CNCrushingRecipeGen(FabricDataOutput generator) {
@@ -80,8 +92,20 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         return create(CreateNuclear.MOD_ID, singleIngredient, transform);
     }
 
+    <T extends ProcessingRecipe<?>> GeneratedRecipe createC(Supplier<ItemLike> singleIngredient,
+                                                           UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
+        return create(Create.ID, singleIngredient, transform);
+    }
+
+    protected GeneratedRecipe rawOre(Supplier<ItemLike> input, Supplier<ItemLike> result, int amount) {
+        return createC(input, b -> b.duration(400)
+                .output(result.get(), amount)
+                .output(.75f, AllItems.EXP_NUGGET.get(), (result.get() == AllItems.CRUSHED_GOLD.get() ? 2 : 1) * amount)
+                .output(.15f, CNItems.LEAD_NUGGET, 1));
+    }
+
     @Override
     public String getName() {
-        return "CreateNuclear's Processing Recipes: " + getRecipeType().getId().getPath();
+        return "CreateNuclear Processing Recipes: " + getRecipeType().getId().getPath();
     }
 }
