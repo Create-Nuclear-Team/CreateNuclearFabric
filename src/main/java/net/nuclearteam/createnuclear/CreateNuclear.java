@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.CNFanProcessingTypes;
+import net.nuclearteam.createnuclear.content.test.TestPropa;
 import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.foundation.advancement.CNTriggers;
 import net.nuclearteam.createnuclear.foundation.data.CreateNuclearRegistrate;
@@ -33,6 +34,8 @@ public class CreateNuclear implements ModInitializer {
 		REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
                 .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
 	}
+
+    public static final TestPropa TEST_PROPA = new TestPropa();
 
 	@Override
 	public void onInitialize() {
