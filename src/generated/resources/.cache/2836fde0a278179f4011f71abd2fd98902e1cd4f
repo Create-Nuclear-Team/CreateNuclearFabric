@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-21T15:07:03.1772506	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-08-21T15:29:25.7722839	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 c53fd5df1d52d6e9919c9600e483697e8db75f4d data\createnuclear\advancements\recipes\building_blocks\cut_autunite_from_stone_types_autunite_stonecutting.json
 0057844c28c996dceebfc28e95e0f022a26db0aa assets\createnuclear\models\block\polished_cut_autunite_stairs.json
 baced15580735dd63848a96763f8c7ffe61f3376 assets\createnuclear\models\block\cut_autunite_wall_side.json
@@ -85,8 +85,8 @@ aa1f3455bb6fba50a9bf1b7ac6fbe6ffc364b0e2 data\createnuclear\recipes\cut_autunite
 b4ddee28d16f837d70e311c84748b18fe3cdc21a assets\createnuclear\models\item\green_anti_radiation_chestplate.json
 e6e624e978fdacfa3cdd123d23d021f504308149 data\createnuclear\loot_tables\blocks\cut_autunite_stairs.json
 35c8b46c14daa4da11187ddd916ac31020663819 assets\createnuclear\models\item\reactor_casing.json
-3968e8c8fabfbcda42d888f55269ab48746d2b3f data\c\tags\fluids\uranium.json
 589197f2c386dacb0193e0e101edafd39cd153ea data\minecraft\tags\blocks\slabs.json
+3968e8c8fabfbcda42d888f55269ab48746d2b3f data\c\tags\fluids\uranium.json
 ef76b3a3a97b5d1901d7e8ac17009381de418ab8 assets\createnuclear\models\item\reactor_blueprint_item.json
 7b58158eb206dafbcdd23d07f9b0ce1101642aab assets\createnuclear\lang\en_ud.json
 0632d6a6ba895efbfa6a347c9693240cc601e114 assets\createnuclear\models\block\small_autunite_bricks_wall_post.json
@@ -106,6 +106,7 @@ e7967751f132676cb1d523743adaac3aea1f0814 data\createnuclear\advancements\recipes
 3fc1094857b79873a966d6de2dc9ec3b711caadf assets\createnuclear\models\item\lead_ore.json
 b68221950ba50e3c11cdd6b58de2aafea83b07b5 data\createnuclear\recipes\cut_autunite_from_stone_types_autunite_stonecutting.json
 bd832947d219746d3264422bc4c82f6acdc5cc3e assets\createnuclear\models\item\cut_autunite_stairs.json
+4f8c53495e492dd89f7bf6ca280498a72a5eb7f3 data\createnuclear\tags\blocks\reactor_casing.json
 4632057b0095db09030a54298c0d230be249bcc4 assets\createnuclear\models\block\reinforced_glass.json
 341c421cde507cf8b2327e868aa77efc1b750467 data\createnuclear\recipes\small_autunite_brick_slab.json
 b5820f4051f471efa9b221712afe1070ed65de23 data\createnuclear\tags\blocks\uranium_ores.json
@@ -137,8 +138,8 @@ a0c45a5183b5590b7463a37f43051f5bdd56ad88 assets\createnuclear\blockstates\reacto
 84b9d23fadc9fd0a2e45fc3609f6bf16ecb1545d assets\createnuclear\models\item\cyan_anti_radiation_leggings.json
 2f306ea7c3e8809abc159f81f4b4b38885c7857b data\c\tags\blocks\storage_blocks\steel.json
 10aff7424eefd85e50269c66e60ae343043193cd data\createnuclear\loot_tables\blocks\cut_autunite_slab.json
-fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\dragon_transparent.json
 3968e8c8fabfbcda42d888f55269ab48746d2b3f data\minecraft\tags\fluids\lava.json
+fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\dragon_transparent.json
 d0f9a216114a583e097ef8369c4ed74f50270672 assets\createnuclear\models\item\green_anti_radiation_helmet.json
 d7adf3db99bd448091a0cea37a4e4d42299e53b3 data\minecraft\tags\entity_types\fall_damage_immune.json
 f7504d5f748fe938bf07d2eb5d0ba46bbfa0499d assets\createnuclear\blockstates\reinforced_glass.json
@@ -220,8 +221,8 @@ af0ce4256f68076af5c6a6da9faa98919eeb0a1c assets\createnuclear\models\item\light_
 0bfedb8324af8797150b1faf2c2b50856d1b4ace data\createnuclear\recipes\cut_autunite_slab.json
 9db8f06cd9b1d7a9c2d94e652f00a7588398571c data\createnuclear\loot_tables\blocks\lead_ore.json
 aaaec4ffcc3c247e506af0f01d9205c4214da9c6 data\createnuclear\advancements\recipes\building_blocks\small_autunite_brick_slab.json
-3aa34b484b1eb135c9e2fcd3db675aa8d7927951 assets\createnuclear\models\item\cyan_anti_radiation_chestplate.json
 9b83b53d90891eaf7aa4693eafe2876a831e0be2 assets\createnuclear\models\item\small_autunite_brick_slab.json
+3aa34b484b1eb135c9e2fcd3db675aa8d7927951 assets\createnuclear\models\item\cyan_anti_radiation_chestplate.json
 5bad8990f31085232b63b11d295b90b581af9a82 assets\createnuclear\models\item\raw_uranium_block.json
 78240d0c081d144592e76af622d0c9929569db17 assets\createnuclear\models\item\graphene.json
 4014ab450bb5de0522690577486f2fbbc334de9c data\createnuclear\loot_tables\blocks\small_autunite_brick_stairs.json
