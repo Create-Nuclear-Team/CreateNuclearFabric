@@ -8,7 +8,6 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.CNModelLayers;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.cat.IrradiatedCat;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.cat.IrradiatedCatModel;
@@ -25,7 +24,7 @@ public class CNEntityType {
     public static final EntityEntry<IrradiatedCat> IRRADIATED_CAT = CreateNuclear.REGISTRATE
         .entity("irradiated_cat", IrradiatedCat::new, MobCategory.CREATURE)
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
-        .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag, EntityTypeTags.FALL_DAMAGE_IMMUNE)
+        .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
         .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 0.7f)))
         .lang("Irradiated Cat")
         .renderer(() -> IrradiatedCatRenderer::new)
@@ -35,7 +34,7 @@ public class CNEntityType {
     public static final EntityEntry<IrradiatedChicken> IRRADIATED_CHICKEN = CreateNuclear.REGISTRATE
         .entity("irradiated_chicken", IrradiatedChicken::new, MobCategory.CREATURE)
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
-        .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag, EntityTypeTags.FALL_DAMAGE_IMMUNE)
+        .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
         .properties(b -> b.dimensions(EntityDimensions.scalable(0.4f, 0.7f)))
         .lang("Irradiated Chicken")
         .renderer(() -> IrradiatedChickenRenderer::new)
@@ -45,7 +44,7 @@ public class CNEntityType {
     public static final EntityEntry<IrradiatedWolf> IRRADIATED_WOLF = CreateNuclear.REGISTRATE
         .entity("irradiated_wolf", IrradiatedWolf::new, MobCategory.CREATURE)
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
-        .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)
+        .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
         .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 0.85f)))
         .lang("Irradiated Wolf")
         .renderer(() -> IrradiatedWolfRenderer::new)

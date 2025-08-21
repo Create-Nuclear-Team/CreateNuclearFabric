@@ -10,10 +10,10 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
 import net.nuclearteam.createnuclear.content.fluids.FluidInteractionManager;
 import net.nuclearteam.createnuclear.content.fluids.FluidInteractionManager.FluidInteractionRule;
+import net.nuclearteam.createnuclear.CNTags.CNFluidTags;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -28,7 +28,7 @@ public class CNFluids {
                     .flowSpeed(6)
                     .blastResistance(100f))
             .lang("Liquid Uranium")
-            .tag(CNTag.forgeFluidTag("uranium"), FluidTags.LAVA)
+            .tag(CNFluidTags.URANIUM.tag)
             .register();
 
     public static void register() {
@@ -64,7 +64,7 @@ public class CNFluids {
         world.players().forEach(player -> {
             if (player.isAlive() && !player.isSpectator()) {
                 if (player.tickCount % 20 != 0) return;
-                if (player.updateFluidHeightAndDoFluidPushing(CNTag.FluidTag.URANIUM.tag, 0.014) || player.updateFluidHeightAndDoFluidPushing(CNTag.forgeFluidTag("uranium"), 0.014)) {
+                if (player.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014) || player.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014)) {
                     player.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
                 }
             }

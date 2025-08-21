@@ -14,7 +14,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.nuclearteam.createnuclear.CNMenus;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 
 import static net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrint.getItemStorage;
@@ -112,9 +112,9 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
     protected void saveData(ItemStack contentHolder) {
         for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
-            if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
-            if (ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag)) countGraphiteRod += 1;
-            if (ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag)) countUraniumRod += 1;
+            if (!(ghostInventory.getStackInSlot(i).is(CNTags.CNItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTags.CNItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
+            if (ghostInventory.getStackInSlot(i).is(CNTags.CNItemTags.COOLER.tag)) countGraphiteRod += 1;
+            if (ghostInventory.getStackInSlot(i).is(CNTags.CNItemTags.FUEL.tag)) countUraniumRod += 1;
         }
 
         contentHolder.getOrCreateTag().put("pattern", ghostInventory.serializeNBT());
@@ -123,7 +123,7 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
 
         for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
-            if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
+            if (!(ghostInventory.getStackInSlot(i).is(CNTags.CNItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTags.CNItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
         }
 
         contentHolder.getOrCreateTag().put("patternAll", ghostInventory.serializeNBT());

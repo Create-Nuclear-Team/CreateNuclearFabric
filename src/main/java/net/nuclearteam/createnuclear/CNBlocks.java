@@ -1,6 +1,6 @@
 package net.nuclearteam.createnuclear;
 
-import com.simibubi.create.AllTags;
+import com.simibubi.create.AllTags.AllBlockTags;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.AssetLookup;
@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.content.enriching.fire.EnrichingFireBlock;
 import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingBlock;
@@ -41,18 +40,20 @@ import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputGenerator;
 import net.nuclearteam.createnuclear.content.multiblock.reinforced.ReinforcedGlassBlock;
 import net.nuclearteam.createnuclear.content.uraniumOre.UraniumOreBlock;
+import net.nuclearteam.createnuclear.CNTags.CNBlockTags;
+import net.nuclearteam.createnuclear.CNTags.CNItemTags;
 
 import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static net.nuclearteam.createnuclear.infrastructure.data.CreateNuclearRegistrateTags.shovelOnly;
 
 public class CNBlocks {
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
                     .initialProperties(CNBlocks::getDiamondOre)
-                    .simpleItem()
                     .properties(UraniumOreBlock.litBlockEmission())
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
@@ -62,14 +63,14 @@ public class CNBlocks {
                     ))))
                     .tag(BlockTags.NEEDS_DIAMOND_TOOL,
                         BlockTags.NEEDS_IRON_TOOL,
-                        CNTag.forgeBlockTag("ores"),
-                        CNTag.forgeBlockTag("ores_in_ground/deepslate"),
-                        CNTag.forgeBlockTag("uranium_ores"),
-                        CNTag.BlockTags.URANIUM_ORES.tag
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/deepslate"),
+                        CNTags.forgeBlockTag("uranium_ores"),
+                        CNBlockTags.URANIUM_ORES.tag
                     )
                     .item()
-                    .tag(CNTag.ItemTags.URANIUM_ORES.tag,
-                        CNTag.forgeItemTag("uranium_ores"))
+                    .tag(CNItemTags.URANIUM_ORES.tag,
+                        CNTags.forgeItemTag("uranium_ores"))
                     .build()
                     .register();
 
@@ -77,7 +78,6 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(UraniumOreBlock.litBlockEmission())
-                    .simpleItem()
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
                         RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
@@ -85,22 +85,21 @@ public class CNBlocks {
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
                     .tag(BlockTags.NEEDS_DIAMOND_TOOL,
-                            BlockTags.NEEDS_IRON_TOOL,
-                            CNTag.forgeBlockTag("ores"),
-                            CNTag.forgeBlockTag("ores_in_ground/stone"),
-                            CNTag.forgeBlockTag("uranium_ores"),
-                            CNTag.BlockTags.URANIUM_ORES.tag
+                        BlockTags.NEEDS_IRON_TOOL,
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/stone"),
+                        CNTags.forgeBlockTag("uranium_ores"),
+                        CNBlockTags.URANIUM_ORES.tag
                     )
                     .item()
-                    .tag(CNTag.ItemTags.URANIUM_ORES.tag,
-                        CNTag.forgeItemTag("uranium_ores"))
+                    .tag(CNItemTags.URANIUM_ORES.tag,
+                        CNTags.forgeItemTag("uranium_ores"))
                     .build()
                     .register();
 
     public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_lead_ore", Block::new)
                     .initialProperties(CNBlocks::getDiamondOre)
-                    .simpleItem()
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
                         RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
@@ -108,22 +107,20 @@ public class CNBlocks {
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
                     .tag(BlockTags.NEEDS_IRON_TOOL,
-                            CNTag.forgeBlockTag("ores"),
-                            CNTag.forgeBlockTag("ores_in_ground/deepslate"),
-                            CNTag.forgeBlockTag("lead_ores"),
-                            CNTag.BlockTags.LEAD_ORES.tag
-
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/deepslate"),
+                        CNTags.forgeBlockTag("lead_ores"),
+                        CNBlockTags.LEAD_ORES.tag
                     )
                     .item()
-                    .tag(CNTag.ItemTags.LEAD_ORES.tag,
-                            CNTag.forgeItemTag("lead_ores"))
+                    .tag(CNItemTags.LEAD_ORES.tag,
+                        CNTags.forgeItemTag("lead_ores"))
                     .build()
                     .register();
 
     public static final BlockEntry<Block> LEAD_ORE =
             CreateNuclear.REGISTRATE.block("lead_ore", Block::new)
                     .initialProperties(SharedProperties::stone)
-                    .simpleItem()
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
                         RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
@@ -131,14 +128,14 @@ public class CNBlocks {
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
                     .tag(BlockTags.NEEDS_IRON_TOOL,
-                            CNTag.forgeBlockTag("ores"),
-                            CNTag.forgeBlockTag("ores_in_ground/stone"),
-                            CNTag.forgeBlockTag("lead_ores"),
-                            CNTag.BlockTags.LEAD_ORES.tag
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/stone"),
+                        CNTags.forgeBlockTag("lead_ores"),
+                        CNBlockTags.LEAD_ORES.tag
                     )
                     .item()
-                    .tag(CNTag.ItemTags.LEAD_ORES.tag,
-                            CNTag.forgeItemTag("lead_ores"))
+                    .tag(CNItemTags.LEAD_ORES.tag,
+                        CNTags.forgeItemTag("lead_ores"))
                     .build()
                     .register();
 
@@ -148,7 +145,7 @@ public class CNBlocks {
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .tag(BlockTags.NEEDS_DIAMOND_TOOL,
-                            CNTag.forgeBlockTag("storage_blocks/raw_uranium"))
+                        CNTags.forgeBlockTag("storage_blocks/raw_uranium"))
                     .register();
 
     public static final BlockEntry<Block> RAW_LEAD_BLOCK =
@@ -157,7 +154,7 @@ public class CNBlocks {
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .tag(BlockTags.NEEDS_IRON_TOOL,
-                            CNTag.forgeBlockTag("storage_blocks/raw_lead"))
+                        CNTags.forgeBlockTag("storage_blocks/raw_lead"))
                     .register();
 
     public static final BlockEntry<Block> LEAD_BLOCK =
@@ -165,7 +162,7 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .tag(CNTag.forgeBlockTag("storage_blocks/lead"))
+                    .tag(CNTags.forgeBlockTag("storage_blocks/lead"))
                     .register();
 
     public static final BlockEntry<Block> STEEL_BLOCK =
@@ -173,15 +170,15 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .tag(CNTag.forgeBlockTag("storage_blocks/steel"))
+                    .tag(CNTags.forgeBlockTag("storage_blocks/steel"))
                     .register();
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::getSoulSoil)
                     .simpleItem()
-                    .tag(BlockTags.MINEABLE_WITH_SHOVEL)
-                    .tag(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag, BlockTags.NEEDS_DIAMOND_TOOL)
+                    .transform(shovelOnly())
+                    .tag(CNBlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag, BlockTags.NEEDS_DIAMOND_TOOL)
                     .register();
 
     public static final BlockEntry<EnrichingFireBlock> ENRICHING_FIRE =
@@ -191,7 +188,7 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::noCollission)
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .properties(EnrichingFireBlock.getLight())
-                    .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag, BlockTags.FIRE, BlockTags.DRAGON_TRANSPARENT)
+                    .tag(CNBlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
                     .loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
                     .blockstate((c,p) -> {
                         String baseFolder = "block/enriching_fire/";
@@ -251,9 +248,9 @@ public class CNBlocks {
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
-                    .tag(CNTag.forgeBlockTag("glass_blocks"))
+                    .tag(CNTags.forgeBlockTag("glass_blocks"))
                     .item()
-                    .tag(CNTag.forgeItemTag("glass_blocks"))
+                    .tag(CNTags.forgeItemTag("glass_blocks"))
                     .build()
                     .register();
 
@@ -262,7 +259,7 @@ public class CNBlocks {
                 .properties(p -> p.explosionResistance(6F).destroyTime(4F))
                 .initialProperties(SharedProperties::stone)
                 .properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
-                .tag(AllTags.AllBlockTags.SAFE_NBT.tag, BlockTags.NEEDS_DIAMOND_TOOL)
+                .tag(AllBlockTags.SAFE_NBT.tag, BlockTags.NEEDS_DIAMOND_TOOL)
                 .transform(pickaxeOnly())
                 .blockstate(new ReactorOutputGenerator()::generate)
                 .transform(BlockStressDefaults.setCapacity(10240))
@@ -283,7 +280,6 @@ public class CNBlocks {
             .properties(BlockBehaviour.Properties::replaceable)
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
-            .tag(BlockTags.CAMPFIRES)
             .loot((lt, b) -> lt.add(b, RegistrateBlockLootTables.createSilkTouchDispatchTable(b, lt.applyExplosionDecay(b, LootItem.lootTableItem(CNBlocks.ENRICHED_SOUL_SOIL)))))
             .blockstate((c, p) ->
                 p.getVariantBuilder(c.getEntry()).forAllStatesExcept(state -> {
@@ -301,7 +297,7 @@ public class CNBlocks {
                     }, BlockStateProperties.SIGNAL_FIRE, BlockStateProperties.WATERLOGGED
                 )
             )
-            .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
+            .tag(CNBlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .item()
             .model((c, p) ->
                 p.withExistingParent(c.getName(), new ResourceLocation("item/generated"))
@@ -319,7 +315,7 @@ public class CNBlocks {
                     .properties(p -> p.explosionResistance(6F))
                     .properties(p -> p.destroyTime(4F))
                     .transform(pickaxeOnly())
-                    .tag(BlockTags.NEEDS_DIAMOND_TOOL, AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL, AllBlockTags.SAFE_NBT.tag)
                     .blockstate(new ReactorControllerGenerator()::generate)
                     .item()
                     .transform(customItemModel())
@@ -416,7 +412,7 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
-                    .tag(BlockTags.NEEDS_DIAMOND_TOOL, AllTags.AllBlockTags.SAFE_NBT.tag)
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL, AllBlockTags.SAFE_NBT.tag)
                     .blockstate(new ReactorInputGenerator()::generate)
                     .item()
                     .transform(customItemModel())

@@ -6,7 +6,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.foundation.utility.RenderHelper;
 
@@ -29,7 +29,7 @@ public class HelmetOverlay  implements HudOverlay {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return false;
         ItemStack helmet = player.getInventory().getArmor(EquipmentSlot.HEAD.getIndex());
-        return !helmet.isEmpty() && helmet.is(CNTag.ItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag);
+        return !helmet.isEmpty() && helmet.is(CNTags.CNItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag);
     }
 
     @Override

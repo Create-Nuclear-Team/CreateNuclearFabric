@@ -10,7 +10,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -44,7 +44,7 @@ public class EnrichingFireBlock extends BaseFireBlock {
     }
 
     public static boolean canSurviveOnBlock(BlockState state) {
-        return state.is(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag);
+        return state.is(CNTags.CNBlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag);
     }
 
     public static NonNullUnaryOperator<Properties> getLight() {

@@ -1,23 +1,16 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import com.simibubi.create.AllRecipeTypes;
-import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
-import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.nuclearteam.createnuclear.CNItems;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
-import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 @MethodsReturnNonnullByDefault
@@ -26,7 +19,7 @@ public class CNPressingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
         GRAPHENE = create("graphene", b -> b
-            .require(Ingredient.of(CNTag.forgeItemTag("coal_dusts")))
+            .require(Ingredient.of(CNTags.forgeItemTag("coal_dusts")))
             .output(CNItems.GRAPHENE)
         )
     ;

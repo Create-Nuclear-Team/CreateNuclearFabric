@@ -3,10 +3,8 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 import com.google.common.base.Supplier;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeBuilder;
-import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeGen;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -26,7 +24,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         GRAPHITE_ROD = create(CNItems.GRAPHITE_ROD::get)
             .recipe(b -> b
-                .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
+                .key('S', Ingredient.of(CNTags.forgeItemTag("ingots/steel")))
                 .key('G', Ingredient.of(CNItems.GRAPHENE))
                 .patternLine("SGS")
                 .patternLine("SGS")
@@ -48,7 +46,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                 .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                 .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
                 .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
-                .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
+                .key('S', Ingredient.of(CNTags.forgeItemTag("ingots/steel")))
                 .patternLine("CCCCC")
                 .patternLine("CSGSC")
                 .patternLine("CGBGC")
@@ -76,7 +74,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                 .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                 .key('I', Ingredient.of(Blocks.BLUE_ICE))
                 .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
-                .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
+                .key('S', Ingredient.of(CNTags.forgeItemTag("ingots/steel")))
                 .patternLine("CCCCC")
                 .patternLine("CSGSC")
                 .patternLine("CIGIC")
@@ -89,7 +87,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                 .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                 .key('P', Ingredient.of(AllItems.PRECISION_MECHANISM))
                 .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
-                .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
+                .key('S', Ingredient.of(CNTags.forgeItemTag("ingots/steel")))
                 .patternLine("CCCCC")
                 .patternLine("CPSPC")
                 .patternLine("CSBSC")

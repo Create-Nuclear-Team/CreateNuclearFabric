@@ -6,7 +6,7 @@ import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.item.ItemStack;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 
@@ -152,11 +152,11 @@ public interface IHeat extends IWrenchable {
 
             String tooltip = "unknown";
             
-            if (itemRod.is(CNTag.ItemTags.FUEL.tag)) {
+            if (itemRod.is(CNTags.CNItemTags.FUEL.tag)) {
                 tooltip = "uranium";
             }
 
-            if (itemRod.is(CNTag.ItemTags.COOLER.tag)) {
+            if (itemRod.is(CNTags.CNItemTags.COOLER.tag)) {
                 tooltip = "graphene";
             }
 

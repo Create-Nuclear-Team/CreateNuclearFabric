@@ -44,7 +44,7 @@ public class CreateNuclear implements ModInitializer {
 		CNBlockEntityTypes.register();
 		CNCreativeModeTabs.register();
 		CNFluids.register();
-		CNTag.registerModItems();
+		CNTags.register();
 		CNPackets.registerPackets();
 		CNPackets.getChannel().initServerListener();
 		CNPotions.init();

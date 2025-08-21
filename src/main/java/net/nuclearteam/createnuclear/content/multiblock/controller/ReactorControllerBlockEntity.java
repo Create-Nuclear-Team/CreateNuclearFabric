@@ -28,12 +28,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNItems;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.content.multiblock.IHeat;
 import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
-import net.nuclearteam.createnuclear.foundation.gui.widget.CNIconButton;
 import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,7 +74,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     public int heat;
     public double total;
     public CompoundTag screen_pattern = new CompoundTag();
-    private List<CNIconButton> switchButtons;
     public ItemStack configuredPattern;
 
     private ItemStack fuelItem;
@@ -289,10 +287,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         String currentRod = "";
         ListTag list = inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < list.size(); i++) {
-            if (ItemStack.of(list.getCompound(i)).is(CNTag.ItemTags.FUEL.tag)) {
+            if (ItemStack.of(list.getCompound(i)).is(CNTags.CNItemTags.FUEL.tag)) {
                 heat += baseUraniumHeat;
                 currentRod = "u";
-            } else if (ItemStack.of(list.getCompound(i)).is(CNTag.ItemTags.COOLER.tag)) {
+            } else if (ItemStack.of(list.getCompound(i)).is(CNTags.CNItemTags.COOLER.tag)) {
                 heat += baseGraphiteHeat;
                 currentRod = "g";
             }
@@ -321,9 +319,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                                 // If currentRod equals "u", apply the corresponding heat
                                 if (currentRod.equals("u")) {
                                     ItemStack stack = ItemStack.of(list.getCompound(l));
-                                    if (stack.is(CNTag.ItemTags.FUEL.tag)) {
+                                    if (stack.is(CNTags.CNItemTags.FUEL.tag)) {
                                         heat += proximityUraniumHeat;
-                                    } else if (stack.is(CNTag.ItemTags.COOLER.tag)) {
+                                    } else if (stack.is(CNTags.CNItemTags.COOLER.tag)) {
                                         heat += proximityGraphiteHeat;
                                     }
                                 }

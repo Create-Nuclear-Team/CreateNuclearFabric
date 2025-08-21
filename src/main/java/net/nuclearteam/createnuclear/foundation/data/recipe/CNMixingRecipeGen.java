@@ -3,7 +3,6 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -11,10 +10,9 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CNFluids;
 import net.nuclearteam.createnuclear.CNItems;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
-import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 @SuppressWarnings("unused")
@@ -23,7 +21,7 @@ public class CNMixingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
         STEEL = create("steel", b -> b
-            .require(CNTag.forgeItemTag("coal_dusts"))
+            .require(CNTags.forgeItemTag("coal_dusts"))
             .require(Tags.Items.INGOTS_IRON)
             .output(CNItems.STEEL_INGOT)
         ),
