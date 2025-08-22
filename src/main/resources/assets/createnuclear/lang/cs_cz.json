@@ -54,7 +54,7 @@
   "advancement.createnuclear.yellowcake": "Proces Uranového koncentrátu",
   "advancement.createnuclear.yellowcake.desc": "Zhutni tekutý Uran pro vytvoření Uranového koncentrátu",
   "architecture_extensions.grouped_block.createnuclear.cut_autunite": "Řezaný Autunit",
-  "architecture_extensions.grouped_block.createnuclear.cut_autunite_bricks": "Řezané Autunitové Cihly",
+  "architecture_extensions.grouped_block.createnuclear.cut_autunite_bricks": "Řezané Cihly Autunitu",
   "architecture_extensions.grouped_block.createnuclear.polished_cut_autunite": "Leštěný Autunit",
   "architecture_extensions.grouped_block.createnuclear.small_autunite_bricks": "Malé Autunitové Cihly",
   "block.createnuclear.autunite": "Autunit",
