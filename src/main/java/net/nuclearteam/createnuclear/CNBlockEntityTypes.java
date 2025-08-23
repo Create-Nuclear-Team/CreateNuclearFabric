@@ -9,6 +9,7 @@ import net.nuclearteam.createnuclear.content.multiblock.core.ReactorCoreBlockEnt
 import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputRenderer;
+import net.nuclearteam.createnuclear.content.multiblock.test.TestInputShareBlockEntity;
 
 
 public class CNBlockEntityTypes {
@@ -44,6 +45,10 @@ public class CNBlockEntityTypes {
                     .validBlocks(CNBlocks.REACTOR_CORE)
                     .register();
 
+    public static final BlockEntityEntry<TestInputShareBlockEntity> TEST_INPUT_SHARE_BLOCk_ENTITY =
+            CreateNuclear.REGISTRATE.blockEntity("share_block_entity", TestInputShareBlockEntity::new)
+                    .validBlocks(CNBlocks.TEST_INPUT_SHARE_BLOCk)
+                    .register();
 
     public static void register() {
     }

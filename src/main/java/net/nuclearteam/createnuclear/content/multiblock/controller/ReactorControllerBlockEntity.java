@@ -93,7 +93,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     private final int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
 
-
     public ReactorControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         inventory = new ReactorControllerInventory(this);

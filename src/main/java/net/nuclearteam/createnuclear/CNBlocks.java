@@ -39,6 +39,7 @@ import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputGenera
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputGenerator;
 import net.nuclearteam.createnuclear.content.multiblock.reinforced.ReinforcedGlassBlock;
+import net.nuclearteam.createnuclear.content.multiblock.test.TestInputShareBlock;
 import net.nuclearteam.createnuclear.content.uraniumOre.UraniumOreBlock;
 import net.nuclearteam.createnuclear.CNTags.CNBlockTags;
 import net.nuclearteam.createnuclear.CNTags.CNItemTags;
@@ -421,6 +422,11 @@ public class CNBlocks {
     /*public static final BlockEntry<EventTriggerBlock> TEST_EVENT_TRIGGER_BLOCK = CreateNuclear.REGISTRATE.block("test_event_trigger_block", EventTriggerBlock::new)
             .simpleItem()
             .register();*/
+
+    public static final BlockEntry<TestInputShareBlock> TEST_INPUT_SHARE_BLOCk =
+            CreateNuclear.REGISTRATE.block("share_block", TestInputShareBlock::new)
+                    .simpleItem()
+                    .register();
 
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;
