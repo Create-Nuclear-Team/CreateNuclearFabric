@@ -1,7 +1,5 @@
 package net.nuclearteam.createnuclear.advancement;
 
-import com.simibubi.create.foundation.advancement.AllTriggers;
-import com.simibubi.create.foundation.advancement.SimpleCreateTrigger;
 import com.simibubi.create.foundation.utility.Components;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import net.minecraft.MethodsReturnNonnullByDefault;

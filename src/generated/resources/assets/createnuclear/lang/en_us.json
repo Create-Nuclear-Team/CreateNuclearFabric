@@ -53,13 +53,11 @@
   "advancement.createnuclear.uranium_rod.desc": "Create your first uranium rod using enriched yellowcake in a mechanical crafter",
   "advancement.createnuclear.yellowcake": "The Yellowcake Process",
   "advancement.createnuclear.yellowcake.desc": "Compact uranium liquid to create yellowcake",
-<<<<<<< HEAD
-  "attribute.name.createnuclear.generic.irradiated_resistance": "Irradiation Immune",
-=======
   "architecture_extensions.grouped_block.createnuclear.cut_autunite": "Cut Autunite",
   "architecture_extensions.grouped_block.createnuclear.cut_autunite_bricks": "Cut Autunite Bricks",
   "architecture_extensions.grouped_block.createnuclear.polished_cut_autunite": "Polished Cut Autunite",
   "architecture_extensions.grouped_block.createnuclear.small_autunite_bricks": "Small Autunite Bricks",
+  "attribute.name.createnuclear.generic.irradiated_resistance": "Irradiation Immune",
   "block.createnuclear.autunite": "Autunite",
   "block.createnuclear.autunite_pillar": "Autunite Pillar",
   "block.createnuclear.cut_autunite": "Cut Autunite",
@@ -70,7 +68,6 @@
   "block.createnuclear.cut_autunite_slab": "Cut Autunite Slab",
   "block.createnuclear.cut_autunite_stairs": "Cut Autunite Stairs",
   "block.createnuclear.cut_autunite_wall": "Cut Autunite Wall",
->>>>>>> origin/addCustomDamageSource
   "block.createnuclear.deepslate_lead_ore": "Deepslate Lead Ore",
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",

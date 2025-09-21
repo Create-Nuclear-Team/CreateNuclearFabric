@@ -28,8 +28,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipeeArmorList;
+import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipeArmorList;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 

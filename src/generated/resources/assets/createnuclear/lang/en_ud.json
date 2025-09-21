@@ -53,13 +53,11 @@
   "advancement.createnuclear.uranium_rod.desc": "ɹǝʇɟɐɹɔ ןɐɔıuɐɥɔǝɯ ɐ uı ǝʞɐɔʍoןןǝʎ pǝɥɔıɹuǝ buısn poɹ ɯnıuɐɹn ʇsɹıɟ ɹnoʎ ǝʇɐǝɹƆ",
   "advancement.createnuclear.yellowcake": "ssǝɔoɹԀ ǝʞɐɔʍoןןǝʎ ǝɥ⟘",
   "advancement.createnuclear.yellowcake.desc": "ǝʞɐɔʍoןןǝʎ ǝʇɐǝɹɔ oʇ pınbıן ɯnıuɐɹn ʇɔɐdɯoƆ",
-<<<<<<< HEAD
-  "attribute.name.createnuclear.generic.irradiated_resistance": "ǝunɯɯI uoıʇɐıpɐɹɹI",
-=======
   "architecture_extensions.grouped_block.createnuclear.cut_autunite": "ǝʇıunʇnⱯ ʇnƆ",
   "architecture_extensions.grouped_block.createnuclear.cut_autunite_bricks": "sʞɔıɹᗺ ǝʇıunʇnⱯ ʇnƆ",
   "architecture_extensions.grouped_block.createnuclear.polished_cut_autunite": "ǝʇıunʇnⱯ ʇnƆ pǝɥsıןoԀ",
   "architecture_extensions.grouped_block.createnuclear.small_autunite_bricks": "sʞɔıɹᗺ ǝʇıunʇnⱯ ןןɐɯS",
+  "attribute.name.createnuclear.generic.irradiated_resistance": "ǝunɯɯI uoıʇɐıpɐɹɹI",
   "block.createnuclear.autunite": "ǝʇıunʇnⱯ",
   "block.createnuclear.autunite_pillar": "ɹɐןןıԀ ǝʇıunʇnⱯ",
   "block.createnuclear.cut_autunite": "ǝʇıunʇnⱯ ʇnƆ",
@@ -70,7 +68,6 @@
   "block.createnuclear.cut_autunite_slab": "qɐןS ǝʇıunʇnⱯ ʇnƆ",
   "block.createnuclear.cut_autunite_stairs": "sɹıɐʇS ǝʇıunʇnⱯ ʇnƆ",
   "block.createnuclear.cut_autunite_wall": "ןןɐM ǝʇıunʇnⱯ ʇnƆ",
->>>>>>> origin/addCustomDamageSource
   "block.createnuclear.deepslate_lead_ore": "ǝɹO pɐǝꞀ ǝʇɐןsdǝǝᗡ",
   "block.createnuclear.deepslate_uranium_ore": "ǝɹO ɯnıuɐɹ∩ ǝʇɐןsdǝǝᗡ",
   "block.createnuclear.enriched_soul_soil": "ןıoS ןnoS pǝɥɔıɹuƎ",
