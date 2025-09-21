@@ -2,12 +2,14 @@ package net.nuclearteam.createnuclear.datagen.recipe.cooking;
 
 import com.google.common.base.Supplier;
 import com.google.gson.JsonObject;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -18,30 +20,33 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
+@MethodsReturnNonnullByDefault
+@SuppressWarnings("unused")
+@ParametersAreNonnullByDefault
 public class CNCookingRecipeGen extends CreateRecipeProvider {
 
     private final String BLAST_FURNACE = enterFolder("blast_furnace");
     GeneratedRecipe
         URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTag.ItemTags.URANIUM_ORES.tag, "_for_uranium_ore", 4),
         RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTag.ItemTags.LEAD_ORES.tag, "_for_lead_ore", 1),
-        RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1)
+        RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1),
+        CRUSHED_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, AllItems.CRUSHED_LEAD::get, "_for_crushed_lead", 1)
         ;
 
 
     GeneratedRecipe blastFurnaceRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
         return create(result::get).withSuffix(suffix)
                 .returns(count)
-                .viaCooking(ingredient::get)
+                .viaCooking(ingredient)
                 .rewardXP(.1f)
                 .inBlastFurnace();
     }
@@ -57,7 +62,7 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe smokerRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
         return create(result::get).withSuffix(suffix)
                 .returns(count)
-                .viaCooking(ingredient::get)
+                .viaCooking(ingredient)
                 .rewardXP(.0f)
                 .inSmoker();
     }
@@ -73,7 +78,7 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe furnaceRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
         return create(result::get).withSuffix(suffix)
                 .returns(count)
-                .viaCooking(ingredient::get)
+                .viaCooking(ingredient)
                 .rewardXP(.1f)
                 .inFurnace();
     }
@@ -106,8 +111,7 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
     }
 
     class GeneratedRecipeBuilder {
-
-        private String path;
+        private final String path;
         private String suffix;
         private Supplier<? extends ItemLike> result;
         private ResourceLocation compatDatagenOutput;
@@ -205,7 +209,7 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
 
         class GeneratedCookingRecipeBuilder {
 
-            private Supplier<Ingredient> ingredient;
+            private final Supplier<Ingredient> ingredient;
             private float exp;
             private int cookingTime;
 
@@ -279,20 +283,8 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
         }
     }
 
-
-    private static class ModdedCookingRecipeResult implements FinishedRecipe {
-
-        private FinishedRecipe wrapped;
-        private ResourceLocation outputOverride;
-        private List<ConditionJsonProvider> conditions;
-
-        public ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
-                                         List<ConditionJsonProvider> conditions) {
-            this.wrapped = wrapped;
-            this.outputOverride = outputOverride;
-            this.conditions = conditions;
-        }
-
+    private record ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
+                                             List<ConditionJsonProvider> conditions) implements FinishedRecipe {
         @Override
         public ResourceLocation getId() {
             return wrapped.getId();
@@ -320,10 +312,7 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
 
             ConditionJsonProvider.write(object, conditions.toArray(new ConditionJsonProvider[0]));
         }
-
     }
-
-
 
     public CNCookingRecipeGen(FabricDataOutput output) {
         super(output);

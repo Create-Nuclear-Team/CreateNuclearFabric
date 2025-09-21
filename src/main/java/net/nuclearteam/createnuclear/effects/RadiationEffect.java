@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.nuclearteam.createnuclear.effects.damageTypes.CNDamageSources;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
@@ -13,12 +14,28 @@ import net.nuclearteam.createnuclear.tags.CNTag;
  * This effect harms entities by modifying attributes like movement speed, attack damage, and attack speed,
  * and applies damage over time unless mitigated by anti-radiation armor or immunity.
  */
+import java.util.stream.StreamSupport;
+
+import net.minecraft.world.item.ItemStack;
+import net.nuclearteam.createnuclear.CreateNuclear;
+
+/**
+ * Represents a harmful radiation status effect applied to living entities.
+ * This effect reduces movement speed, attack damage, and attack speed,
+ * and periodically inflicts magic damage unless the entity is immune
+ * or wearing anti-radiation armor.
+ */
 public class RadiationEffect extends MobEffect {
 
     /**
      * Constructor for the RadiationEffect.
      * Initializes the effect with a harmful category and a specific color.
      * It also adds attribute modifiers to reduce movement speed, attack damage, and attack speed.
+     */
+
+    /**
+     * Constructs the RadiationEffect with harmful category and color.
+     * Also applies attribute modifiers to reduce speed, attack damage, and attack speed.
      */
     public RadiationEffect() {
         super(MobEffectCategory.HARMFUL, 15453236);  // The color code is arbitrary for this effect's visual representation
@@ -51,26 +68,39 @@ public class RadiationEffect extends MobEffect {
      * @param livingEntity The entity affected by the radiation.
      * @param amplifier The amplifier level of the effect, determining the damage.
      */
+    /**
+     * Applies the radiation effect to the entity.
+     * - Does nothing if the entity is immune via tag.
+     * - Skips damage if the entity wears any anti-radiation armor.
+     * - Otherwise, applies magic damage based on the amplifier.
+     *
+     * @param livingEntity The affected living entity.
+     * @param amplifier    The strength (level) of the effect.
+     */
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        // Loop through the armor slots to check if the entity is wearing anti-radiation armor
-        livingEntity.getArmorSlots().forEach(armorItem -> {
-            // Check if the entity has the radiation effect and is wearing anti-radiation armor
-            if (livingEntity.hasEffect(CNEffects.RADIATION.get()) && AntiRadiationArmorItem.Armor.isArmored(armorItem)) {
-                // If armor protects the player, they take no damage
-                livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
-                // Remove any attribute modifiers (e.g., speed or attack damage) applied by the radiation effect
-                this.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), 0);
+        // If the entity is immune to radiation, remove the effect
+        if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
+            livingEntity.removeEffect(this);
+            return;
+        }
+
+        // Check if the entity is wearing any anti-radiation armor
+        boolean isWearingAntiRadiationArmor = false;
+        for (ItemStack armor : livingEntity.getArmorSlots()) {
+            if (AntiRadiationArmorItem.Armor.isArmored(armor)) {
+                isWearingAntiRadiationArmor = true;
+                break;
             }
-            // Check if the entity is immune to radiation based on its type
-            else if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
-                // Remove the radiation effect if the entity is immune
-                livingEntity.removeEffect(this);
-            }
-            // If the entity is neither protected nor immune, apply damage based on the amplifier
-            else {
-                livingEntity.hurt(livingEntity.damageSources().magic(), 1 << amplifier);  // Magic damage with power scaled by amplifier
-            }
-        });
+        }
+
+        // If protected by armor, do not apply damage
+        if (isWearingAntiRadiationArmor) {
+            return;
+        }
+
+        // Apply radiation damage (magic type), scaled by amplifier
+        int damage = 1 << amplifier;
+        livingEntity.hurt(CNDamageSources.RADIANCE.create(livingEntity.level()), damage);
     }
 }

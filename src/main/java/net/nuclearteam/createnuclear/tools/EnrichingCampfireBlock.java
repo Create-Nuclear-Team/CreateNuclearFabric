@@ -7,6 +7,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
@@ -42,6 +45,7 @@ import net.nuclearteam.createnuclear.effects.CNEffects;
 
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings({"deprecation", "NullableProblems", "unused"})
 public class EnrichingCampfireBlock extends BaseEntityBlock
         implements SimpleWaterloggedBlock, IBE<EnrichingCampfireBlockEntity> {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
@@ -49,24 +53,50 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private final boolean spawnParticles;
-    private final int fireDamage;
 
     public EnrichingCampfireBlock(boolean spawnParticles, int fireDamage, BlockBehaviour.Properties properties) {
         super(properties);
         this.spawnParticles = spawnParticles;
-        this.fireDamage = fireDamage;
-        this.registerDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.stateDefinition.any()).setValue(LIT, true)).setValue(WATERLOGGED, false)).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        Direction face = hit.getDirection();
+        ItemStack heldItem = player.getItemInHand(hand);
+
+        if (face == Direction.DOWN) return InteractionResult.PASS;
+
+        if (heldItem.is(ItemTags.SHOVELS)) {
+            if (state.getValue(LIT)) {
+                if (!level.isClientSide) {
+                    level.levelEvent(null, 1009, pos, 0);
+                    EnrichingCampfireBlock.dowse(player, level, pos, state);
+                    BlockState newState = state.setValue(LIT, false);
+                    level.setBlock(pos, newState, 11);
+                    level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
+                    heldItem.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+                }
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
+        }
+
+        if (heldItem.is(ItemTags.CREEPER_IGNITERS) && canLight(state)) {
+            if (!level.isClientSide) {
+                level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() * 0.4f + 0.8f);
+                level.setBlock(pos, state.setValue(LIT, true), 11);
+                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                heldItem.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
         return InteractionResult.PASS;
     }
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (state.getValue(LIT).booleanValue() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
-            //entity.hurt(level.damageSources().inFire(), this.fireDamage);
+        if (state.getValue(LIT) && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
             ((LivingEntity) entity).addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
         }
         super.entityInside(state, level, pos, entity);
@@ -77,13 +107,13 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos blockPos;
         Level levelAccessor = context.getLevel();
-        boolean bl = levelAccessor.getFluidState(blockPos = context.getClickedPos()).getType() == Fluids.WATER;
-        return (BlockState)((BlockState)((BlockState)this.defaultBlockState().setValue(WATERLOGGED, bl)).setValue(LIT, !bl)).setValue(FACING, context.getHorizontalDirection());
+        boolean bl = levelAccessor.getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        return this.defaultBlockState().setValue(WATERLOGGED, bl).setValue(LIT, !bl).setValue(FACING, context.getHorizontalDirection());
     }
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        if (state.getValue(WATERLOGGED).booleanValue()) {
+        if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
@@ -101,7 +131,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!state.getValue(LIT).booleanValue()) {
+        if (!state.getValue(LIT)) {
             return;
         }
         if (random.nextInt(10) == 0) {
@@ -129,7 +159,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
 
     @Override
     public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
-        if (!state.getValue(BlockStateProperties.WATERLOGGED).booleanValue() && fluidState.getType() == Fluids.WATER) {
+        if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getType() == Fluids.WATER) {
             boolean bl = state.getValue(LIT);
             if (bl) {
                 if (!level.isClientSide()) {
@@ -137,7 +167,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
                 }
                 EnrichingCampfireBlock.dowse(null, level, pos, state);
             }
-            level.setBlock(pos, (BlockState)((BlockState)state.setValue(WATERLOGGED, true)).setValue(LIT, false), 3);
+            level.setBlock(pos, state.setValue(WATERLOGGED, true).setValue(LIT, false), 3);
             level.scheduleTick(pos, fluidState.getType(), fluidState.getType().getTickDelay(level));
             return true;
         }
@@ -147,8 +177,8 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     @Override
     public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
         BlockPos blockPos = hit.getBlockPos();
-        if (!level.isClientSide && projectile.isOnFire() && projectile.mayInteract(level, blockPos) && !state.getValue(LIT).booleanValue() && !state.getValue(WATERLOGGED).booleanValue()) {
-            level.setBlock(blockPos, (BlockState)state.setValue(BlockStateProperties.LIT, true), 11);
+        if (!level.isClientSide && projectile.isOnFire() && projectile.mayInteract(level, blockPos) && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
+            level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 11);
         }
     }
 
@@ -159,7 +189,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        if (state.getValue(WATERLOGGED).booleanValue()) {
+        if (state.getValue(WATERLOGGED)) {
             return Fluids.WATER.getSource(false);
         }
         return super.getFluidState(state);
@@ -167,7 +197,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
 
     @Override
     public BlockState rotate(BlockState state, Rotation rotation) {
-        return (BlockState)state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
@@ -199,7 +229,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level.isClientSide) {
-            if (state.getValue(LIT).booleanValue()) {
+            if (state.getValue(LIT)) {
                 return EnrichingCampfireBlock.createTickerHelper(blockEntityType, CNBlockEntities.ENRICHING_CAMPFIRE_BLOCK.get(), EnrichingCampfireBlockEntity::particleTick);
             }
         }
@@ -209,5 +239,9 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
+    }
+
+    public static boolean canLight(BlockState state) {
+        return state.is(BlockTags.CAMPFIRES, s -> s.hasProperty(WATERLOGGED) && s.hasProperty(LIT)) && !state.getValue(WATERLOGGED) && !state.getValue(LIT);
     }
 }

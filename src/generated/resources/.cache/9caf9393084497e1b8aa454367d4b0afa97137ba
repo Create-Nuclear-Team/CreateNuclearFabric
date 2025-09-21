@@ -1,11 +1,15 @@
+<<<<<<< HEAD
 // 1.20.1	2025-04-28T20:37:20.9121773	Create Nuclear/Create Nuclear Advancements
+=======
+// 1.20.1	2025-06-15T11:41:02.6688978	Create Nuclear/Create Nuclear Advancements
+>>>>>>> origin/addCustomDamageSource
 4f963ff2f6c09a0272c25ebdb46423700e5256eb data\createnuclear\advancements\reactor_input.json
 91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
 5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
 8e89393b2e396243d12cf5b29e283ab97c814519 data\createnuclear\advancements\graphite_rod.json
 384b002f95b70c595cedc692ed219d45931f1f5b data\createnuclear\advancements\anti_radiation_armor.json
 46f6044ed5c777f9fe08f7957c3d26e39d69f3c5 data\createnuclear\advancements\reactor_casing.json
-41069c530d33ea7d59cccddada0ceececd69f5af data\createnuclear\advancements\automatic_uranium.json
+fe81bbd052ebe4a70c48912b47e12ed4e4523d1d data\createnuclear\advancements\automatic_uranium.json
 2c2cfb8724f39fc5e101a34dce08de6e33f6d1f8 data\createnuclear\advancements\dye_anti_radiation_armor.json
 a44ae76ec00fae36f7df13e43f20ebe389b416d5 data\createnuclear\advancements\steel_ingot.json
 07047ca35a1e75dfe3f7885ad8b5a63ce53e1b34 data\createnuclear\advancements\reactor_frame.json

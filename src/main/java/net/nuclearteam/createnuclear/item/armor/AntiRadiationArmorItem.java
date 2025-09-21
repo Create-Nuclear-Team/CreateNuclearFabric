@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import io.github.fabricators_of_create.porting_lib.item.ArmorTextureItem;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -17,10 +18,10 @@ import net.nuclearteam.createnuclear.attributes.CNAttributes;
 import net.nuclearteam.createnuclear.item.CNItems;
 
 
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.nio.charset.StandardCharsets;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -34,6 +35,9 @@ import java.util.function.Supplier;
  */
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings({"unchecked", "unused"})
 public class AntiRadiationArmorItem {
 
     /**
@@ -200,6 +204,35 @@ public class AntiRadiationArmorItem {
         /**
          * Color of the armor, determining its texture.
          */
+                return false;
+            }
+
+            public ItemEntry<T>[] toArray() {
+                return (ItemEntry<T>[]) Arrays.copyOf(entry, entry.length);
+            }
+
+            @Override
+            public Iterator<ItemEntry<T>> iterator() {
+                return new Iterator<>() {
+                    private int index = 0;
+                    @Override
+                    public boolean hasNext() {
+                        return index < entry.length;
+                    }
+
+                    @Override
+                    public ItemEntry<T> next() {
+                        if (!hasNext()) throw new NoSuchElementException();
+                        return (ItemEntry<T>) entry[index++];
+                    }
+                };
+            }
+        }
+
+
+    }
+
+    public static class Chestplate extends ArmorItem implements ArmorTextureItem {
         protected final DyeColor color;
 
         /**
@@ -280,19 +313,62 @@ public class AntiRadiationArmorItem {
                 entries[color.ordinal()] = filler.apply(color);
             }
         }
+            private final ItemEntry<?>[] entry = new ItemEntry<?>[COLOR_AMOUNT];
+
+            public DyeItemLeggingsList(Function<DyeColor, ItemEntry<? extends T>> filler) {
+                for (DyeColor color : DyeColor.values()) {
+                    entry[color.ordinal()] = filler.apply(color);
+                }
+            }
 
         @SuppressWarnings("unchecked")
         public ItemEntry<T> get(DyeColor color) {
             return (ItemEntry<T>) entries[color.ordinal()];
         }
+            public ItemEntry<T> get(DyeColor color) {
+                return (ItemEntry<T>) entry[color.ordinal()];
+            }
 
         public boolean contains(Item item) {
             return Arrays.stream(entries).anyMatch(e -> e.is(item));
         }
+            public boolean contains(Item block) {
+                for (ItemEntry<?> entry : entry) {
+                    if (entry.is(block)) return true;
+                }
+                return false;
+            }
 
         @SuppressWarnings("unchecked")
         public ItemEntry<T>[] toArray() {
             return (ItemEntry<T>[]) Arrays.copyOf(entries, entries.length);
+            public ItemEntry<T>[] toArray() {
+                return (ItemEntry<T>[]) Arrays.copyOf(entry, entry.length);
+            }
+
+            @Override
+            public Iterator<ItemEntry<T>> iterator() {
+                return new Iterator<>() {
+                    private int index = 0;
+                    @Override
+                    public boolean hasNext() {
+                        return index < entry.length;
+                    }
+
+                    @Override
+                    public ItemEntry<T> next() {
+                        if (!hasNext()) throw new NoSuchElementException();
+                        return (ItemEntry<T>) entry[index++];
+                    }
+                };
+            }
+        }
+
+    }
+
+    public static class Boot extends ArmorItem implements ArmorTextureItem {
+        public Boot(Properties properties) {
+            super(ARMOR_MATERIAL, BOOTS, properties);
         }
 
         @Override
@@ -301,17 +377,21 @@ public class AntiRadiationArmorItem {
         }
     }
 
-    public static class DyeRecipeArmorList implements Iterable<CreateRecipeProvider.GeneratedRecipe> {
+    public static class DyeRecipeeArmorList implements Iterable<CreateRecipeProvider.GeneratedRecipe> {
         private static final int COLOR_AMOUNT = DyeColor.values().length;
         private final CreateRecipeProvider.GeneratedRecipe[] recipes = new CreateRecipeProvider.GeneratedRecipe[COLOR_AMOUNT];
 
-        public DyeRecipeArmorList(Function<DyeColor, CreateRecipeProvider.GeneratedRecipe> filler) {
+        public DyeRecipeeArmorList(Function<DyeColor, CreateRecipeProvider.GeneratedRecipe> filler) {
             for (DyeColor color : DyeColor.values()) {
                 recipes[color.ordinal()] = filler.apply(color);
             }
         }
 
-        public CreateRecipeProvider.GeneratedRecipe get(@Nullable DyeColor color) {
+        protected int getColorCount() {
+            return COLOR_AMOUNT;
+        }
+
+        public CreateRecipeProvider.GeneratedRecipe get(DyeColor color) {
             return recipes[color.ordinal()];
         }
 

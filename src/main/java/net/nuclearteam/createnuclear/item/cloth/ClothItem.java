@@ -1,6 +1,7 @@
 package net.nuclearteam.createnuclear.item.cloth;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.nuclearteam.createnuclear.item.CNItems;
@@ -8,11 +9,14 @@ import net.nuclearteam.createnuclear.item.CNItems;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider.GeneratedRecipe;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.function.Function;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings({"unused", "unchecked"})
 /**
  * Represents a ClothItem (dyed cloth), which has a defined color.
  * This class allows managing different recipes and items based on the color.
@@ -44,7 +48,7 @@ public class ClothItem extends Item {
          *
          * @param filler A function that generates a recipe for each color.
          */
-        public DyeRecipeList(Function<@NotNull DyeColor, GeneratedRecipe> filler) {
+        public DyeRecipeList(Function<DyeColor, GeneratedRecipe> filler) {
             for (DyeColor color : DyeColor.values()) {
                 recipes[color.ordinal()] = filler.apply(color);
             }
@@ -65,7 +69,7 @@ public class ClothItem extends Item {
          * @param color The color for which the recipe is requested.
          * @return The generated recipe for the color.
          */
-        public GeneratedRecipe get(@Nullable DyeColor color) {
+        public GeneratedRecipe get(DyeColor color) {
             return recipes[color.ordinal()];
         }
 
@@ -112,7 +116,7 @@ public class ClothItem extends Item {
              *
              * @param filler A function that generates a recipe for each color, including null.
              */
-            public NullableDyedRecipeList(Function<@Nullable DyeColor, GeneratedRecipe> filler) {
+            public NullableDyedRecipeList(Function<DyeColor, GeneratedRecipe> filler) {
                 super(filler);
                 recipes[recipes.length - 1] = filler.apply(null); // Add a recipe for null color.
             }
@@ -134,7 +138,7 @@ public class ClothItem extends Item {
              * @return The generated recipe.
              */
             @Override
-            public GeneratedRecipe get(@Nullable DyeColor color) {
+            public GeneratedRecipe get(DyeColor color) {
                 return color == null ? recipes[recipes.length - 1] : super.get(color);
             }
         }
@@ -148,7 +152,7 @@ public class ClothItem extends Item {
      */
     public static class DyeItemListCloth<T extends Item> implements Iterable<ItemEntry<T>> {
         private static final int COLOR_AMOUNT = DyeColor.values().length;
-        private final ItemEntry<?>[] entries = new ItemEntry<?>[COLOR_AMOUNT];
+        private final ItemEntry<?>[] entry = new ItemEntry<?>[COLOR_AMOUNT];
 
         /**
          * Constructor to create the item list for dyed cloth.
@@ -157,7 +161,7 @@ public class ClothItem extends Item {
          */
         public DyeItemListCloth(Function<DyeColor, ItemEntry<? extends T>> filler) {
             for (DyeColor color : DyeColor.values()) {
-                entries[color.ordinal()] = filler.apply(color);
+                entry[color.ordinal()] = filler.apply(color);
             }
         }
 
@@ -167,9 +171,8 @@ public class ClothItem extends Item {
          * @param color The color of the item entry.
          * @return The item entry for the color.
          */
-        @SuppressWarnings("unchecked")
         public ItemEntry<T> get(DyeColor color) {
-            return (ItemEntry<T>) entries[color.ordinal()];
+            return (ItemEntry<T>) entry[color.ordinal()];
         }
 
         /**
@@ -179,7 +182,7 @@ public class ClothItem extends Item {
          * @return True if the item is found in the list, false otherwise.
          */
         public boolean contains(Item block) {
-            for (ItemEntry<?> entry : entries) {
+            for (ItemEntry<?> entry : entry) {
                 if (entry.is(block)) return true;
             }
             return false;
@@ -190,9 +193,8 @@ public class ClothItem extends Item {
          *
          * @return An array of item entries.
          */
-        @SuppressWarnings("unchecked")
         public ItemEntry<T>[] toArray() {
-            return (ItemEntry<T>[]) Arrays.copyOf(entries, entries.length);
+            return (ItemEntry<T>[]) Arrays.copyOf(entry, entry.length);
         }
 
         /**
@@ -207,14 +209,13 @@ public class ClothItem extends Item {
 
                 @Override
                 public boolean hasNext() {
-                    return index < entries.length;
+                    return index < entry.length;
                 }
 
-                @SuppressWarnings("unchecked")
                 @Override
                 public ItemEntry<T> next() {
                     if (!hasNext()) throw new NoSuchElementException();
-                    return (ItemEntry<T>) entries[index++];
+                    return (ItemEntry<T>) entry[index++];
                 }
             };
         }
