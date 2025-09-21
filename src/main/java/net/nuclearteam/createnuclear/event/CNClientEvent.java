@@ -31,6 +31,7 @@ public class CNClientEvent {
         FogEvents.SET_COLOR.register(CNClientEvent::getForColor);
         HudRenderCallback.EVENT.register(HUD_RENDERER::onHudRender);
         HudRenderCallback.EVENT.register(CNClientEvent::radiationOverlay);
+        ParticleManagerRegistrationCallback.EVENT.register(CNParticleTypes::registerFactories);
     }
 
     private static void getForColor(ColorData event, float partialTicks) {
