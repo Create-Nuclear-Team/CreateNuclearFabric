@@ -24,6 +24,7 @@ import net.nuclearteam.createnuclear.CNBlockEntityTypes;
 
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNItems;
+import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.multiblock.CNMultiblock;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
@@ -110,6 +111,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         world.removeBlockEntity(pos);
         rotate(state, pos.below(3), world, 0);
         notifyPlayers(world, "reactor.info.assembled.destroyer", ChatFormatting.RED);
+        // Unregister controller from TestPropa when removed
+        CreateNuclear.TEST_PROPA.unregisterController(world, pos);
     }
 
     @Override
@@ -118,6 +121,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         if (!state.getValue(ASSEMBLED)) {
             verify(state, pos, world, world.players(), true);
         }
+    // Register controller position for TestPropa
+    CreateNuclear.TEST_PROPA.registerController(world, pos);
     }
 
     @Override
@@ -128,6 +133,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             rotate(state, pos.below(3), world, 0);
             notifyPlayers(world, "reactor.info.assembled.destroyer", ChatFormatting.RED);
         }
+        // Unregister on player destroy as well
+        CreateNuclear.TEST_PROPA.unregisterController(world, pos);
     }
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
