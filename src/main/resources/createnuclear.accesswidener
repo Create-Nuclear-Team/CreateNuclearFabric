@@ -1,3 +1,11 @@
 accessWidener v1 named
 
 accessible method net/minecraft/client/gui/Gui renderHotbar (FLnet/minecraft/client/gui/GuiGraphics;)V
+accessible field net/minecraft/world/level/levelgen/NoiseRouterData SHIFT_X Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/world/level/levelgen/NoiseRouterData SHIFT_Z Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/world/level/levelgen/NoiseRouterData Y Lnet/minecraft/resources/ResourceKey;
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$Condition
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$Context
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$LazyYCondition
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context biome Ljava/util/function/Supplier;

@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.events.ClientEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents.ColorData;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.client.Camera;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;

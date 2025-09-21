@@ -14,6 +14,7 @@ import net.nuclearteam.createnuclear.content.kinetics.fan.processing.CNFanProces
 import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.foundation.advancement.CNTriggers;
 import net.nuclearteam.createnuclear.foundation.data.CreateNuclearRegistrate;
+import net.nuclearteam.createnuclear.foundation.events.CommonEvent;
 import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNBiomeModifiers;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNPlacementModifiers;
@@ -49,7 +50,7 @@ public class CreateNuclear implements ModInitializer {
 		CNPackets.getChannel().initServerListener();
 		CNPotions.init();
 		CNEntityType.registerCNMod();
-
+        CommonEvent.register();
 		REGISTRATE.register();
 		POTION_REGISTRATE.register();
 		CNRecipeTypes.register();
