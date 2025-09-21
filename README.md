@@ -16,8 +16,12 @@ If you want to help us with translations, we have opened a Crowdin project. Clic
 # Source Code
 ## Fabric
 
-https://github.com/Create-Nuclear-Team/CreateNuclearFabric
+https://github.com/valentinlamine/CreateNuclearFabric
 
 ## Forge
 
-https://github.com/Create-Nuclear-Team/CreateNuclearForge
+https://github.com/Giovanniricotta2002/CreateNuclearForge
+
+## NeoForge
+
+https://github.com/Create-Nuclear-Team/CreateNuclearNeoForge
