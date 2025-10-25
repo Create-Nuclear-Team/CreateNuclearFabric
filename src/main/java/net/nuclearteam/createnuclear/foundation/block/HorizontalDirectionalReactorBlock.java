@@ -8,14 +8,16 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.nuclearteam.createnuclear.content.multiblockRefactor.TypeBlocks;
+import net.nuclearteam.createnuclear.content.multiblockRefactor.casing.ReactorCasingBlock;
 
 @MethodsReturnNonnullByDefault
 @SuppressWarnings("deprecation")
-public abstract class HorizontalDirectionalReactorBlock extends Block {
+public abstract class HorizontalDirectionalReactorBlock extends ReactorCasingBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public HorizontalDirectionalReactorBlock(BlockBehaviour.Properties properties) {
-        super(properties);
+    public HorizontalDirectionalReactorBlock(Properties properties, TypeBlocks typeBlocks) {
+        super(properties,  typeBlocks);
     }
 
     @Override
