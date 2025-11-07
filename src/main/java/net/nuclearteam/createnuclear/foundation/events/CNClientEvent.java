@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.foundation.events;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.simibubi.create.foundation.events.ClientEvents;
+import io.github.fabricators_of_create.porting_lib.event.client.ClientWorldEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents.ColorData;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -31,6 +32,9 @@ public class CNClientEvent {
         FogEvents.SET_COLOR.register(CNClientEvent::getForColor);
         HudRenderCallback.EVENT.register(HUD_RENDERER::onHudRender);
         HudRenderCallback.EVENT.register(CNClientEvent::radiationOverlay);
+
+        ClientWorldEvents.LOAD.register(CommonEvents::onLoadWorld);
+        ClientWorldEvents.UNLOAD.register(CommonEvents::onUnloadWorld);
     }
 
     private static void getForColor(ColorData event, float partialTicks) {
