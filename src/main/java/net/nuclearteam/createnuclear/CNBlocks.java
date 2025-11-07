@@ -248,7 +248,10 @@ public class CNBlocks {
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
-                    .tag(CNTags.forgeBlockTag("glass_blocks"))
+                    .tag(
+                        CNTags.forgeBlockTag("glass_blocks"),
+                        CNBlockTags.REACTOR_CASING.tag
+                    )
                     .item()
                     .tag(CNTags.forgeItemTag("glass_blocks"))
                     .build()
@@ -364,7 +367,7 @@ public class CNBlocks {
                             .build()))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_CASING)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_CASING)))
-                    .tag(BlockTags.NEEDS_DIAMOND_TOOL)
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL, CNBlockTags.REACTOR_CASING.tag)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();

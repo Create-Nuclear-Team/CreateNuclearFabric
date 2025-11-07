@@ -104,6 +104,7 @@ public class CNTags {
         ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
         URANIUM_ORES,
         LEAD_ORES,
+        REACTOR_CASING
 
         ;
         public final TagKey<Block> tag;

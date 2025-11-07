@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-21T15:07:03.2048701	Create Nuclear/CreateNuclear's Standard Recipes
+// 1.20.1	2025-08-21T15:29:25.7981585	Create Nuclear/CreateNuclear's Standard Recipes
 469c457450342dcd5f973a56cc598c6f49740f30 data\createnuclear\recipes\crafting\items\armors\yellow_anti_radiation_leggings.json
 4e906e85482d81e1a9a14dc275063d3124226a4c data\createnuclear\advancements\recipes\combat\crafting\items\armors\black_anti_radiation_leggings.json
 e16241f452e526d76f0dae2eff6f045c18207a47 data\createnuclear\advancements\recipes\combat\crafting\items\armors\magenta_anti_radiation_leggings.json
@@ -43,9 +43,9 @@ a836c836c92ae745d2a43a608f4a8e59f9d50ac6 data\createnuclear\advancements\recipes
 699231d5d03e73dcc95decab094b8544263f1052 data\createnuclear\recipes\crafting\items\armors\light_blue_anti_radiation_leggings.json
 749b8127db160264925c9117d1282fdfceded98d data\createnuclear\recipes\crafting\enriched_soul_soil.json
 57c5aa211ece7e9ada6b82fa7847afec334fd423 data\createnuclear\advancements\recipes\combat\crafting\items\armors\purple_anti_radiation_leggings.json
-2d6927d58c2b5d8ebb08fc7cd711fa713c9e8a95 data\createnuclear\advancements\recipes\combat\crafting\items\armors\pink_anti_radiation_helmet.json
 7cbf45e149ec6e64f2cb88d9db2b2601bd15ca07 data\createnuclear\recipes\crafting\items\armors\light_gray_anti_radiation_helmet.json
 0ec2fe6d8589411004193dfcc0e3bcdea2686062 data\createnuclear\advancements\recipes\combat\crafting\items\armors\light_blue_anti_radiation_leggings.json
+2d6927d58c2b5d8ebb08fc7cd711fa713c9e8a95 data\createnuclear\advancements\recipes\combat\crafting\items\armors\pink_anti_radiation_helmet.json
 73f69d87aca3a193f127ed371b8b69ce697a247d data\createnuclear\recipes\crafting\items\armors\blue_anti_radiation_chestplate.json
 e2e1b7757c9a7b70d334a9e8a145d87275f7edab data\createnuclear\advancements\recipes\combat\crafting\items\armors\brown_anti_radiation_chestplate.json
 e90476696332dc219d98c13a7cdef5fae159c820 data\createnuclear\advancements\recipes\combat\crafting\items\armors\gray_anti_radiation_leggings.json
