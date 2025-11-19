@@ -139,6 +139,21 @@ public class CNBlocks {
                     .build()
                     .register();
 
+    public static final BlockEntry<Block> THORIUM_ORE =
+            CreateNuclear.REGISTRATE.block("thorium_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .transform(pickaxeOnly())
+                    .loot((lt,b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(
+
+
+                    ))))
+
+
+
+
+
+
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
             CreateNuclear.REGISTRATE.block("raw_uranium_block", Block::new)
                     .initialProperties(SharedProperties::stone)

@@ -54,6 +54,15 @@ public class CNItems {
             .item("graphene", Item::new)
             .register(),
 
+        RAW_THORIUM = CreateNuclear.REGISTRATE
+            .item("raw_thorium", Item::new)
+            .register(),
+
+        THORIUM_INGOT = CreateNuclear.REGISTRATE
+            .item("steel_ingot", Item::new)
+            .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/steel"))
+            .register(),
+
         STEEL_INGOT = CreateNuclear.REGISTRATE
             .item("steel_ingot", Item::new)
             .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/steel"))
