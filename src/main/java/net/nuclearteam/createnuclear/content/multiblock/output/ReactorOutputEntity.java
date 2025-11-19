@@ -32,21 +32,57 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	ReactorControllerBlockEntity controllerEntity = null;
 
 
-	protected ScrollValueBehaviour generatedSpeed;
+	// protected ScrollValueBehaviour generatedSpeed;
+	protected float generatedSpeed;
 
 	public ReactorOutputEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
-	//KineticBlockEntity
+
 	@Override
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
-		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
-		generatedSpeed.between(-1500000, 1500000);
-		generatedSpeed.setValue(speed);
-		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
-		behaviours.add(generatedSpeed);
+		// generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
+		// generatedSpeed.between(-1500000, 1500000);
+		// generatedSpeed.setValue(speed);
+		// generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
+		// behaviours.add(generatedSpeed);
 
+	}
+
+	@Override
+    public void lazyTick() {
+        super.lazyTick();
+
+        determineSpeed();
+    }
+
+	public void determineSpeed() {
+        int deterSpeed = this.speed;
+        setSpeedAndUpdate(deterSpeed);
+    }
+
+    public void setSpeedAndUpdate(int speed) {
+        if (generatedSpeed == speed) return;
+
+        generatedSpeed = (float) speed;
+
+        updateGeneratedRotation();
+		setChanged();
+    }
+
+    @Override
+	protected void read(CompoundTag compound, boolean clientPacket) {
+		super.read(compound, clientPacket);
+		generatedSpeed = compound.getFloat("generatedSpeed");
+	}
+
+
+
+	@Override
+	public void write(CompoundTag compound, boolean clientPacket) {
+		super.write(compound, clientPacket);
+		compound.putFloat("generatedSpeed", generatedSpeed);
 	}
 
 	@Override
@@ -115,9 +151,10 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	@Override
 	public float getGeneratedSpeed() {
-		if (!CNBlocks.REACTOR_OUTPUT.has(getBlockState()))
-			return 0;
-		return speed; //convertToDirection(speed, getBlockState().getValue(ReactorOutput.FACING));
+		// if (!CNBlocks.REACTOR_OUTPUT.has(getBlockState()))
+        //     return 0;
+        // return speed; //convertToDirection(speed, getBlockState().getValue(ReactorOutput.FACING));
+        return Mth.clamp(generatedSpeed, 0, 1500000);
 	}
 
 	@Override
