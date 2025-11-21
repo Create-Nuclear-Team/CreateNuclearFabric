@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
-	public int speed = 1;
+	public int reactorSpeed = 1;
 	public float heat = 0;
 
 	ReactorControllerBlock controller = null;
@@ -58,7 +58,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
     }
 
 	public void determineSpeed() {
-        int deterSpeed = this.speed;
+        int deterSpeed = this.reactorSpeed;
         setSpeedAndUpdate(deterSpeed);
     }
 
@@ -145,8 +145,8 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		}
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void setReactorSpeed(int speed) {
+		this.reactorSpeed = speed;
 	}
 
 	@Override

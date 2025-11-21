@@ -155,11 +155,11 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         if (entity == null) return;
 
         if (state.getValue(ASSEMBLED) && rotation != 0) {
-            entity.speed = Math.abs(rotation);
+            entity.reactorSpeed = Math.abs(rotation);
         } else {
-            entity.speed = 0;
+            entity.reactorSpeed = 0;
         }
-        entity.setSpeed(entity.speed);
+        entity.setReactorSpeed(entity.reactorSpeed);
         entity.updateSpeed = true;
         entity.updateGeneratedRotation();
     }
