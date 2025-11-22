@@ -1,7 +1,5 @@
 package net.nuclearteam.createnuclear;
 
-import net.nuclearteam.createnuclear.CNTag.NameSpace.*;
-
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,16 +16,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
-import static net.nuclearteam.createnuclear.CNTag.NameSpace.MOD;
+import static net.nuclearteam.createnuclear.CNTags.NameSpace.MOD;
 
 @SuppressWarnings({"unused", "deprecation"})
-public class CNTag {
+public class CNTags {
     public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
         return TagKey.create(registry.key(), id);
     }
 
     public static <T> TagKey<T> forgeTag(Registry<T> registry, String path) {
-        return optionalTag(registry, new ResourceLocation("c", path));
+        return optionalTag(registry, new ResourceLocation(NameSpace.FABRIC.id, path));
     }
 
     public static TagKey<Block> forgeBlockTag(String path) {
@@ -62,28 +60,28 @@ public class CNTag {
         }
     }
 
-    public enum FluidTag {
+    public enum CNFluidTags {
         URANIUM,
         ;
 
         public final TagKey<Fluid> tag;
         public final boolean alwaysDatagen;
 
-        FluidTag() {
+        CNFluidTags() {
             this(MOD);
         }
-        FluidTag(NameSpace nameSpace) {
+        CNFluidTags(NameSpace nameSpace) {
             this(nameSpace, nameSpace.optionalDefault, nameSpace.alwaysDatagenDefault);
         }
-        FluidTag(NameSpace nameSpace, String path) {
+        CNFluidTags(NameSpace nameSpace, String path) {
             this(nameSpace, path, nameSpace.optionalDefault, nameSpace.alwaysDatagenDefault);
         }
 
-        FluidTag(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
+        CNFluidTags(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
             this(nameSpace, null, optional, alwaysDatagen);
         }
 
-        FluidTag(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagen) {
+        CNFluidTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagen) {
             ResourceLocation id = new ResourceLocation(nameSpace.id, path == null ? Lang.asId(name()) : path);
             tag = optionalTag(BuiltInRegistries.FLUID, id);
             this.alwaysDatagen = alwaysDatagen;
@@ -101,35 +99,36 @@ public class CNTag {
         private static void init() {}
     }
 
-    public enum BlockTags {
+    public enum CNBlockTags {
         FAN_PROCESSING_CATALYSTS_ENRICHED("fan_processing_catalysts/enriched"),
         ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
         URANIUM_ORES,
         LEAD_ORES,
+        REACTOR_CASING
 
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
 
-        BlockTags() {
+        CNBlockTags() {
             this(MOD);
         }
 
-        BlockTags(NameSpace namespace) {
+        CNBlockTags(NameSpace namespace) {
             this(namespace, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
-        BlockTags(NameSpace namespace, String path) { this(namespace, path, namespace.optionalDefault, namespace.alwaysDatagenDefault); }
+        CNBlockTags(NameSpace namespace, String path) { this(namespace, path, namespace.optionalDefault, namespace.alwaysDatagenDefault); }
 
-        BlockTags(String path) {
+        CNBlockTags(String path) {
             this(MOD, path, MOD.optionalDefault, MOD.alwaysDatagenDefault);
         }
 
-        BlockTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {
+        CNBlockTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {
             this(namespace, null, optional, alwaysDatagen);
         }
 
-        BlockTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
+        CNBlockTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
             ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
             tag = optionalTag(BuiltInRegistries.BLOCK, id);
             this.alwaysDatagen = alwaysDatagen;
@@ -152,7 +151,7 @@ public class CNTag {
         private static void init() {}
     }
 
-    public enum ItemTags {
+    public enum CNItemTags {
         CLOTH,
         FUEL,
         COOLER,
@@ -172,23 +171,23 @@ public class CNTag {
         public final TagKey<Item> tag;
         public final boolean alwaysDatagen;
 
-        ItemTags() {
+        CNItemTags() {
             this(MOD);
         }
 
-        ItemTags(NameSpace namespace) {
+        CNItemTags(NameSpace namespace) {
             this(namespace, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
-        ItemTags(NameSpace nameSpace, String path) {
+        CNItemTags(NameSpace nameSpace, String path) {
             this(nameSpace, nameSpace.optionalDefault, nameSpace.alwaysDatagenDefault);
         }
         
-        ItemTags(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
+        CNItemTags(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
             this(nameSpace, null, optional, alwaysDatagen);
         }
 
-        ItemTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagen) {
+        CNItemTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagen) {
             ResourceLocation id = new ResourceLocation(nameSpace.id, path == null ? Lang.asId(name()) : path);
             tag = optionalTag(BuiltInRegistries.ITEM, id);
             this.alwaysDatagen = alwaysDatagen;
@@ -207,34 +206,34 @@ public class CNTag {
         private static void init() {}
     }
 
-    public enum EntityTypeTags {
+    public enum CNEntityTypeTags {
         IRRADIATED_IMMUNE("irradiated_immune"),
         ;
 
         public final TagKey<EntityType<?>> tag;
         public final boolean alwaysDatagen;
 
-        EntityTypeTags() {
+        CNEntityTypeTags() {
             this(MOD);
         }
 
-        EntityTypeTags(NameSpace namespace) {
+        CNEntityTypeTags(NameSpace namespace) {
             this(namespace, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
-        EntityTypeTags(String path) {
+        CNEntityTypeTags(String path) {
             this(MOD, path, MOD.optionalDefault, MOD.alwaysDatagenDefault);
         }
 
-        EntityTypeTags(NameSpace namespace, String path) {
+        CNEntityTypeTags(NameSpace namespace, String path) {
             this(namespace, path, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
-        EntityTypeTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {
+        CNEntityTypeTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {
             this(namespace, null, optional, alwaysDatagen);
         }
 
-        EntityTypeTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
+        CNEntityTypeTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
             ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
             if (optional) {
                 tag = optionalTag(BuiltInRegistries.ENTITY_TYPE, id);
@@ -257,10 +256,11 @@ public class CNTag {
     }
 
 
-    public static void registerModItems() {
+    public static void register() {
         CreateNuclear.LOGGER.info("Registering mod tags for " + CreateNuclear.MOD_ID);
-        FluidTag.init();
-        BlockTags.init();
-        ItemTags.init();
+        CNFluidTags.init();
+        CNBlockTags.init();
+        CNItemTags.init();
+        CNEntityTypeTags.init();
     }
 }

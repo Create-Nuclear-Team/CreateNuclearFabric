@@ -10,7 +10,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.nuclearteam.createnuclear.CNBlocks;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 @SuppressWarnings("unused")
@@ -18,7 +18,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe REACTOR_CASING = itemApplication("reactor_casing_from_steel_and_brass_casing",
-            Ingredient.of(CNTag.forgeItemTag("ingots/steel")),
+            Ingredient.of(CNTags.forgeItemTag("ingots/steel")),
             AllBlocks.BRASS_CASING.get(),
             CNBlocks.REACTOR_CASING.get()
     );

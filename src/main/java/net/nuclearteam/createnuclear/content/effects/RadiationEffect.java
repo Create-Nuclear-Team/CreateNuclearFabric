@@ -6,11 +6,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-import java.util.stream.StreamSupport;
-
 import net.minecraft.world.item.ItemStack;
-import net.nuclearteam.createnuclear.CNTag;
-import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorItem;
 
 /**
@@ -66,7 +63,7 @@ public class RadiationEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         // If the entity is immune to radiation, remove the effect
-        if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
+        if (livingEntity.getType().is(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)) {
             livingEntity.removeEffect(this);
             return;
         }

@@ -21,3 +21,7 @@ https://github.com/valentinlamine/CreateNuclearFabric
 ## Forge
 
 https://github.com/Giovanniricotta2002/CreateNuclearForge
+
+## NeoForge
+
+https://github.com/Create-Nuclear-Team/CreateNuclearNeoForge

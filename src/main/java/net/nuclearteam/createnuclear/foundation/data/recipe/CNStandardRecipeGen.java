@@ -27,7 +27,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNItems;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.content.equipment.cloth.ClothItem;
@@ -84,7 +84,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
 
         REACTOR_BLUEPRINT_ITEM = create(CNItems.REACTOR_BLUEPRINT).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
             .viaShaped(b -> b
-                .define('S', CNTag.forgeItemTag("ingots/steel"))
+                .define('S', CNTags.forgeItemTag("ingots/steel"))
                 .define('D', AllBlocks.DISPLAY_BOARD)
                 .define('P', AllItems.PRECISION_MECHANISM)
                 .define('E', AllItems.EMPTY_SCHEMATIC)
@@ -107,10 +107,10 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             ),
 
         LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
-            ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/lead"), () -> CNTag.forgeItemTag("ingots/lead"), () -> CNTag.forgeItemTag("storage_blocks/lead"))),
+            ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/lead"), () -> CNTags.forgeItemTag("ingots/lead"), () -> CNTags.forgeItemTag("storage_blocks/lead"))),
 
         STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
-            ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/steel"), () -> CNTag.forgeItemTag("ingots/steel"), () -> CNTag.forgeItemTag("storage_blocks/steel"))),
+            ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/steel"), () -> CNTags.forgeItemTag("ingots/steel"), () -> CNTags.forgeItemTag("storage_blocks/steel"))),
 
         RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
             .viaShaped(b -> b.define('R', CNItems.RAW_LEAD.get())
@@ -127,8 +127,8 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
             .viaShaped(b -> b
-                .define('G', CNTag.forgeItemTag("glass_blocks"))
-                .define('S', CNTag.forgeItemTag("ingots/lead"))
+                .define('G', CNTags.forgeItemTag("glass_blocks"))
+                .define('S', CNTags.forgeItemTag("ingots/lead"))
                 .pattern("SGS")
                 .pattern("GSG")
                 .pattern("SGS")
@@ -140,10 +140,10 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
 
     AntiRadiationArmorItem.DyeRecipeArmorList
         ANTI_RADIATION_HELMETS = new AntiRadiationArmorItem.DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_HELMETS.get(color))
-            .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
+            .unlockedByTag(() -> CNTags.CNItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                .define('X', CNTag.forgeItemTag("ingots/lead"))
+                .define('X', CNTags.forgeItemTag("ingots/lead"))
                 .define('Y', ClothItem.Cloths.getByColor(color).get())
                 .define('Z', CNBlocks.REINFORCED_GLASS)
                 .pattern("YXY")
@@ -153,10 +153,10 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
         ),
 
         ANTI_RADIATION_CHESTPLATES = new AntiRadiationArmorItem.DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
-            .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
+            .unlockedByTag(() -> CNTags.CNItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                .define('X', CNTag.forgeItemTag("ingots/lead"))
+                .define('X', CNTags.forgeItemTag("ingots/lead"))
                 .define('Y', ClothItem.Cloths.getByColor(color).get())
                 .define('Z', CNItems.GRAPHITE_ROD)
                 .pattern("Y Y")
@@ -167,10 +167,10 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
         ),
 
         ANTI_RADIATION_LEGGINS = new AntiRadiationArmorItem.DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_LEGGINGS.get(color))
-            .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
+            .unlockedByTag(() -> CNTags.CNItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                .define('X', CNTag.forgeItemTag("ingots/lead"))
+                .define('X', CNTags.forgeItemTag("ingots/lead"))
                 .define('Y', ClothItem.Cloths.getByColor(color).get())
                 .pattern("YXY")
                 .pattern("X X")
@@ -181,9 +181,9 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     ;
 
     GeneratedRecipe
-        ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
+        ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTags.CNItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
-                .define('X', CNTag.forgeItemTag("ingots/lead"))
+                .define('X', CNTags.forgeItemTag("ingots/lead"))
                 .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
                 .pattern("Y Y")
                 .pattern("X X")

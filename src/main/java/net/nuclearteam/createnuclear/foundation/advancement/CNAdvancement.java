@@ -14,7 +14,7 @@ import net.minecraft.world.item.DyeColor;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNFluids;
 import net.nuclearteam.createnuclear.CNItems;
-import net.nuclearteam.createnuclear.CNTag;
+import net.nuclearteam.createnuclear.CNTags.CNItemTags;
 import net.nuclearteam.createnuclear.foundation.advancement.CreateNuclearAdvancement.Builder;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -145,26 +145,26 @@ public class CNAdvancement implements DataProvider {
             .title("Anti radiation Armor")
             .description("Craft your first anti-radiation armor piece to protect yourself from radiation")
             .after(LEAD_INGOT)
-            .whenItemCollected(CNTag.ItemTags.ALL_ANTI_RADIATION_ARMORS.tag)),
+            .whenItemCollected(CNItemTags.ALL_ANTI_RADIATION_ARMORS.tag)),
 
     FULL_ANTI_RADIATION_ARMOR = create("full_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE))
             .title("Fully Protected")
             .description("Wear a full set of anti-radiation armor to fully protect yourself from radiation")
             .externalTrigger(
                     InventoryChangeTrigger.TriggerInstance.hasItems(
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)
+                            new ItemPredicate(CNItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNItemTags.ANTI_RADIATION_CHESTPLATE_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNItemTags.ANTI_RADIATION_LEGGINGS_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNItemTags.ANTI_RADIATION_BOOTS_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)
                     ))
             .after(ANTI_RADIATION_ARMOR)),
 
     DYE_ANTI_RADIATION_ARMOR = create("dye_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.RED))
             .title("Pimp My Armor")
             .description("Dye your anti radiation armor to any color")
-            .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)
-            .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag)
-            .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag)
+            .whenItemCollected(CNItemTags.ANTI_RADIATION_HELMET_DYE.tag)
+            .whenItemCollected(CNItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag)
+            .whenItemCollected(CNItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag)
             .after(ANTI_RADIATION_ARMOR)),
 
 

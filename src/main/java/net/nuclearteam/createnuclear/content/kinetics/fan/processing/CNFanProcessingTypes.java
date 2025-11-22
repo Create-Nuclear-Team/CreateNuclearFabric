@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static net.nuclearteam.createnuclear.CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED;
+import static net.nuclearteam.createnuclear.CNTags.CNBlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED;
 
 @SuppressWarnings("unused")
 public class CNFanProcessingTypes extends AllFanProcessingTypes {

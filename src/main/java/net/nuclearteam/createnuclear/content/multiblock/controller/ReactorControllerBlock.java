@@ -26,6 +26,9 @@ import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.multiblock.CNMultiblock;
+import net.nuclearteam.createnuclear.content.multiblock.itemRods.BuiltinRodTypes;
+import net.nuclearteam.createnuclear.content.multiblock.itemRods.ItemRodType;
+import net.nuclearteam.createnuclear.content.multiblock.itemRods.ItemRodTypeManager;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.foundation.block.HorizontalDirectionalReactorBlock;
@@ -72,6 +75,22 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
 
         ItemStack heldItem = player.getItemInHand(hand);
         ItemStack slotItem = controller.inventory.getItem(0);
+        ItemRodType rodType = ItemRodTypeManager.getTypeForStack(heldItem)
+                .orElse(BuiltinRodTypes.FALLBACK);
+
+        CreateNuclear.LOGGER.warn("\nRodType: {},\ngetType: {},\ngetItems: {},\ngetTags: {},\ngetLifeTime: {},\ngetBaseValueRod: {},\ngetProxyBonus: {}",
+                rodType,
+                rodType.getType().getSerializedName(),
+                rodType.getItems().isEmpty()
+                        ? ItemStack.EMPTY
+                        : rodType.getItems().get(0).get(),
+                rodType.getTags().isEmpty()
+                        ? ItemStack.EMPTY
+                        : rodType.getTags().get(0).get(),
+                rodType.getLifeTime(),
+                rodType.getBaseValueRod(),
+                rodType.getProxyBonus()
+        );
 
         if (!state.getValue(ASSEMBLED)) {
             player.sendSystemMessage(Component.translatable("reactor.info.assembled.none").withStyle(ChatFormatting.RED));
