@@ -11,9 +11,11 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.CNFanProcessingTypes;
+import net.nuclearteam.createnuclear.content.multiblock.itemRods.BuiltinRodTypes;
 import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.foundation.advancement.CNTriggers;
 import net.nuclearteam.createnuclear.foundation.data.CreateNuclearRegistrate;
+import net.nuclearteam.createnuclear.foundation.events.CommonEvents;
 import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNBiomeModifiers;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNPlacementModifiers;
@@ -45,6 +47,7 @@ public class CreateNuclear implements ModInitializer {
 		CNCreativeModeTabs.register();
 		CNFluids.register();
 		CNTags.register();
+        CommonEvents.register();
 		CNPackets.registerPackets();
 		CNPackets.getChannel().initServerListener();
 		CNPotions.init();
@@ -59,6 +62,7 @@ public class CreateNuclear implements ModInitializer {
 		CNPotions.registerPotionRecipes();
 
 		CNFluids.registerFluidInteractions();
+        BuiltinRodTypes.register();
 
 		CNAdvancement.register();
 		CNTriggers.register();
