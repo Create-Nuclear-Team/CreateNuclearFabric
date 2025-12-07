@@ -31,8 +31,8 @@ repositories {
     mavenProviding("https://maven.createmod.net", "com.simibubi.create", "net.createmod", "dev.engine-room") // Create, Flywheel, Ponder
     mavenProviding("https://modmaven.dev", "vazkii.botania")
     mavenProviding("https://api.modrinth.com/maven", "maven.modrinth") 	// LazyDFU
-    mavenProviding("https://mvn.devos.one/snapshots", "com.simibubi.create", "https://mvn.devos.one/#/snapshots", "com.tterrag.registrate_fabric", "io.github.tropheusj") // Create (snapshots), Registrate, Milk Lib, Dripstone Fluid Lib
-    mavenProviding("https://mvn.devos.one/releases", "com.simibubi.create", "https://mvn.devos.one/#/releases", "io.github.fabricators_of_create.Porting-Lib") // Create (releases), Porting Lib
+    mavenProviding("https://mvn.devos.one/snapshots", "com.simibubi.create", "com.tterrag.registrate_fabric", "io.github.tropheusj") // Create (snapshots), Registrate, Milk Lib, Dripstone Fluid Lib
+    mavenProviding("https://mvn.devos.one/releases", "com.simibubi.create", "io.github.fabricators_of_create.Porting-Lib") // Create (releases), Porting Lib
     mavenProviding("https://maven.jamieswhiteshirt.com/libs-release", "com.jamieswhiteshirt") // Reach Entity Attributes
     mavenProviding("https://maven.terraformersmc.com", "com.terraformersmc", "dev.emi") // Mod Menu
     mavenProviding("https://maven.blamejared.com", "mezz.jei")
@@ -59,9 +59,7 @@ dependencies {
     })
     modImplementation(libs.bundles.fabric)
     //    modApiInclude(libs.create)
-//    modImplementation(libs.create)
-    val createVersion: String = libs.versions.create.get()
-    modImplementation("com.simibubi.create:create-fabric:$createVersion")
+    modImplementation(libs.create)
     modApiInclude(libs.bundles.porting.lib)
 
     // dependencies
