@@ -4,8 +4,6 @@ minecraft = "1.20.1"
 # https://parchmentmc.org/docs/getting-started
 parchment = "2023.09.03"
 
-
-
 # https://fabricmc.net/develop/
 # note: don't update loom further on 1.20. newer versions need newer java, which causes a bunch of problems
 loom = "1.10.+"
@@ -13,7 +11,7 @@ fabric_loader = "0.17.2"
 fabric_api = "0.92.6+1.20.1"
 
 # in-house dependencies
-create = "6.0.8.0+build.1734-mc1.20.1"
+create = "6.0.8.1+build.1744-mc1.20.1"
 flywheel = "1.0.5-264"
 ponder = "1.0.91"
 registrate = "1.3.79-MC1.20.1"

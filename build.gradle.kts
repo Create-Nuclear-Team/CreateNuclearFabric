@@ -58,7 +58,8 @@ dependencies {
         parchment(libs.parchment)
     })
     modImplementation(libs.bundles.fabric)
-    //    modApiInclude(libs.create)
+    // create is only needed at compile time in this setup — avoid resolving the missing runtime artifact during configuration
+    // Use compile-only for Create to avoid forcing resolution of a runtime snapshot during configuration
     modImplementation(libs.create)
     modApiInclude(libs.bundles.porting.lib)
 
