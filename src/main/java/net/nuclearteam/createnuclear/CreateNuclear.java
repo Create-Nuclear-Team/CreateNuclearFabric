@@ -1,10 +1,6 @@
 package net.nuclearteam.createnuclear;
 
-import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.item.ItemDescription;
-import com.simibubi.create.foundation.item.KineticStats;
-import com.simibubi.create.foundation.item.TooltipHelper;
-import com.simibubi.create.foundation.item.TooltipModifier;
+import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
@@ -18,13 +14,18 @@ import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNBiomeModifiers;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNPlacementModifiers;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class CreateNuclear implements ModInitializer {
 	public static final String MOD_ID = "createnuclear";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
+    public static final String NAME = "Create Nuclear";
+
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
+
+
+    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 	public static final CreateNuclearRegistrate POTION_REGISTRATE = CreateNuclearRegistrate.create(MOD_ID);
 
 

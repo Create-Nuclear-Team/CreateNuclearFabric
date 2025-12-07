@@ -13,6 +13,7 @@ fabric_loader = "0.17.2"
 fabric_api = "0.92.6+1.20.1"
 
 # in-house dependencies
+create = "6.0.8.0+build.1734-mc1.20.1"
 flywheel = "1.0.5-264"
 ponder = "1.0.91"
 registrate = "1.3.79-MC1.20.1"
@@ -22,6 +23,8 @@ porting_lib = "2.3.13+1.20.1"
 # external dependencies
 forge_config = "8.0.0"
 night_config = "3.6.3"
+# https://maven.jamieswhiteshirt.com/libs-release/com/jamieswhiteshirt/reach-entity-attributes/
+rea = "2.4.0"
 
 # https://modrinth.com/mod/jei/versions
 jei = "15.20.0.106"
@@ -46,10 +49,14 @@ fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fab
 fabric_api_deprecated = { module = "net.fabricmc.fabric-api:fabric-api-deprecated", version.ref = "fabric_api" }
 
 # in-house
+create = { module = "com.simibubi.create:create-fabric", version.ref = "create" }
 flywheel = { module = "dev.engine-room.flywheel:flywheel-fabric-1.20.1", version.ref = "flywheel" }
+flywheel_api = { module = "dev.engine-room.flywheel:flywheel-fabric-api-1.20.1", version.ref = "flywheel" }
 ponder = { module = "net.createmod.ponder:Ponder-Fabric-1.20.1", version.ref = "ponder" }
+ponder_commun = { module = "net.createmod.ponder:Ponder-Common-1.20.1", version.ref = "ponder" }
 registrate = { module = "com.tterrag.registrate_fabric:Registrate", version.ref = "registrate" }
 milk = { module = "io.github.tropheusj:milk-lib", version.ref = "milk" }
+#dripstone = { module = "io.github.tropheusj:dripstone-fluid-lib"}
 
 porting_lib_accessors = { module = "io.github.fabricators_of_create.Porting-Lib:accessors", version.ref = "porting_lib" }
 porting_lib_base = { module = "io.github.fabricators_of_create.Porting-Lib:base", version.ref = "porting_lib" }
@@ -69,6 +76,7 @@ porting_lib_brewing = { module = "io.github.fabricators_of_create.Porting-Lib:br
 forge_config = { module = "fuzs.forgeconfigapiport:forgeconfigapiport-fabric", version.ref = "forge_config" }
 night_config_core = { module = "com.electronwill.night-config:core", version.ref = "night_config" }
 night_config_toml = { module = "com.electronwill.night-config:toml", version.ref = "night_config" }
+rea = { module = "com.jamieswhiteshirt:reach-entity-attributes", version.ref = "rea" }
 
 # compat
 modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
