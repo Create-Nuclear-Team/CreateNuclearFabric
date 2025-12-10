@@ -45,11 +45,6 @@ public class CNBlockEntityTypes {
                     .validBlocks(CNBlocks.REACTOR_CORE)
                     .register();
 
-    public static final BlockEntityEntry<TestBlockEntity> TEST_BLOCK_ENTITY =
-            CreateNuclear.REGISTRATE.blockEntity("test_block_entity", TestBlockEntity::new)
-                    .validBlocks(CNBlocks.TEST_BLOCK)
-                    .register();
-
 
     public static void register() {
     }

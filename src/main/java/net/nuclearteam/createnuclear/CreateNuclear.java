@@ -70,6 +70,8 @@ public class CreateNuclear implements ModInitializer {
 		CNAdvancement.register();
 		CNTriggers.register();
 
+        CNSounds.register();
+
 		CNFanProcessingTypes.register();
 		CNBiomeModifiers.bootstrap();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);

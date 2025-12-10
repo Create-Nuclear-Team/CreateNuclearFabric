@@ -1,6 +1,8 @@
-// 1.20.1	2025-08-21T15:29:25.8068045	Create Nuclear/CreateNuclear's Processing Recipes
-57154e35ebb09170bb39f5b3a72ecd49182697f2 data\createnuclear\recipes\crushing\granite.json
-607980178060555690388cdb2325b69156878012 data\createnuclear\recipes\crushing\charcoal.json
+// 1.20.1	2025-12-10T13:20:15.8307018	Create Nuclear/CreateNuclear's Processing Recipes
+e42be7d17c5e057e62c4b1176cbf43319a157f51 data\createnuclear\recipes\enriched\enriched_yellowcake.json
+a19aa8fe76e6c69683e4e33ee3526ec8d3c6b607 data\createnuclear\recipes\crushing\raw_lead.json
+f2d3a2dbcb9135e31261cc8408f11cd07038a826 data\createnuclear\recipes\item_application\reactor_input_from_hopper_and_reactor_casing.json
+24c35af7a9dc3d740f3200bdd1ad96ad125df00a data\createnuclear\recipes\crushing\coal.json
 4516b5574960b0f83f2c191949e62d85039028c7 data\createnuclear\recipes\compacting\uranium_fluid_to_yellowcake.json
 94e6ba2d5f151fbf98d3a652275b5ea2fbd1d769 data\createnuclear\recipes\crushing\raw_uranium_block.json
 51c9c30c20607c363e2f55de770bf936bf9538f1 data\createnuclear\recipes\mixing\steel.json

@@ -1,10 +1,4 @@
-// 1.20.1	2025-08-21T15:29:25.8098355	Create Nuclear/Create Nuclear Advancements
-4f963ff2f6c09a0272c25ebdb46423700e5256eb data\createnuclear\advancements\reactor_input.json
-91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
-5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
-8e89393b2e396243d12cf5b29e283ab97c814519 data\createnuclear\advancements\graphite_rod.json
-384b002f95b70c595cedc692ed219d45931f1f5b data\createnuclear\advancements\anti_radiation_armor.json
-46f6044ed5c777f9fe08f7957c3d26e39d69f3c5 data\createnuclear\advancements\reactor_casing.json
+// 1.20.1	2025-12-10T13:20:15.8307018	Create Nuclear/Create Nuclear Advancements
 fe81bbd052ebe4a70c48912b47e12ed4e4523d1d data\createnuclear\advancements\automatic_uranium.json
 7f34bd9000a575b4d1790c745f164a054afc3986 data\createnuclear\advancements\yellowcake.json
 8e89393b2e396243d12cf5b29e283ab97c814519 data\createnuclear\advancements\graphite_rod.json

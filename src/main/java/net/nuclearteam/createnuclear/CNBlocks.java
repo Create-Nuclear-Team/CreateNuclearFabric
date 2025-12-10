@@ -39,7 +39,6 @@ import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputGenera
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputGenerator;
 import net.nuclearteam.createnuclear.content.multiblock.reinforced.ReinforcedGlassBlock;
-import net.nuclearteam.createnuclear.content.test.TestBlock;
 import net.nuclearteam.createnuclear.content.uraniumOre.UraniumOreBlock;
 import net.nuclearteam.createnuclear.CNTags.CNBlockTags;
 import net.nuclearteam.createnuclear.CNTags.CNItemTags;
@@ -360,7 +359,7 @@ public class CNBlocks {
 
     public static final BlockEntry<ReactorCasingBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", p -> new ReactorCasingBlock(p, ReactorCasingBlock.TypeBlock.CASING))
-                    .properties(p -> p.explosionResistance(3F).destroyTime(4F))
+                    .properties(p -> p.explosionResistance(3F).destroyTime(4F).sound(CNSounds.getSoundType("reactor_casing")))
                     .transform(pickaxeOnly())
                     .blockstate((c,p) ->
                         p.getVariantBuilder(c.getEntry()).forAllStates((state) -> ConfiguredModel.builder()
@@ -422,13 +421,6 @@ public class CNBlocks {
                     .transform(customItemModel())
                     .register();
 
-    /*public static final BlockEntry<EventTriggerBlock> TEST_EVENT_TRIGGER_BLOCK = CreateNuclear.REGISTRATE.block("test_event_trigger_block", EventTriggerBlock::new)
-            .simpleItem()
-            .register();*/
-
-    public static final BlockEntry<TestBlock> TEST_BLOCK = CreateNuclear.REGISTRATE.block("test", TestBlock::new)
-            .simpleItem()
-            .register();
 
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;

@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.content.test;
+/*package net.nuclearteam.createnuclear.content.test;
 
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -65,4 +65,4 @@ public class TestBlock extends Block implements IBE<TestBlockEntity> {
     public BlockEntityType<? extends TestBlockEntity> getBlockEntityType() {
         return CNBlockEntityTypes.TEST_BLOCK_ENTITY.get();
     }
-}
+}*/
