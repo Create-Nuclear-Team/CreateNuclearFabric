@@ -1,0 +1,15 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "minecraft:rotten_flesh"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "chance": 0.1,
+      "item": "createnuclear:biomass"
+    }
+  ]
+}

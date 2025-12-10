@@ -1,0 +1,18 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "createnuclear:biomass"
+    },
+    {
+      "amount": 81000,
+      "fluid": "minecraft:water",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:steel_ingot"
+    }
+  ]
+}

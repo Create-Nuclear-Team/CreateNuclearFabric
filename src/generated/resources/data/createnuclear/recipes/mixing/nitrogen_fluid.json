@@ -1,0 +1,14 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "createnuclear:cooled_nitrogen_concentrate"
+    }
+  ],
+  "results": [
+    {
+      "amount": 2025,
+      "fluid": "createnuclear:nitrogen"
+    }
+  ]
+}
