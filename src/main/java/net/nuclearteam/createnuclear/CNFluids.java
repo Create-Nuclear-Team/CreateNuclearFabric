@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
@@ -29,6 +30,16 @@ public class CNFluids {
                     .blastResistance(100f))
             .lang("Liquid Uranium")
             .tag(CNFluidTags.URANIUM.tag)
+            .register();
+
+    public static final FluidEntry<SimpleFlowableFluid.Flowing> NITROGEN = CreateNuclear.REGISTRATE.fluid("nitrogen", CreateNuclear.asResource("fluid/nitrogen_still"), CreateNuclear.asResource("fluid/nitrogen_flow"))
+            .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.nitrogen", 2500, 1600))
+            .fluidProperties(p -> p.levelDecreasePerBlock(2)
+                    .tickRate(15)
+                    .flowSpeed(6)
+                    .blastResistance(100f))
+            .lang("Liquid Nitrogen")
+            .tag(CNFluidTags.NITROGEN.tag)
             .register();
 
     public static void register() {
@@ -66,6 +77,8 @@ public class CNFluids {
                 if (player.tickCount % 20 != 0) return;
                 if (player.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014) || player.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014)) {
                     player.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
+                } else if (player.updateFluidHeightAndDoFluidPushing(CNFluidTags.NITROGEN.tag, 0.014) || player.updateFluidHeightAndDoFluidPushing(CNFluidTags.NITROGEN.tag, 0.014)){
+                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
                 }
             }
         });

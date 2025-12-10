@@ -34,6 +34,22 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
                 .output(.50f, CNItems.COAL_DUST)
         ),
 
+        BIOMASS_FROM_KELP = create(() -> Items.KELP,b -> b.duration(250)
+                .output(.1f, CNItems.BIOMASS)
+        ),
+
+        BIOMASS_FROM_LEAVES = create(() -> Items.OAK_LEAVES ,b -> b.duration(250)
+                .output(.1f, CNItems.BIOMASS) // A Remplacer avec les tags
+        ),
+
+        BIOMASS_FROM_BONE_MEAL = create(() -> Items.BONE_MEAL,b -> b.duration(250)
+                .output(.1f, CNItems.BIOMASS)
+        ),
+
+        BIOMASS_FROM_ROTTEN_FLESH = create(() -> Items.ROTTEN_FLESH,b -> b.duration(250)
+                .output(.1f, CNItems.BIOMASS)
+        ),
+
         GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b.duration(250)
                 .output(.5f, CNItems.URANIUM_POWDER)
                 .output(1f, Blocks.RED_SAND)

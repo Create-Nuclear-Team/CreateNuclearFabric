@@ -92,6 +92,26 @@ public class CNItems {
         GRAPHITE_ROD = CreateNuclear.REGISTRATE
             .item("graphite_rod", Item::new)
             .tag(CNTags.forgeItemTag("rods"), CNItemTags.COOLER.tag)
+            .register(),
+
+        BIOMASS = CreateNuclear.REGISTRATE
+            .item("biomass", Item::new)
+            .register(),
+
+        NITRATE_MUD = CreateNuclear.REGISTRATE
+            .item("nitrate_mud", Item::new)
+            .register(),
+
+        NITRATE = CreateNuclear.REGISTRATE
+            .item("nitrate", Item::new)
+            .register(),
+
+        NITROGEN_CONCENTRATE = CreateNuclear.REGISTRATE
+            .item("nitrogen_concentrate", Item::new)
+            .register(),
+
+        COOLED_NITROGEN_CONCENTRATE = CreateNuclear.REGISTRATE
+            .item("cooled_nitrogen_concentrate", Item::new)
             .register()
     ;
   
