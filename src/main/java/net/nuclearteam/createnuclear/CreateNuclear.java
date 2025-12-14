@@ -1,6 +1,11 @@
 package net.nuclearteam.createnuclear;
 
 import com.mojang.logging.LogUtils;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.KineticStats;
+import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.item.TooltipModifier;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;

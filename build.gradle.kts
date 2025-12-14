@@ -28,16 +28,21 @@ repositories {
     }
 
     mavenProviding("https://maven.parchmentmc.org", "org.parchmentmc.data") // Parchment mappings
-    mavenProviding("https://maven.createmod.net", "com.simibubi.create", "net.createmod", "dev.engine-room") // Create, Flywheel, Ponder
-    mavenProviding("https://modmaven.dev", "vazkii.botania")
-    mavenProviding("https://api.modrinth.com/maven", "maven.modrinth") 	// LazyDFU
-    mavenProviding("https://mvn.devos.one/snapshots", "com.simibubi.create", "com.tterrag.registrate_fabric", "io.github.tropheusj") // Create (snapshots), Registrate, Milk Lib, Dripstone Fluid Lib
-    mavenProviding("https://mvn.devos.one/releases", "com.simibubi.create", "io.github.fabricators_of_create.Porting-Lib") // Create (releases), Porting Lib
-    mavenProviding("https://maven.jamieswhiteshirt.com/libs-release", "com.jamieswhiteshirt") // Reach Entity Attributes
-    mavenProviding("https://maven.terraformersmc.com", "com.terraformersmc", "dev.emi") // Mod Menu
-    mavenProviding("https://maven.blamejared.com", "mezz.jei")
-    mavenProviding("https://maven.architectury.dev", "dev.architectury", "me.shedaniel")
-    mavenProviding("https://raw.githubusercontent.com/Fuzss/modresources/main/maven", "fuzs.forgeconfigapiport")
+    // mavenProviding("https://maven.createmod.net", "com.simibubi.create", "com.simibubi.create:create-fabric", "net.createmod", "dev.engine-room") // Create, Flywheel, Ponder
+    // mavenProviding("https://modmaven.dev", "vazkii.botania")
+    // mavenProviding("https://api.modrinth.com/maven", "maven.modrinth") 	// LazyDFU
+    // mavenProviding("https://mvn.devos.one/snapshots", "com.simibubi.create", "com.tterrag.registrate_fabric", "io.github.tropheusj") // Create (snapshots), Registrate, Milk Lib, Dripstone Fluid Lib
+    // mavenProviding("https://mvn.devos.one/releases", "com.simibubi.create", "io.github.fabricators_of_create.Porting-Lib") // Create (releases), Porting Lib
+    // mavenProviding("https://maven.jamieswhiteshirt.com/libs-release", "com.jamieswhiteshirt") // Reach Entity Attributes
+    // mavenProviding("https://maven.terraformersmc.com", "com.terraformersmc", "dev.emi") // Mod Menu
+    // mavenProviding("https://maven.blamejared.com", "mezz.jei")
+    // mavenProviding("https://maven.architectury.dev", "dev.architectury", "me.shedaniel")
+    // mavenProviding("https://raw.githubusercontent.com/Fuzss/modresources/main/maven", "fuzs.forgeconfigapiport")
+    mavenProviding("https://mvn.devos.one/snapshots/")
+    mavenProviding("https://mvn.devos.one/releases/")
+    mavenProviding("https://maven.createmod.net/")
+    mavenProviding("https://raw.githubusercontent.com/Fuzss/modresources/main/maven")
+    mavenProviding("https://maven.jamieswhiteshirt.com/libs-release")
 }
 
 val modApiInclude: Configuration by configurations.dependencyScope("modApiInclude")
@@ -80,22 +85,22 @@ dependencies {
 //    apiInclude(libs.jsr305)
 
     // compat
-    modCompileOnly(libs.modmenu)
+    // modCompileOnly(libs.modmenu)
 
-    modCompileOnly(libs.jei) { isTransitive = false }
-    modCompileOnly(libs.bundles.rei)
-    modCompileOnly(variantOf(libs.emi) {
-        classifier("api")
-    })
+    // modCompileOnly(libs.jei) { isTransitive = false }
+    // modCompileOnly(libs.bundles.rei)
+    // modCompileOnly(variantOf(libs.emi) {
+    //     classifier("api")
+    // })
 
-    when (recipeViewer) {
-        "jei" -> modLocalRuntime(libs.jei)
-        "rei" -> modLocalRuntime(libs.rei.runtime)
-        "emi" -> modLocalRuntime(libs.emi)
-    }
+    // when (recipeViewer) {
+    //     "jei" -> modLocalRuntime(libs.jei)
+    //     "rei" -> modLocalRuntime(libs.rei.runtime)
+    //     "emi" -> modLocalRuntime(libs.emi)
+    // }
 
     // dev env
-    modLocalRuntime(libs.modmenu)
+    // modLocalRuntime(libs.modmenu)
 
     // have deprecated modules present at runtime only for some older mods
     modLocalRuntime(libs.fabric.api.deprecated)
