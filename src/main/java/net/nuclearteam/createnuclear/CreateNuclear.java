@@ -6,10 +6,13 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import net.createmod.catnip.lang.FontHelper;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
+import net.minecraft.world.item.CreativeModeTab;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.CNFanProcessingTypes;
 import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
@@ -30,15 +33,15 @@ public class CreateNuclear implements ModInitializer {
     private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
 
-    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
-	public static final CreateNuclearRegistrate POTION_REGISTRATE = CreateNuclearRegistrate.create(MOD_ID);
+    private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID)
+        .defaultCreativeTab((ResourceKey<CreativeModeTab>) null)
+        .setTooltipModifierFactory(item ->
+            new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
+                .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
+        );
 
+    public static final CreateNuclearRegistrate POTION_REGISTRATE = CreateNuclearRegistrate.create(MOD_ID);
 
-
-	static {
-		REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
-                .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
-	}
 
 	@Override
 	public void onInitialize() {
@@ -79,4 +82,9 @@ public class CreateNuclear implements ModInitializer {
 		return new ResourceLocation(MOD_ID, path);
 	}
 
+    public static CreateRegistrate registrate() {
+        if (!STACK_WALKER.getCallerClass().getPackageName().startsWith("net.nuclearteam.createnuclear"))
+            throw new UnsupportedOperationException("Other mods are not permitted to use createnuclear's registrate instance.");
+        return REGISTRATE;
+    }
 }
