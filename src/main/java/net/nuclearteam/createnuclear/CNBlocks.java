@@ -1,8 +1,8 @@
 package net.nuclearteam.createnuclear;
 
 import com.simibubi.create.AllTags.AllBlockTags;
+import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
@@ -50,9 +50,10 @@ import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.nuclearteam.createnuclear.infrastructure.data.CreateNuclearRegistrateTags.shovelOnly;
 
 public class CNBlocks {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
-            CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
+            REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
                     .initialProperties(CNBlocks::getDiamondOre)
                     .properties(UraniumOreBlock.litBlockEmission())
                     .transform(pickaxeOnly())
@@ -75,7 +76,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
-            CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
+            REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(UraniumOreBlock.litBlockEmission())
                     .transform(pickaxeOnly())
@@ -98,7 +99,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
-            CreateNuclear.REGISTRATE.block("deepslate_lead_ore", Block::new)
+            REGISTRATE.block("deepslate_lead_ore", Block::new)
                     .initialProperties(CNBlocks::getDiamondOre)
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
@@ -119,7 +120,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<Block> LEAD_ORE =
-            CreateNuclear.REGISTRATE.block("lead_ore", Block::new)
+            REGISTRATE.block("lead_ore", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
@@ -140,7 +141,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
-            CreateNuclear.REGISTRATE.block("raw_uranium_block", Block::new)
+            REGISTRATE.block("raw_uranium_block", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
@@ -149,7 +150,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<Block> RAW_LEAD_BLOCK =
-            CreateNuclear.REGISTRATE.block("raw_lead_block", Block::new)
+            REGISTRATE.block("raw_lead_block", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
@@ -158,7 +159,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<Block> LEAD_BLOCK =
-            CreateNuclear.REGISTRATE.block("lead_block", Block::new)
+            REGISTRATE.block("lead_block", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
@@ -166,7 +167,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<Block> STEEL_BLOCK =
-            CreateNuclear.REGISTRATE.block("steel_block", Block::new)
+            REGISTRATE.block("steel_block", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
@@ -174,7 +175,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
-            CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
+            REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::getSoulSoil)
                     .simpleItem()
                     .transform(shovelOnly())
@@ -182,7 +183,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<EnrichingFireBlock> ENRICHING_FIRE =
-            CreateNuclear.REGISTRATE.block("enriching_fire", properties ->  new EnrichingFireBlock(properties, 3.0f))
+            REGISTRATE.block("enriching_fire", properties ->  new EnrichingFireBlock(properties, 3.0f))
                     .initialProperties(() -> Blocks.FIRE)
                     .properties(BlockBehaviour.Properties::replaceable)
                     .properties(BlockBehaviour.Properties::noCollission)
@@ -242,7 +243,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
-            CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
+            REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
                     .initialProperties(CNBlocks::getGlass)
                     .properties(p -> p.explosionResistance(7.0F).destroyTime(2F))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
@@ -255,20 +256,20 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
-            CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
+            REGISTRATE.block("reactor_output", ReactorOutput::new)
                 .properties(p -> p.explosionResistance(6F).destroyTime(4F))
                 .initialProperties(SharedProperties::stone)
                 .properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
                 .tag(AllBlockTags.SAFE_NBT.tag, BlockTags.NEEDS_DIAMOND_TOOL)
                 .transform(pickaxeOnly())
                 .blockstate(new ReactorOutputGenerator()::generate)
-                .transform(BlockStressDefaults.setCapacity(10240))
+                .onRegister(block -> BlockStressValues.CAPACITIES.register(block, () -> 10240.0))
                 .item()
                 .transform(customItemModel())
                 .register();
 
     public static final BlockEntry<EnrichingCampfireBlock> ENRICHING_CAMPFIRE =
-            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfireBlock(true, 5, BlockBehaviour.Properties.of()
+            REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfireBlock(true, 5, BlockBehaviour.Properties.of()
                 .mapColor(MapColor.PODZOL)
                 .instrument(NoteBlockInstrument.BASS)
                 .lightLevel((state) -> state.getValue(EnrichingCampfireBlock.LIT) ? 15 : 0)
@@ -310,7 +311,7 @@ public class CNBlocks {
 
 
     public static final BlockEntry<ReactorControllerBlock> REACTOR_CONTROLLER =
-            CreateNuclear.REGISTRATE.block("reactor_controller", ReactorControllerBlock::new)
+            REGISTRATE.block("reactor_controller", ReactorControllerBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(6F))
                     .properties(p -> p.destroyTime(4F))
@@ -322,7 +323,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<ReactorCoreBlock> REACTOR_CORE =
-            CreateNuclear.REGISTRATE.block("reactor_core", ReactorCoreBlock::new)
+            REGISTRATE.block("reactor_core", ReactorCoreBlock::new)
                     .properties(p -> p.explosionResistance(6F))
                     .properties(p -> p.destroyTime(4F))
                     .tag(BlockTags.NEEDS_DIAMOND_TOOL)
@@ -338,7 +339,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<ReactorCoolerBlock> REACTOR_COOLER =
-            CreateNuclear.REGISTRATE.block("reactor_cooler", ReactorCoolerBlock::new)
+            REGISTRATE.block("reactor_cooler", ReactorCoolerBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(3F))
                     .properties(p -> p.destroyTime(4F))
@@ -355,7 +356,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<ReactorCasingBlock> REACTOR_CASING =
-            CreateNuclear.REGISTRATE.block("reactor_casing", p -> new ReactorCasingBlock(p, ReactorCasingBlock.TypeBlock.CASING))
+            REGISTRATE.block("reactor_casing", p -> new ReactorCasingBlock(p, ReactorCasingBlock.TypeBlock.CASING))
                     .properties(p -> p.explosionResistance(3F).destroyTime(4F))
                     .transform(pickaxeOnly())
                     .blockstate((c,p) ->
@@ -370,7 +371,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<ReactorFrameBlock> REACTOR_FRAME =
-            CreateNuclear.REGISTRATE.block("reactor_frame", ReactorFrameBlock::new)
+            REGISTRATE.block("reactor_frame", ReactorFrameBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p
                             .explosionResistance(3F)
@@ -406,7 +407,7 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<ReactorInput> REACTOR_INPUT =
-            CreateNuclear.REGISTRATE.block("reactor_input", ReactorInput::new)
+            REGISTRATE.block("reactor_input", ReactorInput::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(6F))
                     .properties(p -> p.destroyTime(2F))
