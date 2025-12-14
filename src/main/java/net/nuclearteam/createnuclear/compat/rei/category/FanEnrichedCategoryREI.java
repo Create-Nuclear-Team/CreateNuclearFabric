@@ -3,7 +3,7 @@ package net.nuclearteam.createnuclear.compat.rei.category;
 import com.simibubi.create.compat.rei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.rei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
-import com.simibubi.create.foundation.gui.element.GuiGameElement;
+import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.nuclearteam.createnuclear.CNBlocks;
