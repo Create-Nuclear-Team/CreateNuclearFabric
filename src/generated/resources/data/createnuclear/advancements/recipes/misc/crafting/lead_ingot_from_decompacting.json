@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_storage_blocks_lead": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "createnuclear:steel_ingot"
-            ]
+            "tag": "c:storage_blocks/lead"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:shapeless/steel_ingot_from_decompacting"
+        "recipe": "createnuclear:crafting/lead_ingot_from_decompacting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_storage_blocks_lead",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:shapeless/steel_ingot_from_decompacting"
+      "createnuclear:crafting/lead_ingot_from_decompacting"
     ]
   },
   "sends_telemetry_event": false

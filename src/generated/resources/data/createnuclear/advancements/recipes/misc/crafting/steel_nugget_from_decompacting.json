@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_storage_blocks_steel_nugget": {
       "conditions": {
         "items": [
           {
-            "tag": "createnuclear:uranium_ores"
+            "tag": "c:ingots/steel"
           }
         ]
       },
@@ -13,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:blasting/raw_uranium_for_uranium_ore"
+        "recipe": "createnuclear:crafting/steel_nugget_from_decompacting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_storage_blocks_steel_nugget",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:blasting/raw_uranium_for_uranium_ore"
+      "createnuclear:crafting/steel_nugget_from_decompacting"
     ]
   },
   "sends_telemetry_event": false
