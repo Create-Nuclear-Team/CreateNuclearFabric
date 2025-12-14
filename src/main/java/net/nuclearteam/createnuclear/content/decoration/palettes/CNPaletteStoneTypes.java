@@ -2,14 +2,15 @@ package net.nuclearteam.createnuclear.content.decoration.palettes;
 
 import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
+import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.function.Function;
@@ -52,7 +53,7 @@ public enum CNPaletteStoneTypes {
             cnPalettesStoneTypes.baseBlock = cnPalettesStoneTypes.factory.apply(registrate);
             String id = Lang.asId(cnPalettesStoneTypes.name());
             cnPalettesStoneTypes.materialTag =
-                    AllTags.optionalTag(BuiltInRegistries.ITEM, CreateNuclear.asResource("stone_types/" + id));
+                    CNTags.optionalTag(BuiltInRegistries.ITEM, CreateNuclear.asResource("stone_types/" + id));
             cnPalettesStoneTypes.variants = new PalettesVariantEntry(id, cnPalettesStoneTypes);
         }
     }

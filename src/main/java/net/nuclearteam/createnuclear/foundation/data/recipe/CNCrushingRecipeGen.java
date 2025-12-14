@@ -1,18 +1,13 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.Create;
+import com.simibubi.create.api.data.recipe.CrushingRecipeGen;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
-import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CNBlocks;
@@ -23,7 +18,7 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 @MethodsReturnNonnullByDefault
-public class CNCrushingRecipeGen extends ProcessingRecipeGen {
+public class CNCrushingRecipeGen extends CrushingRecipeGen {
 
     GeneratedRecipe
         COAL_DUST = create(() -> Items.COAL, b -> b.duration(250)
@@ -63,35 +58,32 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         RAW_COPPER_ORE = rawOre(() -> Items.RAW_COPPER, AllItems.CRUSHED_COPPER::get, 1)
     ;
 
-    public CNCrushingRecipeGen(FabricDataOutput generator) {
-        super(generator);
+
+    public CNCrushingRecipeGen(PackOutput output) {
+        super(output, CreateNuclear.MOD_ID);
     }
 
-    @Override
-    protected AllRecipeTypes getRecipeType() {
-        return AllRecipeTypes.CRUSHING;
-    }
 
-    protected <T extends ProcessingRecipe<?>> GeneratedRecipe create(String namespace,
-                                                                     Supplier<ItemLike> singleIngredient, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
-        ProcessingRecipeSerializer<T> serializer = getSerializer();
-        GeneratedRecipe generatedRecipe = c -> {
-            ItemLike itemLike = singleIngredient.get();
-            transform
-                    .apply(new ProcessingRecipeBuilder<>(serializer.getFactory(),
-                            new ResourceLocation(namespace, RegisteredObjects.getKeyOrThrow(itemLike.asItem())
-                                    .getPath())).withItemIngredients(Ingredient.of(itemLike)))
-                    .build(c);
-        };
-        all.add(generatedRecipe);
-        return generatedRecipe;
-    }
-
-    <T extends ProcessingRecipe<?>> GeneratedRecipe create(Supplier<ItemLike> singleIngredient,
-                                                           UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
-        return create(CreateNuclear.MOD_ID, singleIngredient, transform);
-    }
-
+//    protected <T extends ProcessingRecipe<?>> GeneratedRecipe create(String namespace,
+//                                                                     Supplier<ItemLike> singleIngredient, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
+//        ProcessingRecipeSerializer<T> serializer = getSerializer();
+//        GeneratedRecipe generatedRecipe = c -> {
+//            ItemLike itemLike = singleIngredient.get();
+//            transform
+//                    .apply(new ProcessingRecipeBuilder<>(serializer.getFactory(),
+//                            new ResourceLocation(namespace, RegisteredObjects.getKeyOrThrow(itemLike.asItem())
+//                                    .getPath())).withItemIngredients(Ingredient.of(itemLike)))
+//                    .build(c);
+//        };
+//        all.add(generatedRecipe);
+//        return generatedRecipe;
+//    }
+//
+//    <T extends ProcessingRecipe<?>> GeneratedRecipe create(Supplier<ItemLike> singleIngredient,
+//                                                           UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
+//        return create(CreateNuclear.MOD_ID, singleIngredient, transform);
+//    }
+//
     <T extends ProcessingRecipe<?>> GeneratedRecipe createC(Supplier<ItemLike> singleIngredient,
                                                            UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
         return create(Create.ID, singleIngredient, transform);

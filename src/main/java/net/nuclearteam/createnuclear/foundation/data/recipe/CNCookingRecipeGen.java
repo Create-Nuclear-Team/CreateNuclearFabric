@@ -4,8 +4,8 @@ import com.google.common.base.Supplier;
 import com.google.gson.JsonObject;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
+import net.createmod.catnip.platform.services.RegisteredObjectsHelper;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
@@ -32,10 +32,10 @@ import java.util.function.UnaryOperator;
 @MethodsReturnNonnullByDefault
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
-public class CNCookingRecipeGen extends CreateRecipeProvider {
+public class CNCookingRecipeGen/* extends CreateRecipeProvider*/ {
 
     private final String BLAST_FURNACE = enterFolder("blast_furnace");
-    GeneratedRecipe
+    /*GeneratedRecipe
         URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTags.CNItemTags.URANIUM_ORES.tag, "_for_uranium_ore", 4),
         RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTags.CNItemTags.LEAD_ORES.tag, "_for_lead_ore", 1),
         RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1),
@@ -57,39 +57,8 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
                 .viaCookingTag(ingredient)
                 .rewardXP(.1f)
                 .inBlastFurnace();
-    }
+    }*/
 
-    GeneratedRecipe smokerRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
-        return create(result::get).withSuffix(suffix)
-                .returns(count)
-                .viaCooking(ingredient)
-                .rewardXP(.0f)
-                .inSmoker();
-    }
-
-    GeneratedRecipe smokerRecipeTags(Supplier<? extends ItemLike> result, Supplier<TagKey<Item>> ingredient, String suffix, int count) {
-        return create(result::get).withSuffix(suffix)
-                .returns(count)
-                .viaCookingTag(ingredient)
-                .rewardXP(.0f)
-                .inSmoker();
-    }
-
-    GeneratedRecipe furnaceRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
-        return create(result::get).withSuffix(suffix)
-                .returns(count)
-                .viaCooking(ingredient)
-                .rewardXP(.1f)
-                .inFurnace();
-    }
-
-    GeneratedRecipe furnaceRecipeTags(Supplier<? extends ItemLike> result, Supplier<TagKey<Item>> ingredient, String suffix, int count) {
-        return create(result::get).withSuffix(suffix)
-                .returns(count)
-                .viaCookingTag(ingredient)
-                .rewardXP(.1f)
-                .inFurnace();
-    }
 
     String currentFolder = "";
 
@@ -182,18 +151,18 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
         }
 
 
-        private ResourceLocation createSimpleLocation(String recipeType) {
-            return CreateNuclear.asResource(recipeType + "/" + getRegistryName().getPath() + suffix);
-        }
+//        private ResourceLocation createSimpleLocation(String recipeType) {
+//            return CreateNuclear.asResource(recipeType + "/" + getRegistryName().getPath() + suffix);
+//        }
+//
+//        private ResourceLocation createLocation(String recipeType) {
+//            return CreateNuclear.asResource(recipeType + "/" + path + "/" + getRegistryName().getPath() + suffix);
+//        }
 
-        private ResourceLocation createLocation(String recipeType) {
-            return CreateNuclear.asResource(recipeType + "/" + path + "/" + getRegistryName().getPath() + suffix);
-        }
-
-        private ResourceLocation getRegistryName() {
-            return compatDatagenOutput == null ? RegisteredObjects.getKeyOrThrow(result.get()
+        /*private ResourceLocation getRegistryName() {
+            return compatDatagenOutput == null ? RegisteredObjectsHelper.getKeyOrThrow(result.get()
                     .asItem()) : compatDatagenOutput;
-        }
+        }*/
 
         GeneratedCookingRecipeBuilder viaCooking(Supplier<? extends ItemLike> item) {
             return unlockedBy(item).viaCookingIngredient(() -> Ingredient.of(item.get()));
@@ -233,54 +202,54 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
                 return this;
             }
 
-            GeneratedRecipe inFurnace() {
-                return inFurnace(b -> b);
-            }
-
-            GeneratedRecipe inFurnace(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
-                return create(FURNACE, builder, 1);
-            }
-
-            GeneratedRecipe inSmoker() {
-                return inSmoker(b -> b);
-            }
-
-            GeneratedRecipe inSmoker(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
-                create(FURNACE, builder, 1);
-                create(CAMPFIRE, builder, 3);
-                return create(SMOKER, builder, .5f);
-            }
-
-            GeneratedRecipe inBlastFurnace() {
-                return inBlastFurnace(b -> b);
-            }
-
-            GeneratedRecipe inBlastFurnace(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
-                create(FURNACE, builder, 1);
-                return create(BLAST, builder, .5f);
-            }
-
-            private GeneratedRecipe create(RecipeSerializer<? extends AbstractCookingRecipe> serializer,
-                                           UnaryOperator<SimpleCookingRecipeBuilder> builder, float cookingTimeModifier) {
-                return register(consumer -> {
-                    boolean isOtherMod = compatDatagenOutput != null;
-
-                    SimpleCookingRecipeBuilder b = builder.apply(SimpleCookingRecipeBuilder.generic(ingredient.get(),
-                            RecipeCategory.MISC, isOtherMod ? Items.DIRT : result.get(), exp,
-                            (int) (cookingTime * cookingTimeModifier), serializer));
-
-                    if (unlockedBy != null)
-                        b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
-
-                    b.save(result -> {
-                        consumer.accept(
-                                isOtherMod ? new ModdedCookingRecipeResult(result, compatDatagenOutput, recipeConditions)
-                                        : result);
-                    }, createSimpleLocation(RegisteredObjects.getKeyOrThrow(serializer)
-                            .getPath()));
-                });
-            }
-        }
+//            GeneratedRecipe inFurnace() {
+//                return inFurnace(b -> b);
+//            }
+//
+//            GeneratedRecipe inFurnace(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
+//                return create(FURNACE, builder, 1);
+//            }
+//
+//            GeneratedRecipe inSmoker() {
+//                return inSmoker(b -> b);
+//            }
+//
+//            GeneratedRecipe inSmoker(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
+//                create(FURNACE, builder, 1);
+//                create(CAMPFIRE, builder, 3);
+//                return create(SMOKER, builder, .5f);
+//            }
+//
+//            GeneratedRecipe inBlastFurnace() {
+//                return inBlastFurnace(b -> b);
+//            }
+//
+//            GeneratedRecipe inBlastFurnace(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
+//                create(FURNACE, builder, 1);
+//                return create(BLAST, builder, .5f);
+//            }
+//
+//            private GeneratedRecipe create(RecipeSerializer<? extends AbstractCookingRecipe> serializer,
+//                                           UnaryOperator<SimpleCookingRecipeBuilder> builder, float cookingTimeModifier) {
+//                return register(consumer -> {
+//                    boolean isOtherMod = compatDatagenOutput != null;
+//
+//                    SimpleCookingRecipeBuilder b = builder.apply(SimpleCookingRecipeBuilder.generic(ingredient.get(),
+//                            RecipeCategory.MISC, isOtherMod ? Items.DIRT : result.get(), exp,
+//                            (int) (cookingTime * cookingTimeModifier), serializer));
+//
+//                    if (unlockedBy != null)
+//                        b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
+//
+//                    b.save(result -> {
+//                        consumer.accept(
+//                                isOtherMod ? new ModdedCookingRecipeResult(result, compatDatagenOutput, recipeConditions)
+//                                        : result);
+//                    }, createSimpleLocation(RegisteredObjects.getKeyOrThrow(serializer)
+//                            .getPath()));
+//                });
+//            }
+//        }
     }
 
     private record ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
@@ -314,12 +283,13 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
         }
     }
 
-    public CNCookingRecipeGen(FabricDataOutput output) {
-        super(output);
-    }
-
-    @Override
-    public String getName() {
-        return "CreateNuclear's Blasting Recipes";
-    }
+//    public CNCookingRecipeGen(FabricDataOutput output) {
+//        super(output);
+//    }
+//
+//    @Override
+//    public String getName() {
+//        return "CreateNuclear's Blasting Recipes";
+//    }
+}
 }

@@ -5,7 +5,6 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider.GeneratedRecipe;
 
 import net.nuclearteam.createnuclear.CNItems;
 import org.jetbrains.annotations.NotNull;
@@ -23,110 +22,6 @@ public class ClothItem extends Item {
     public ClothItem(Properties properties, DyeColor color) {
         super(properties);
         this.color = color;
-    }
-
-    public static class DyeRecipeList implements Iterable<GeneratedRecipe> {
-        private static final int COLOR_AMOUNT = DyeColor.values().length;
-
-        protected final GeneratedRecipe[] recipes = new GeneratedRecipe[getColorCount()];
-
-        public DyeRecipeList(Function<DyeColor, GeneratedRecipe> filler) {
-            for (DyeColor color : DyeColor.values()) {
-                recipes[color.ordinal()] = filler.apply(color);
-            }
-        }
-
-        protected int getColorCount() {
-            return COLOR_AMOUNT;
-        }
-
-        public GeneratedRecipe get(DyeColor color) {
-            return recipes[color.ordinal()];
-        }
-
-        public GeneratedRecipe[] toArrays() {
-            return Arrays.copyOf(recipes, recipes.length);
-        }
-
-        @NotNull
-        @Override
-        public Iterator<GeneratedRecipe> iterator() {
-            return new Iterator<>() {
-                private int index = 0;
-
-                @Override
-                public boolean hasNext() {
-                    return index < recipes.length;
-                }
-
-                @Override
-                public GeneratedRecipe next() {
-                    if (!hasNext()) throw new NoSuchElementException();
-                    return recipes[index++];
-                }
-            };
-        }
-
-        public static class NullableDyedRecipeList extends DyeRecipeList {
-            public NullableDyedRecipeList(Function<DyeColor, GeneratedRecipe> fillter) {
-                super(fillter);
-                recipes[recipes.length - 1] = fillter.apply(null);
-            }
-
-            @Override
-            protected int getColorCount() {
-                return COLOR_AMOUNT + 1;
-            }
-
-            @Override
-            public GeneratedRecipe get(DyeColor color) {
-                return color == null ? recipes[recipes.length - 1] : super.get(color);
-            }
-        }
-    }
-
-    public static class DyeItemList<T extends Item> implements Iterable<ItemEntry<T>> {
-        private static final int COLOR_AMOUNT = DyeColor.values().length;
-
-        private final ItemEntry<?>[] entry = new ItemEntry<?>[COLOR_AMOUNT];
-
-        public DyeItemList(Function<DyeColor, ItemEntry<? extends T>> filler) {
-            for (DyeColor color : DyeColor.values()) {
-                entry[color.ordinal()] = filler.apply(color);
-            }
-        }
-
-        public ItemEntry<T> get(DyeColor color) {
-            return (ItemEntry<T>) entry[color.ordinal()];
-        }
-
-        public boolean contains(Item block) {
-            for (ItemEntry<?> entry : entry) {
-                if (entry.is(block)) return true;
-            }
-            return false;
-        }
-
-        public ItemEntry<T>[] toArray() {
-            return (ItemEntry<T>[]) Arrays.copyOf(entry, entry.length);
-        }
-
-        @Override
-        public Iterator<ItemEntry<T>> iterator() {
-            return new Iterator<>() {
-                private int index = 0;
-                @Override
-                public boolean hasNext() {
-                    return index < entry.length;
-                }
-
-                @Override
-                public ItemEntry<T> next() {
-                    if (!hasNext()) throw new NoSuchElementException();
-                    return (ItemEntry<T>) entry[index++];
-                }
-            };
-        }
     }
 
     public enum Cloths {

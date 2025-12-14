@@ -2,7 +2,7 @@ package net.nuclearteam.createnuclear.content.multiblock.casing;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
-import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;

@@ -2,9 +2,9 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import com.google.common.base.Supplier;
 import com.google.gson.JsonObject;
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
+import net.createmod.catnip.platform.CatnipServices;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
@@ -19,69 +19,21 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.nuclearteam.createnuclear.CNBlocks;
-import net.nuclearteam.createnuclear.CNItems;
-import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.content.equipment.cloth.ClothItem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
 @MethodsReturnNonnullByDefault
 @SuppressWarnings("unused")
-public class CNShapelessRecipeGen extends CreateRecipeProvider {
+public class CNShapelessRecipeGen extends BaseRecipeProvider {
 
     private final String SHAPELESS = enterFolder("shapeless");
-    GeneratedRecipe
-        RAW_URANIUM = create(CNItems.RAW_URANIUM).returns(9)
-            .withSuffix("_from_decompacting")
-            .unlockedBy(CNItems.RAW_URANIUM::get)
-            .viaShapeless(b -> b.requires(CNBlocks.RAW_URANIUM_BLOCK.get())),
 
-        RAW_LEAD = create(CNItems.RAW_LEAD).returns(9)
-            .withSuffix("_from_decompacting")
-            .unlockedBy(CNItems.RAW_LEAD::get)
-            .viaShapeless(b -> b.requires(CNBlocks.RAW_LEAD_BLOCK.get())),
-
-        LEAD_INGOT = create(CNItems.LEAD_INGOT).returns(9)
-            .withSuffix("_from_decompacting")
-            .unlockedBy(CNItems.LEAD_INGOT::get)
-            .viaShapeless(b -> b.requires(CNBlocks.LEAD_BLOCK.get())),
-
-        LEAD_NUGGET = create(CNItems.LEAD_NUGGET).returns(9)
-            .withSuffix("_from_decompacting")
-            .unlockedBy(CNItems.LEAD_NUGGET::get)
-            .viaShapeless(b -> b.requires(CNItems.LEAD_INGOT.get())),
-
-        STEEL_INGOT = create(CNItems.STEEL_INGOT).returns(9)
-            .withSuffix("_from_decompacting")
-            .unlockedBy(CNItems.STEEL_INGOT::get)
-            .viaShapeless(b -> b.requires(CNBlocks.STEEL_BLOCK.get())),
-
-        STEEL_NUGGET = create(CNItems.STEEL_NUGGET).returns(9)
-            .withSuffix("_from_decompacting")
-            .unlockedBy(CNItems.STEEL_NUGGET::get)
-            .viaShapeless(b -> b.requires(CNItems.STEEL_INGOT.get())),
-
-        REACTOR_BLUEPRINT_ITEM_CLEAR = clearData(CNItems.REACTOR_BLUEPRINT)
-    ;
 
     private final String SHAPELESS_CLOTH = enterFolder("shapeless/cloth");
 
-    ClothItem.DyeRecipeList CLOTH_CHANGING = new ClothItem.DyeRecipeList(color -> {
-        List<Item> ingredients = new ArrayList<>(Arrays.asList(Items.WHITE_DYE, Items.ORANGE_DYE, Items.MAGENTA_DYE, Items.LIGHT_BLUE_DYE, Items.YELLOW_DYE, Items.LIME_DYE, Items.PINK_DYE, Items.GRAY_DYE, Items.LIGHT_GRAY_DYE, Items.CYAN_DYE, Items.PURPLE_DYE, Items.BLUE_DYE, Items.BROWN_DYE, Items.GREEN_DYE, Items.RED_DYE, Items.BLACK_DYE));
-
-        return create(CNItems.CLOTHS.get(color))
-            .unlockedBy(ClothItem.Cloths.WHITE_CLOTH::getItem)
-            .withCategory(RecipeCategory.BUILDING_BLOCKS)
-            .viaShapeless(b -> b
-                .requires(CNTags.CNItemTags.CLOTH.tag)
-                .requires(ingredients.get(color.ordinal()))
-            );
-    });
     
 
     String currentFolder = "";
@@ -101,29 +53,6 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
     GeneratedRecipeBuilder create(ItemProviderEntry<? extends  ItemLike> result) {
         return create(result::get);
-    }
-
-    GeneratedRecipe metalCompacting(List<ItemProviderEntry<? extends ItemLike>> variants,
-                                    List<Supplier<TagKey<Item>>> ingredients) {
-        GeneratedRecipe result = null;
-        for (int i = 0; i + 1 < variants.size(); i++) {
-            ItemProviderEntry<? extends ItemLike> currentEntry = variants.get(i);
-            ItemProviderEntry<? extends ItemLike> nextEntry = variants.get(i + 1);
-            Supplier<TagKey<Item>> currentIngredient = ingredients.get(i);
-            Supplier<TagKey<Item>> nextIngredient = ingredients.get(i + 1);
-
-            result = create(currentEntry).returns(9)
-                    .withSuffix("_from_decompacting")
-                    .unlockedBy(nextEntry::get)
-                    .viaShapeless(b -> b.requires(nextIngredient.get()));
-        }
-        return result;
-    }
-
-    GeneratedRecipe clearData(ItemProviderEntry<? extends ItemLike> item) {
-        return create(item).withSuffix("_clear")
-                .unlockedBy(item::get)
-                .viaShapeless(b -> b.requires(item.get()));
     }
 
     class GeneratedRecipeBuilder {
@@ -240,7 +169,7 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
         }
 
         private ResourceLocation getRegistryName() {
-            return compatDatagenOutput == null ? RegisteredObjects.getKeyOrThrow(result.get()
+            return compatDatagenOutput == null ? CatnipServices.REGISTRIES.getKeyOrThrow(result.get()
                     .asItem()) : compatDatagenOutput;
         }
 
@@ -325,7 +254,7 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
                         consumer.accept(
                                 isOtherMod ? new ModdedCookingRecipeResult(result, compatDatagenOutput, recipeConditions)
                                         : result);
-                    }, createSimpleLocation(RegisteredObjects.getKeyOrThrow(serializer)
+                    }, createSimpleLocation(CatnipServices.REGISTRIES.getKeyOrThrow(serializer)
                             .getPath()));
                 });
             }
@@ -338,7 +267,7 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
     }
 
     public CNShapelessRecipeGen(FabricDataOutput output) {
-        super(output);
+        super(output, CreateNuclear.MOD_ID);
     }
 
     private record ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
