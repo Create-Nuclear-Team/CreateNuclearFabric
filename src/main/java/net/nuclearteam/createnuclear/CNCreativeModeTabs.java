@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear;
 
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
@@ -13,6 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 public class CNCreativeModeTabs {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
+
     public static final CreativeModeTab MAIN = FabricItemGroup.builder().icon(CNCreativeModeTabs::MakeIcon).title(Component.translatable("itemGroup.createnuclear.main")).build();
     public static final ResourceKey<CreativeModeTab> MAIN_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(CreateNuclear.MOD_ID));
 
@@ -23,7 +26,7 @@ public class CNCreativeModeTabs {
     public static void register() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, MAIN_KEY, MAIN);
         ItemGroupEvents.modifyEntriesEvent(MAIN_KEY).register(content -> {
-            CreateNuclear.REGISTRATE.getAll(Registries.ITEM).forEach(entry -> {
+            REGISTRATE.getAll(Registries.ITEM).forEach(entry -> {
                 content.accept(entry.get());
             });
         });

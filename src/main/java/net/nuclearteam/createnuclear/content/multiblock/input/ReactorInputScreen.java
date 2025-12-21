@@ -22,14 +22,14 @@ public class ReactorInputScreen extends AbstractSimiContainerScreen<ReactorInput
 
     @Override
     protected void init() {
-        setWindowSize(background.width, background.height+ 4 + AllGuiTextures.PLAYER_INVENTORY.height);
+        setWindowSize(background.width, background.height+ 4 + AllGuiTextures.PLAYER_INVENTORY.getHeight());
         setWindowOffset(0,0);
         super.init();
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        int invX = getLeftOfCentered(PLAYER_INVENTORY.width);
+        int invX = getLeftOfCentered(PLAYER_INVENTORY.getWidth());
         int invY = topPos + background.height + 4;
         renderPlayerInventory(guiGraphics, invX, invY);
 

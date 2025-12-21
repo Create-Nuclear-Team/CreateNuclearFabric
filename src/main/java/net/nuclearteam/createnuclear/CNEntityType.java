@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear;
 
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,8 +21,10 @@ import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.Irradi
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfRenderer;
 
 public class CNEntityType {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
 
-    public static final EntityEntry<IrradiatedCat> IRRADIATED_CAT = CreateNuclear.REGISTRATE
+
+    public static final EntityEntry<IrradiatedCat> IRRADIATED_CAT = REGISTRATE
         .entity("irradiated_cat", IrradiatedCat::new, MobCategory.CREATURE)
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
         .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
@@ -31,7 +34,7 @@ public class CNEntityType {
         .attributes(IrradiatedCat::createAttributes)
         .register();
 
-    public static final EntityEntry<IrradiatedChicken> IRRADIATED_CHICKEN = CreateNuclear.REGISTRATE
+    public static final EntityEntry<IrradiatedChicken> IRRADIATED_CHICKEN = REGISTRATE
         .entity("irradiated_chicken", IrradiatedChicken::new, MobCategory.CREATURE)
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
         .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
@@ -41,7 +44,7 @@ public class CNEntityType {
         .attributes(IrradiatedChicken::createAttributes)
         .register();
 
-    public static final EntityEntry<IrradiatedWolf> IRRADIATED_WOLF = CreateNuclear.REGISTRATE
+    public static final EntityEntry<IrradiatedWolf> IRRADIATED_WOLF = REGISTRATE
         .entity("irradiated_wolf", IrradiatedWolf::new, MobCategory.CREATURE)
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
         .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)

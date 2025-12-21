@@ -4,10 +4,12 @@ import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import io.github.fabricators_of_create.porting_lib.item.ArmorTextureItem;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.nuclearteam.createnuclear.CNItems;
+import net.nuclearteam.createnuclear.CNTags.CNItemTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import org.jetbrains.annotations.NotNull;
@@ -83,9 +85,13 @@ public class AntiRadiationArmorItem {
                     }
                 };
             }
+
+            public static TagKey<Item> getHelmetTag(String key) {
+                return key.equals("white")
+                        ? CNItemTags.ANTI_RADIATION_ARMOR.tag
+                        : CNItemTags.ANTI_RADIATION_HELMET_DYE.tag;
+            }
         }
-
-
     }
 
     public static class Chestplate extends ArmorItem implements ArmorTextureItem {
@@ -144,6 +150,12 @@ public class AntiRadiationArmorItem {
                     }
                 };
             }
+        }
+
+        public static TagKey<Item> getChestplateTag(String key) {
+            return key.equals("white")
+                    ? CNItemTags.ANTI_RADIATION_ARMOR.tag
+                    : CNItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag;
         }
 
     }
@@ -206,6 +218,11 @@ public class AntiRadiationArmorItem {
             }
         }
 
+        public static TagKey<Item> getLeggingsTag(String key) {
+            return key.equals("white")
+                    ? CNItemTags.ANTI_RADIATION_ARMOR.tag
+                    : CNItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag;
+        }
     }
 
     public static class Boot extends ArmorItem implements ArmorTextureItem {
@@ -217,49 +234,6 @@ public class AntiRadiationArmorItem {
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
             return String.valueOf(CreateNuclear.asResource("textures/models/armor/white_anti_radiation_suit_layer_1.png"));
 
-        }
-    }
-
-    public static class DyeRecipeArmorList implements Iterable<CreateRecipeProvider.GeneratedRecipe> {
-        private static final int COLOR_AMOUNT = DyeColor.values().length;
-
-        protected final CreateRecipeProvider.GeneratedRecipe[] recipes = new CreateRecipeProvider.GeneratedRecipe[getColorCount()];
-
-        public DyeRecipeArmorList(Function<@NotNull DyeColor, CreateRecipeProvider.GeneratedRecipe> filler) {
-            for (DyeColor color : DyeColor.values()) {
-                recipes[color.ordinal()] = filler.apply(color);
-            }
-        }
-
-        protected int getColorCount() {
-            return COLOR_AMOUNT;
-        }
-
-        public CreateRecipeProvider.GeneratedRecipe get(DyeColor color) {
-            return recipes[color.ordinal()];
-        }
-
-        public CreateRecipeProvider.GeneratedRecipe[] toArrays() {
-            return Arrays.copyOf(recipes, recipes.length);
-        }
-
-        @NotNull
-        @Override
-        public Iterator<CreateRecipeProvider.GeneratedRecipe> iterator() {
-            return new Iterator<>() {
-                private int index = 0;
-
-                @Override
-                public boolean hasNext() {
-                    return index < recipes.length;
-                }
-
-                @Override
-                public CreateRecipeProvider.GeneratedRecipe next() {
-                    if (!hasNext()) throw new NoSuchElementException();
-                    return recipes[index++];
-                }
-            };
         }
     }
 

@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear;
 
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.fabric.SimpleFlowableFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -20,8 +21,10 @@ import java.util.function.Function;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CNFluids {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
 
-    public static final FluidEntry<SimpleFlowableFluid.Flowing> URANIUM = CreateNuclear.REGISTRATE.fluid("uranium", CreateNuclear.asResource("fluid/uranium_still"), CreateNuclear.asResource("fluid/uranium_flow"))
+
+    public static final FluidEntry<SimpleFlowableFluid.Flowing> URANIUM = REGISTRATE.fluid("uranium", CreateNuclear.asResource("fluid/uranium_still"), CreateNuclear.asResource("fluid/uranium_flow"))
             .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.uranium", 2500, 1600))
             .fluidProperties(p -> p.levelDecreasePerBlock(2)
                     .tickRate(15)

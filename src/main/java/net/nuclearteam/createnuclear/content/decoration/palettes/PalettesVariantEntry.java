@@ -20,7 +20,7 @@ import static com.simibubi.create.foundation.data.CreateRegistrate.connectedText
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class PalettesVariantEntry {
-    private static final CreateRegistrate REGISTRATE = CreateNuclear.REGISTRATE;
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
 
     public final ImmutableList<BlockEntry<? extends Block>> registeredBlocks;
     public final ImmutableList<BlockEntry<? extends Block>> registeredPartials;

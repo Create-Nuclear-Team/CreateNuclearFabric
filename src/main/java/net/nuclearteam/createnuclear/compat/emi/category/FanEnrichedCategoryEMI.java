@@ -2,8 +2,9 @@ package net.nuclearteam.createnuclear.compat.emi.category;
 
 import com.simibubi.create.compat.emi.CreateEmiAnimations;
 import com.simibubi.create.compat.emi.recipes.fan.FanEmiRecipe;
-import com.simibubi.create.foundation.gui.element.GuiGameElement;
+
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.nuclearteam.createnuclear.CNBlocks;

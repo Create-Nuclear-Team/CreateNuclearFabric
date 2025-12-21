@@ -1,6 +1,6 @@
 package net.nuclearteam.createnuclear;
 
-import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -102,9 +102,6 @@ public class CNTags {
     public enum CNBlockTags {
         FAN_PROCESSING_CATALYSTS_ENRICHED("fan_processing_catalysts/enriched"),
         ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
-        URANIUM_ORES,
-        LEAD_ORES,
-
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
@@ -154,8 +151,6 @@ public class CNTags {
         CLOTH,
         FUEL,
         COOLER,
-        URANIUM_ORES,
-        LEAD_ORES,
         ANTI_RADIATION_HELMET_DYE,
         ANTI_RADIATION_CHESTPLATE_DYE,
         ANTI_RADIATION_LEGGINGS_DYE,

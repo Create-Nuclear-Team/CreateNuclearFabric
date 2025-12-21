@@ -3,7 +3,7 @@ package net.nuclearteam.createnuclear.compat.archEx;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.simibubi.create.compat.archEx.*;
-import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;

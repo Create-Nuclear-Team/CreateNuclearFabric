@@ -1,6 +1,6 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
-import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
+import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.data.CachedOutput;

@@ -1,6 +1,6 @@
 package net.nuclearteam.createnuclear.compat.archEx;
 
-import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.world.level.material.MapColor;
 
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package net.nuclearteam.createnuclear.content.multiblock.frame;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.utility.Lang;
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

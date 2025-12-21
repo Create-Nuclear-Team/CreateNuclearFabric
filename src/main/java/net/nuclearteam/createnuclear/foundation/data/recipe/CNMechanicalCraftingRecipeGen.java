@@ -1,25 +1,18 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
-import com.google.common.base.Supplier;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeBuilder;
-import com.simibubi.create.foundation.utility.RegisteredObjects;
+import com.simibubi.create.api.data.recipe.MechanicalCraftingRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.*;
 
-import java.util.function.UnaryOperator;
-
 @SuppressWarnings("unused")
 @MethodsReturnNonnullByDefault
-public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
+public class CNMechanicalCraftingRecipeGen extends MechanicalCraftingRecipeGen {
 
     GeneratedRecipe
         GRAPHITE_ROD = create(CNItems.GRAPHITE_ROD::get)
@@ -95,46 +88,10 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                 .patternLine("CCCCC")
             );
 
-    GeneratedRecipeBuilder create(Supplier<ItemLike> result) {
-        return new GeneratedRecipeBuilder(result);
-    }
 
-    class GeneratedRecipeBuilder {
-
-        private String suffix;
-        private final Supplier<ItemLike> result;
-        private int amount;
-
-        public GeneratedRecipeBuilder(Supplier<ItemLike> result) {
-            this.suffix = "";
-            this.result = result;
-            this.amount = 1;
-        }
-
-        GeneratedRecipeBuilder returns(int amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        GeneratedRecipeBuilder withSuffix(String suffix) {
-            this.suffix = suffix;
-            return this;
-        }
-
-        GeneratedRecipe recipe(UnaryOperator<MechanicalCraftingRecipeBuilder> builder) {
-            return register(consumer -> {
-                MechanicalCraftingRecipeBuilder b =
-                        builder.apply(MechanicalCraftingRecipeBuilder.shapedRecipe(result.get(), amount));
-                ResourceLocation location = CreateNuclear.asResource("mechanical_crafting/" + RegisteredObjects.getKeyOrThrow(result.get()
-                                .asItem())
-                        .getPath() + suffix);
-                b.build(consumer, location);
-            });
-        }
-    }
 
     public CNMechanicalCraftingRecipeGen(FabricDataOutput output) {
-        super(output);
+        super(output, CreateNuclear.MOD_ID);
     }
 
     @Override

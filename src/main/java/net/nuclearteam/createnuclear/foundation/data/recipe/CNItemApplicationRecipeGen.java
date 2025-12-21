@@ -1,8 +1,7 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllRecipeTypes;
-import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
+import com.simibubi.create.api.data.recipe.ItemApplicationRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.Item;
@@ -15,7 +14,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 
 @SuppressWarnings("unused")
 @MethodsReturnNonnullByDefault
-public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
+public class CNItemApplicationRecipeGen extends ItemApplicationRecipeGen {
 
     GeneratedRecipe REACTOR_CASING = itemApplication("reactor_casing_from_steel_and_brass_casing",
             Ingredient.of(CNTags.forgeItemTag("ingots/steel")),
@@ -51,13 +50,8 @@ public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
         );
     }
 
-    public CNItemApplicationRecipeGen(FabricDataOutput generator) {
-        super(generator);
-    }
-
-    @Override
-    protected AllRecipeTypes getRecipeType() {
-        return AllRecipeTypes.ITEM_APPLICATION;
+    public CNItemApplicationRecipeGen(FabricDataOutput output) {
+        super(output, CreateNuclear.MOD_ID);
     }
 
     @Override

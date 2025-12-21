@@ -4,6 +4,8 @@ import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 import java.util.List;
 import java.util.function.Supplier;
+
+import net.createmod.catnip.lang.Lang;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -19,7 +21,6 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -33,6 +34,8 @@ import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 public abstract class PaletteBlockPartial<B extends Block> {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
+
 
     public static final Supplier<PaletteBlockPartial<StairBlock>> STAIR = Stairs::new;
     public static final Supplier<PaletteBlockPartial<SlabBlock>> SLAB = () -> new Slab(false);
@@ -53,7 +56,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
         String patternName = Lang.nonPluralId(pattern.createName(variantName));
         String blockName = patternName + "_" + this.name;
 
-        BlockBuilder<B, CreateRegistrate> blockBuilder = CreateNuclear.REGISTRATE
+        BlockBuilder<B, CreateRegistrate> blockBuilder = REGISTRATE
                 .block(blockName, p -> createBlock(block))
                 .blockstate((c, p) -> generateBlockState(c, p, variantName, pattern, block))
                 .recipe((c, p) -> createRecipes(variant, block, c, p))

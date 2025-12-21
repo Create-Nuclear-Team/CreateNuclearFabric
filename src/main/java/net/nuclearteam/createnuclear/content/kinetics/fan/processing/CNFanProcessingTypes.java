@@ -1,12 +1,11 @@
 package net.nuclearteam.createnuclear.content.kinetics.fan.processing;
 
-import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
+import com.simibubi.create.api.registry.CreateBuiltInRegistries;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
-import com.simibubi.create.content.kinetics.fan.processing.FanProcessingTypeRegistry;
 import com.simibubi.create.foundation.recipe.RecipeApplier;
-import com.simibubi.create.foundation.utility.Color;
-import com.simibubi.create.foundation.utility.VecHelper;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
+import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.theme.Color;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -17,10 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.nuclearteam.createnuclear.CNBlocks;
-import net.nuclearteam.createnuclear.CNEffects;
-import net.nuclearteam.createnuclear.CNRecipeTypes;
-import net.nuclearteam.createnuclear.CreateNuclear;
+import net.minecraft.core.Registry;
+import net.nuclearteam.createnuclear.*;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe.EnrichedWrapper;
 
@@ -31,11 +28,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static net.nuclearteam.createnuclear.CNTags.CNBlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED;
-
 @SuppressWarnings("unused")
-public class CNFanProcessingTypes extends AllFanProcessingTypes {
+public class CNFanProcessingTypes {
     public static final EnrichedType ENRICHED = register("enriched", new EnrichedType());
+
     private static final Map<String, FanProcessingType> LEGACY_NAME_MAP;
 
     static {
@@ -46,8 +42,7 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
     }
 
     private static <T extends FanProcessingType> T register(String id, T type) {
-        FanProcessingTypeRegistry.register(CreateNuclear.asResource(id), type);
-        return type;
+        return Registry.register(CreateBuiltInRegistries.FAN_PROCESSING_TYPE, CreateNuclear.asResource(id), type);
     }
 
     @Nullable
@@ -55,28 +50,28 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
         return LEGACY_NAME_MAP.get(name);
     }
 
-    public static void register() {
-    }
+    public static void register() {}
 
-   public static FanProcessingType parseLegacy(String str) {
+    public static FanProcessingType parseLegacy(String str) {
         FanProcessingType type = ofLegacyName(str);
         if (type != null) {
             return type;
         }
         return FanProcessingType.parse(str);
-   }
+    }
 
     public static class EnrichedType implements FanProcessingType {
-        private static final EnrichedRecipe.EnrichedWrapper ENRICHED_WRAPPER = new EnrichedWrapper();
+        private static final EnrichedWrapper ENRICHED_WRAPPER = new EnrichedWrapper();
 
         @Override
         public boolean isValidAt(Level level, BlockPos pos) {
-            BlockState blockState = level.getBlockState(pos);
-            if (FAN_PROCESSING_CATALYSTS_ENRICHED.matches(blockState)) {
-                return !blockState.is(CNBlocks.ENRICHING_CAMPFIRE.get()) || !blockState.hasProperty(EnrichingCampfireBlock.LIT) || blockState.getValue(EnrichingCampfireBlock.LIT);
+            BlockState state = level.getBlockState(pos);
+            if (CNTags.CNBlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.matches(state)) {
+                return !state.is(CNBlocks.ENRICHING_CAMPFIRE.get()) || !state.hasProperty(EnrichingCampfireBlock.LIT) || state.getValue(EnrichingCampfireBlock.LIT);
             }
             return false;
         }
+
         @Override
         public int getPriority() {
             return 301;
@@ -85,26 +80,28 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
         @Override
         public boolean canProcess(ItemStack stack, Level level) {
             ENRICHED_WRAPPER.setItem(0, stack);
-            Optional<EnrichedRecipe> recipe =  CNRecipeTypes.ENRICHED.find(ENRICHED_WRAPPER, level);
+            Optional<EnrichedRecipe> recipe = CNRecipeTypes.ENRICHED.find(ENRICHED_WRAPPER, level);
             return recipe.isPresent();
         }
-        @Override
+
         @Nullable
+        @Override
         public List<ItemStack> process(ItemStack stack, Level level) {
             ENRICHED_WRAPPER.setItem(0, stack);
             Optional<EnrichedRecipe> recipe = CNRecipeTypes.ENRICHED.find(ENRICHED_WRAPPER, level);
-            return recipe.map(enrichedRecipe -> RecipeApplier.applyRecipeOn(level, stack, enrichedRecipe)).orElse(null);
+            return recipe.map(enrichedRecipe -> RecipeApplier.applyRecipeOn(level, stack, enrichedRecipe, true)).orElse(null);
         }
 
         @Override
         public void spawnProcessingParticles(Level level, Vec3 pos) {
             if (level.random.nextInt(8) != 0) return;
             pos = pos.add(VecHelper.offsetRandomly(Vec3.ZERO, level.random, 1)
-                    .multiply(1, 0.05f, 1)
+                    .multiply(1, 0.5f, 1)
                     .normalize()
-                    .scale(0.15f));
-            level.addParticle(ParticleTypes.ANGRY_VILLAGER, pos.x, pos.y + .45f, pos.z, 0, 0, 0);
-            if (level.random.nextInt(2) == 0) level.addParticle(ParticleTypes.FIREWORK, pos.x, pos.y + .25f, pos.z, 0, 0, 0);
+                    .scale(0.15f)
+            );
+            level.addParticle(ParticleTypes.ANGRY_VILLAGER, pos.x, pos.y + .45f, pos.z, 0.0, 0.0, 0.0);
+            if (level.random.nextInt(2) != 0) level.addParticle(ParticleTypes.FIREWORK, pos.x, pos.y + .25f, pos.z, 0.0, 0.0, 0.0);
         }
 
         @Override

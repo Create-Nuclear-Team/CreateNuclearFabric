@@ -1,6 +1,8 @@
 package net.nuclearteam.createnuclear;
 
-import com.simibubi.create.content.kinetics.base.HalfShaftInstance;
+import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingBlockEntity;
@@ -12,35 +14,37 @@ import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputRend
 
 
 public class CNBlockEntityTypes {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
+
     public static final BlockEntityEntry<ReactorControllerBlockEntity> REACTOR_CONTROLLER =
-            CreateNuclear.REGISTRATE.blockEntity("reactor_controller", ReactorControllerBlockEntity::new)
+            REGISTRATE.blockEntity("reactor_controller", ReactorControllerBlockEntity::new)
             .validBlocks(CNBlocks.REACTOR_CONTROLLER)
             .register();
 
     public static final BlockEntityEntry<ReactorInputEntity> REACTOR_INPUT =
-            CreateNuclear.REGISTRATE.blockEntity("reactor_input", ReactorInputEntity::new)
+            REGISTRATE.blockEntity("reactor_input", ReactorInputEntity::new)
                     .validBlocks(CNBlocks.REACTOR_INPUT)
                     .register();
 
     public static final BlockEntityEntry<ReactorOutputEntity> REACTOR_OUTPUT =
-            CreateNuclear.REGISTRATE.blockEntity("reactor_output", ReactorOutputEntity::new)
-                    .instance(() -> HalfShaftInstance::new, false)
+            REGISTRATE.blockEntity("reactor_output", ReactorOutputEntity::new)
+                    .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF), false)
                     .validBlocks(CNBlocks.REACTOR_OUTPUT)
                     .renderer(() -> ReactorOutputRenderer::new)
                     .register();
 
     public static final BlockEntityEntry<EnrichingCampfireBlockEntity> ENRICHING_CAMPFIRE_BLOCK =
-            CreateNuclear.REGISTRATE.blockEntity("enriching_campfire_block", EnrichingCampfireBlockEntity::new)
+            REGISTRATE.blockEntity("enriching_campfire_block", EnrichingCampfireBlockEntity::new)
                     .validBlocks(CNBlocks.ENRICHING_CAMPFIRE)
                     .register();
 
     public static final BlockEntityEntry<ReactorCasingBlockEntity> REACTOR_CASING =
-            CreateNuclear.REGISTRATE.blockEntity("reactor_casing", ReactorCasingBlockEntity::new)
+            REGISTRATE.blockEntity("reactor_casing", ReactorCasingBlockEntity::new)
                     .validBlocks(CNBlocks.REACTOR_CASING)
                     .register();
 
     public static final BlockEntityEntry<ReactorCoreBlockEntity> REACTOR_CORE =
-            CreateNuclear.REGISTRATE.blockEntity("reactor_core", ReactorCoreBlockEntity::new)
+            REGISTRATE.blockEntity("reactor_core", ReactorCoreBlockEntity::new)
                     .validBlocks(CNBlocks.REACTOR_CORE)
                     .register();
 

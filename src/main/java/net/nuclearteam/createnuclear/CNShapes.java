@@ -4,13 +4,13 @@ import static net.minecraft.core.Direction.UP;
 
 import java.util.function.BiFunction;
 
+import net.createmod.catnip.math.VoxelShaper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.simibubi.create.foundation.utility.VoxelShaper;
 
 @SuppressWarnings("unused")
 public class CNShapes {

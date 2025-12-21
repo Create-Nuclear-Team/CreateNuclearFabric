@@ -1,13 +1,14 @@
 package net.nuclearteam.createnuclear.content.multiblock.controller;
 
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
-import com.simibubi.create.foundation.utility.Lang;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
+import net.createmod.catnip.lang.Lang;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
@@ -115,19 +116,21 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         if(!configuredPattern.getOrCreateTag().isEmpty()) {
-            tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
+            CreateLang.translate("gui.gauge.info_header")
+                    .style(ChatFormatting.GRAY)
+                    .forGoggles(tooltip);
             IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
 
             IHeat.HeatLevel.getFormattedHeatText(configuredPattern.getOrCreateTag().getInt("heat")).forGoggles(tooltip);
 
-            if (fuelItem == null || fuelItem.isEmpty()) {
+            if (fuelItem.isEmpty()) {
                 // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
                 IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.asItem(), 1), true).forGoggles(tooltip);
             } else {
                 IHeat.HeatLevel.getFormattedItemText(fuelItem, false).forGoggles(tooltip);
             }
 
-            if (coolerItem == null || coolerItem.isEmpty()) {
+            if (fuelItem.isEmpty()) {
                 // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
                 IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD.asItem(), 1), true).forGoggles(tooltip);
             } else {
