@@ -123,6 +123,7 @@ public class CNRei implements REIClientPlugin {
     @Override
     public void registerScreens(ScreenRegistry registry) {
         registry.registerDraggableStackVisitor(new GhostIngredientHandler<>());
+        registry.registerDraggableStackVisitor(new CNGhostIngredientHandler<>());
     }
 
     @Override

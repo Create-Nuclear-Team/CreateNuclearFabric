@@ -48,6 +48,7 @@ import net.nuclearteam.createnuclear.CNRecipeTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import net.nuclearteam.createnuclear.compat.emi.category.FanEnrichedCategoryEMI;
+import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintScreen;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -82,13 +83,8 @@ public class CNEmi implements EmiPlugin {
             }
         });
 
-        registry.addRecipeHandler(AllMenuTypes.CRAFTING_BLUEPRINT.get(), new BlueprintTransferHandler());
 
-        registry.addDragDropHandler(FilterScreen.class, new GhostIngredientHandler());
-        registry.addDragDropHandler(AttributeFilterScreen.class, new GhostIngredientHandler());
-        registry.addDragDropHandler(BlueprintScreen.class, new GhostIngredientHandler());
-        registry.addDragDropHandler(LinkedControllerScreen.class, new GhostIngredientHandler());
-        registry.addDragDropHandler(ScheduleScreen.class, new GhostIngredientHandler());
+        registry.addDragDropHandler(ReactorBluePrintScreen.class, new GhostIngredientHandler());
 
         //registerGeneratedRecipes(registry);
 

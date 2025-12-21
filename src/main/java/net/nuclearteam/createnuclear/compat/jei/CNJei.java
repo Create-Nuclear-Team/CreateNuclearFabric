@@ -109,10 +109,6 @@ public class CNJei implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addGenericGuiContainerHandler(AbstractSimiContainerScreen.class, new SlotMover());
 
-        registration.addGhostIngredientHandler(AbstractFilterScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(BlueprintScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(LinkedControllerScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(ScheduleScreen.class, new GhostIngredientHandler());
         registration.addGhostIngredientHandler(ReactorBluePrintScreen.class, new GhostIngredientHandler());
     }
 
