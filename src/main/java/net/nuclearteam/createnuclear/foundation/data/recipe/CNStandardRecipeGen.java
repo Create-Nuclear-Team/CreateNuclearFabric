@@ -67,9 +67,6 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/steel"), () -> CNTags.forgeItemTag("ingots/steel"), () -> CNTags.forgeItemTag("storage_blocks/steel")))
     ;
 
-
-    private final String CRAFTING_REACTOR = enterFolder("crafting/reactor");
-
     String currentFolder = "";
 
     String enterFolder(String folder) {
