@@ -42,9 +42,33 @@
   "block.createnuclear.enriched_soul_soil.tooltip.summary": "The _only_ block who create _enriched fire_.Can be used to _craft_ enriched campfire or just to make a _green fire_.",
 
 
+  "tag.item.c.dusts.coal": "Coal Dusts",
+  "tag.item.c.nuggets.lead": "Tags Lead Nuggets",
+  "tag.item.c.nuggets.steel": "Tags Steel Nuggets",
+  "tag.item.c.ores.lead": "Tags Ores Lead",
+  "tag.item.c.ores.uranium": "Tags Ores Uranium",
+  "tag.item.c.raw_materials.lead": "Tags Raw Materials Lead",
+  "tag.item.c.raw_materials.uranium": "Tags Raw Materials Uranium",
+  "tag.item.c.storage_blocks.lead": "Tags Storage Blocks Lead",
+  "tag.item.c.storage_blocks.raw_lead": "Tags Storage Blocks Raw Lead",
+  "tag.item.c.storage_blocks.raw_uranium": "Tags Storage Blocks Raw Uranium",
+  "tag.item.c.storage_blocks.steel": "Tags Storage Blocks Steel",
+
+  "tag.item.createnuclear.stone_types.autunite": "Tags Stone Type Autunite",
+
+  "tag.item.createnuclear.all_anti_radiation_armors": "Tags All Anti Radiation Armors",
+  "tag.item.createnuclear.anti_radiation_armor": "Tags Anti Radiation Armor",
+  "tag.item.createnuclear.anti_radiation_boots_dye": "Tags Anti Radiation Boots",
+  "tag.item.createnuclear.anti_radiation_chestplate_dye": "Tags Anti Radiation Chestplate",
+  "tag.item.createnuclear.anti_radiation_chestplate_full_dye": "Tags Anti Radiation Chestplate",
+  "tag.item.createnuclear.anti_radiation_helmet_dye": "Tags Anti Radiation Helmet",
+  "tag.item.createnuclear.anti_radiation_helmet_full_dye": "Tags Anti Radiation Helmet",
+  "tag.item.createnuclear.anti_radiation_leggings_dye": "Tags Anti Radiation Leggings",
+  "tag.item.createnuclear.anti_radiation_leggings_full_dye": "Tags Anti Radiation Leggings",
+
+  "tag.fluid.createnuclear.uranium": "Uranium",
 
 
-  "tag.item.c.coal_dusts": "Coal Dusts",
   "tag.item.c.ingots.lead": "Tags Lead ingots",
   "tag.item.c.ingots.steel": "Tags Steel ingots",
   "tag.item.c.lead_ingots": "Lead ingots",
