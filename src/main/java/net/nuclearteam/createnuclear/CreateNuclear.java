@@ -58,6 +58,8 @@ public class CreateNuclear implements ModInitializer {
 
 		REGISTRATE.register();
 		POTION_REGISTRATE.register();
+
+		CNParticleTypes.register();
 		CNRecipeTypes.register();
 		CNPlacementModifiers.register();
 
