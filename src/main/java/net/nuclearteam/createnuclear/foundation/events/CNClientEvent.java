@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.events.ClientEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.ClientWorldEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents.ColorData;
+import io.github.fabricators_of_create.porting_lib.event.client.ParticleManagerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Camera;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.material.FluidState;
 import net.nuclearteam.createnuclear.CNEffects;
 import net.nuclearteam.createnuclear.CNFluids;
+import net.nuclearteam.createnuclear.CNParticleTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.minecraft.world.level.material.Fluid;
 
@@ -32,6 +34,8 @@ public class CNClientEvent {
         FogEvents.SET_COLOR.register(CNClientEvent::getForColor);
         HudRenderCallback.EVENT.register(HUD_RENDERER::onHudRender);
         HudRenderCallback.EVENT.register(CNClientEvent::radiationOverlay);
+
+        ParticleManagerRegistrationCallback.EVENT.register(CNParticleTypes::registerFactories);
 
         ClientWorldEvents.LOAD.register(CommonEvents::onLoadWorld);
         ClientWorldEvents.UNLOAD.register(CommonEvents::onUnloadWorld);
