@@ -2,19 +2,22 @@ package net.nuclearteam.createnuclear.infrastructure.data;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
+import net.createmod.ponder.foundation.PonderIndex;
+import net.createmod.ponder.foundation.registration.PonderLocalization;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.MethodsReturnNonnullByDefault;
 
-import com.simibubi.create.foundation.ponder.PonderLocalization;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.compat.archEx.CNArchExCompat;
 import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.foundation.data.recipe.*;
 import net.nuclearteam.createnuclear.foundation.ponder.CNPonderIndex;
+import net.nuclearteam.createnuclear.foundation.ponder.CreateNuclearPonderPlugin;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
@@ -24,11 +27,13 @@ import java.util.function.BiConsumer;
 @ParametersAreNonnullByDefault
 @SuppressWarnings("unused")
 public class CreateNuclearDatagen implements DataGeneratorEntrypoint {
-	@Override
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
+
+    @Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		ExistingFileHelper helper = ExistingFileHelper.withResourcesFromArg();
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-		CreateNuclear.REGISTRATE.setupDatagen(pack, helper);
+		REGISTRATE.setupDatagen(pack, helper);
 		gatherData(pack, helper);
 		CNArchExCompat.init(pack);
 	}
@@ -40,7 +45,7 @@ public class CreateNuclearDatagen implements DataGeneratorEntrypoint {
 		pack.addProvider(GeneratedEntriesProvider::new);
 		pack.addProvider(CNProcessingRecipeGen::registerAll);
 		pack.addProvider(CNStandardRecipeGen::new);
-		pack.addProvider(CNCookingRecipeGen::new);
+//		pack.addProvider(CNCookingRecipeGen::new);
 		pack.addProvider(CNMechanicalCraftingRecipeGen::new);
 		pack.addProvider(CNShapelessRecipeGen::new);
 	}
@@ -48,7 +53,7 @@ public class CreateNuclearDatagen implements DataGeneratorEntrypoint {
 	private static void addExtraRegistrateData() {
 		CreateNuclearRegistrateTags.addGenerators();
 
-		CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.LANG, provider -> {
+		REGISTRATE.addDataGenerator(ProviderType.LANG, provider -> {
 			BiConsumer<String, String> langConsumer = provider::add;
 
 			provideDefaultLang("interface", langConsumer);
@@ -75,9 +80,7 @@ public class CreateNuclearDatagen implements DataGeneratorEntrypoint {
 	}
 
 	private static void providePonderLang(BiConsumer<String, String> consumer) {
-		CNPonderIndex.register();
-		PonderLocalization.generateSceneLang();
-		PonderLocalization.provideLang(CreateNuclear.MOD_ID, consumer);
-
+        PonderIndex.addPlugin(new CreateNuclearPonderPlugin());
+        PonderIndex.getLangAccess().provideLang(CreateNuclear.MOD_ID, consumer);
 	}
 }

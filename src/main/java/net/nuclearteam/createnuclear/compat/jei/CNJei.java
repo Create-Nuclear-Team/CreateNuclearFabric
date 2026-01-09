@@ -8,14 +8,18 @@ import com.simibubi.create.content.equipment.blueprint.BlueprintScreen;
 import com.simibubi.create.content.logistics.filter.AbstractFilterScreen;
 import com.simibubi.create.content.redstone.link.controller.LinkedControllerScreen;
 import com.simibubi.create.content.trains.schedule.ScheduleScreen;
-import com.simibubi.create.foundation.config.ConfigBase;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
+//import mezz.jei.api.IModPlugin;
+//import mezz.jei.api.constants.RecipeTypes;
+//import mezz.jei.api.gui.drawable.IDrawable;
+//import mezz.jei.api.recipe.category.IRecipeCategory;
+//import mezz.jei.api.registration.*;
+//import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -34,6 +38,9 @@ import net.nuclearteam.createnuclear.CNRecipeTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.compat.jei.category.FanEnrichedCategoryJEI;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe;
+import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintScreen;
+import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
+import net.nuclearteam.createnuclear.infrastructure.config.CNConfigBase;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -102,10 +109,7 @@ public class CNJei implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addGenericGuiContainerHandler(AbstractSimiContainerScreen.class, new SlotMover());
 
-        registration.addGhostIngredientHandler(AbstractFilterScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(BlueprintScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(LinkedControllerScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(ScheduleScreen.class, new GhostIngredientHandler());
+        registration.addGhostIngredientHandler(ReactorBluePrintScreen.class, new GhostIngredientHandler());
     }
 
     private class CategoryBuilder<T extends Recipe<?>> {
@@ -127,7 +131,7 @@ public class CNJei implements IModPlugin {
             return this;
         }
 
-        public CategoryBuilder<T> enableWhen(Function<CRecipes, ConfigBase.ConfigBool> configValue) {
+        public CategoryBuilder<T> enableWhen(Function<CRecipes, CNConfigBase.ConfigBool> configValue) {
             predicate = c -> configValue.apply(c).get();
             return this;
         }
@@ -254,7 +258,7 @@ public class CNJei implements IModPlugin {
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
                     new mezz.jei.api.recipe.RecipeType<>(CreateNuclear.asResource(name), recipeClass),
-                    Lang.translateDirect(CreateNuclear.MOD_ID + ".recipe." + name), background, icon, recipesSupplier, catalysts);
+                    CreateNuclearLang.translateDirect(CreateNuclear.MOD_ID + ".recipe." + name), background, icon, recipesSupplier, catalysts);
             CreateRecipeCategory<T> category = factory.create(info);
             allCategories.add(category);
             return category;

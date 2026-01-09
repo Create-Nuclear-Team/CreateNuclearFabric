@@ -6,15 +6,26 @@ import com.simibubi.create.compat.rei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.rei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.rei.display.CreateDisplay;
 import com.simibubi.create.content.fluids.VirtualFluid;
-import com.simibubi.create.foundation.config.ConfigBase;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.item.TagDependentIngredientItem;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
+//import dev.architectury.fluid.FluidStack;
 import dev.architectury.fluid.FluidStack;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
+//import me.shedaniel.rei.api.client.gui.Renderer;
+//import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
+//import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
+//import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
+//import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
+//import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
+//import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
+//import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
+//import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+//import me.shedaniel.rei.api.common.display.Display;
+//import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
+//import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -39,6 +50,8 @@ import net.nuclearteam.createnuclear.CNRecipeTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.compat.rei.category.FanEnrichedCategoryREI;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe;
+import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
+import net.nuclearteam.createnuclear.infrastructure.config.CNConfigBase;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
@@ -46,6 +59,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+
 
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
@@ -109,6 +123,7 @@ public class CNRei implements REIClientPlugin {
     @Override
     public void registerScreens(ScreenRegistry registry) {
         registry.registerDraggableStackVisitor(new GhostIngredientHandler<>());
+        registry.registerDraggableStackVisitor(new CNGhostIngredientHandler<>());
     }
 
     @Override
@@ -156,7 +171,7 @@ public class CNRei implements REIClientPlugin {
             return this;
         }
 
-        public CategoryBuilder<T> enableWhen(Function<CRecipes, ConfigBase.ConfigBool> configValue) {
+        public CategoryBuilder<T> enableWhen(Function<CRecipes, CNConfigBase.ConfigBool> configValue) {
             predicate = c -> configValue.apply(c).get();
             return this;
         }
@@ -313,7 +328,7 @@ public class CNRei implements REIClientPlugin {
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
                     CategoryIdentifier.of(CreateNuclear.asResource(name)),
-                    Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts, width, height, displayFactory == null ? (recipe) -> new CreateDisplay<>(recipe, CategoryIdentifier.of(CreateNuclear.asResource(name))) : displayFactory);
+                    CreateNuclearLang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts, width, height, displayFactory == null ? (recipe) -> new CreateDisplay<>(recipe, CategoryIdentifier.of(CreateNuclear.asResource(name))) : displayFactory);
             CreateRecipeCategory<T> category = factory.create(info);
             allCategories.add(category);
             return category;

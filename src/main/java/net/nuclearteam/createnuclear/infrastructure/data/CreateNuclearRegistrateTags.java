@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.infrastructure.data;
 
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.ProviderType;
@@ -24,15 +25,17 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 
 @SuppressWarnings({"unused", "deprecated"})
 public class CreateNuclearRegistrateTags {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
+
     public static <T extends Block, P> NonNullFunction<BlockBuilder<T, P>, BlockBuilder<T, P>> shovelOnly() {
         return b -> b.tag(BlockTags.MINEABLE_WITH_SHOVEL);
     }
 
     public static void addGenerators() {
-        CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, CreateNuclearRegistrateTags::genBlocksTags);
-        CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, CreateNuclearRegistrateTags::genItemTags);
-        CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.FLUID_TAGS, CreateNuclearRegistrateTags::genFluidTags);
-        CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.ENTITY_TAGS, CreateNuclearRegistrateTags::genEntityTags);
+        REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, CreateNuclearRegistrateTags::genBlocksTags);
+        REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, CreateNuclearRegistrateTags::genItemTags);
+        REGISTRATE.addDataGenerator(ProviderType.FLUID_TAGS, CreateNuclearRegistrateTags::genFluidTags);
+        REGISTRATE.addDataGenerator(ProviderType.ENTITY_TAGS, CreateNuclearRegistrateTags::genEntityTags);
     }
 
     private static void genBlocksTags(RegistrateTagsProvider<Block> provIn) {
