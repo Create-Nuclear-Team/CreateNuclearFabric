@@ -3,6 +3,7 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.api.data.recipe.BaseRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
