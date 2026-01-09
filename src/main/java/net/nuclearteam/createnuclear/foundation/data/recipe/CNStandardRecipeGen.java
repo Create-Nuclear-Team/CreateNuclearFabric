@@ -67,6 +67,32 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/steel"), () -> CNTags.forgeItemTag("ingots/steel"), () -> CNTags.forgeItemTag("storage_blocks/steel")))
     ;
 
+    private final String BLAST_FURNACE = enterFolder("blast_furnace");
+
+    GeneratedRecipe
+        URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTags.forgeItemTag("ores/uranium"), "_for_uranium_ore", 4),
+        RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTags.forgeItemTag("ores/lead"), "_for_lead_ore", 1),
+        RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1),
+        CRUSHED_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, AllItems.CRUSHED_LEAD::get, "_for_crushed_lead", 1)
+    ;
+
+
+    GeneratedRecipe blastFurnaceRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCooking(ingredient)
+                .rewardXP(.1f)
+                .inBlastFurnace();
+    }
+
+    GeneratedRecipe blastFurnaceRecipeTags(Supplier<? extends ItemLike> result, Supplier<TagKey<Item>> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCookingTag(ingredient)
+                .rewardXP(.1f)
+                .inBlastFurnace();
+    }
+
     String currentFolder = "";
 
     String enterFolder(String folder) {
