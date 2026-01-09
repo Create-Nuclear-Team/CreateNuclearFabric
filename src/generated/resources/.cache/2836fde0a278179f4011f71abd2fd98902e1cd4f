@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-21T15:57:50.4512637	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2026-01-09T19:21:36.8049677	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 c53fd5df1d52d6e9919c9600e483697e8db75f4d data\createnuclear\advancements\recipes\building_blocks\cut_autunite_from_stone_types_autunite_stonecutting.json
 7927b2a7c345bb178bf23fef966bed58f067ae2f data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\pink_cloth.json
 ab94d1c13af2e4bef0c92b8486108940180d3f9d data\createnuclear\recipes\shapeless\cloth\light_gray_cloth.json
@@ -257,8 +257,8 @@ b025fcc911efa469caf74c78a59e9f79b0f652f8 data\c\tags\blocks\ores_in_ground\deeps
 a6043fb3c2b8e690bad0ae101ee21e3d483df194 data\createnuclear\tags\items\fuel.json
 5ad910a7a4ee066d98d1727988557725038f957e assets\createnuclear\models\item\magenta_anti_radiation_chestplate.json
 593d1d5fd9958be682653a2e55c047e5aa764574 data\createnuclear\advancements\recipes\misc\crafting\raw_uranium_from_decompacting.json
-cff53fa04178252ee9d878ccd38dca35581492ce data\createnuclear\recipes\crafting\items\armors\black_anti_radiation_chestplate.json
 5002eb664a011705632befab37a7626b6ef17940 data\createnuclear\recipes\crafting\items\armors\cyan_anti_radiation_chestplate.json
+cff53fa04178252ee9d878ccd38dca35581492ce data\createnuclear\recipes\crafting\items\armors\black_anti_radiation_chestplate.json
 8a7946c30f9f8f9c002a6651c6765724f4bc2055 data\createnuclear\recipes\layered_autunite_from_stone_types_autunite_stonecutting.json
 8825551315af6f5e82a7a3d96b547392642160fb assets\createnuclear\blockstates\reactor_cooler.json
 db666ffaca36edc9e246e225f225c1e87604dd88 data\createnuclear\loot_tables\blocks\cut_autunite_brick_wall.json
@@ -292,8 +292,8 @@ d1de8cb62519f811e925fd00de96c81076fabb8b data\createnuclear\advancements\recipes
 de8086a8e456a350a89ef40764b320488953e18b data\createnuclear\advancements\recipes\combat\crafting\items\armors\magenta_anti_radiation_chestplate.json
 1b9c77ea0b66bc07238764f99754bf5f79ffa66e data\createnuclear\recipes\crafting\items\armors\green_anti_radiation_helmet.json
 4db93da70d6a7549155201b7d9d68355449652ac assets\createnuclear\models\item\red_cloth.json
-381a0aa10a5e188a3456224ffc33e398ddca39e5 data\createnuclear\recipes\crafting\lead_nugget_from_decompacting.json
 b4e68786ee0454d0310f5513a9047f53287b527c data\createnuclear\advancements\recipes\combat\crafting\items\armors\black_anti_radiation_chestplate.json
+381a0aa10a5e188a3456224ffc33e398ddca39e5 data\createnuclear\recipes\crafting\lead_nugget_from_decompacting.json
 561c9f9a4e153fc648a3c7224812c71c8ac2da5c assets\createnuclear\models\block\raw_uranium_block.json
 e1b8fdc0555a1fdabda54f66cca868e444d1110b assets\createnuclear\models\block\enriched_soul_soil.json
 812b089fafc87c65ea8a5a7145c60019a7602e03 data\createnuclear\recipes\crafting\items\armors\magenta_anti_radiation_helmet.json
