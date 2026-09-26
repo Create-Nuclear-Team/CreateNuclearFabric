@@ -1,4 +1,5 @@
 {
+  "render_type": "cutout",
   "parent": "minecraft:block/template_fire_side",
   "textures": {
     "fire": "createnuclear:block/enriching/fire/fire_1"

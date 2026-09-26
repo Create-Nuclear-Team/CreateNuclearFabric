@@ -7,12 +7,19 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.content.biome.BiomeIrradiationExtractorItem;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.CNModelLayers;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.cat.IrradiatedCatModel;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.IrradiatedChickenModel;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCowModel;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfModel;
+import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorModel;
 import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorRenderer;
 import net.nuclearteam.createnuclear.content.particles.IrradiatedParticles;
 import net.nuclearteam.createnuclear.content.particles.IrradiatedParticlesData;
@@ -35,6 +42,7 @@ public class CreateNuclearClient implements ClientModInitializer {
        ReactorRodInputClient.register();
        registerItemProperties();
        registerParticles();
+       registerModelLayers();
 
         PonderIndex.addPlugin(new CreateNuclearPonderPlugin());
 
@@ -69,6 +77,14 @@ public class CreateNuclearClient implements ClientModInitializer {
         };
         ItemProperties.register(CNItems.IRRADIATION_BIOME_EXTRACTOR.get(),
                 CreateNuclear.asResource(BiomeIrradiationExtractorItem.TAG), chargeProvider);
+    }
+
+    private static void registerModelLayers() {
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CHICKEN, IrradiatedChickenModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_COW, IrradiatedCowModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.ANTI_IRRADIATION_ARMOR, AntiRadiationArmorModel::createBodyLayer);
     }
 
     @SuppressWarnings("unchecked")

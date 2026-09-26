@@ -2,13 +2,18 @@ package net.nuclearteam.createnuclear;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.EntityEntry;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.cat.IrradiatedCat;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.cat.IrradiatedCatRenderer;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.IrradiatedChicken;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.IrradiatedChickenRenderer;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCow;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCowRenderer;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolf;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfRenderer;
 import net.nuclearteam.createnuclear.content.explosion.NuclearExplosionEntity;
 
 public class CNEntityType {
@@ -20,6 +25,7 @@ public class CNEntityType {
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
         .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
         .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 0.7f)))
+        .renderer(() -> IrradiatedCatRenderer::new)
         .lang("Irradiated Cat")
         .attributes(IrradiatedCat::createAttributes)
         .register();
@@ -29,6 +35,7 @@ public class CNEntityType {
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
         .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
         .properties(b -> b.dimensions(EntityDimensions.scalable(0.4f, 0.7f)))
+        .renderer(() -> IrradiatedChickenRenderer::new)
         .lang("Irradiated Chicken")
         .attributes(IrradiatedChicken::createAttributes)
         .register();
@@ -38,6 +45,7 @@ public class CNEntityType {
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
         .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
         .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 0.85f)))
+        .renderer(() -> IrradiatedWolfRenderer::new)
         .lang("Irradiated Wolf")
         .attributes(IrradiatedWolf::createAttributes)
         .register();
@@ -47,6 +55,7 @@ public class CNEntityType {
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
         .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
         .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 0.85f)))
+        .renderer(() -> IrradiatedCowRenderer::new)
         .lang("Irradiated Cow")
         .attributes(IrradiatedCow::createAttributes)
         .register();
@@ -58,6 +67,7 @@ public class CNEntityType {
             .trackRangeBlocks(128)
             .trackedUpdateRate(1)
             .forceTrackedVelocityUpdates(true))
+        .renderer(() -> NoopRenderer::new)
         .register();
 
     public static void register() {

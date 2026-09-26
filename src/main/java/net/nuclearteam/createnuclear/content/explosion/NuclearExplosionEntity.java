@@ -225,7 +225,7 @@ public class NuclearExplosionEntity extends Entity {
                             BlockPos immutablePos = carve.immutable();
                             Block destroyedBlock = state.getBlock();
                             if (world.getBlockState(immutablePos).is(destroyedBlock)) {
-                                world.destroyBlock(immutablePos, true, null, 512);
+                                world.destroyBlock(immutablePos, false, null, 512);
                             }
                             destroyedBlock.wasExploded(world, immutablePos, dummyExplosion);
                         }
