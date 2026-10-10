@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:raw_materials/thorium"
+            "tag": "c:raw_thorium_ores"
           }
         ]
       },

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:raw_materials/lead"
+            "tag": "c:raw_lead_ores"
           }
         ]
       },

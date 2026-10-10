@@ -65,6 +65,8 @@ public class CreateNuclearDatagen implements DataGeneratorEntrypoint {
 			provideDefaultLang("irradiated", langConsumer);
 			provideDefaultLang("tooltips", langConsumer);
 			provideDefaultLang("reactor", langConsumer);
+			provideDefaultLang("tags", langConsumer);
+			CNMaterialTags.provideLang(langConsumer);
 			CNAdvancement.provideLang(langConsumer);
 			CNSoundEvents.provideLang(langConsumer);
 			providePonderLang(langConsumer);

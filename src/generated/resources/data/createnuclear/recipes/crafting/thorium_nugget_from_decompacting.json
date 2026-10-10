@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:ingots/thorium"
+      "tag": "c:thorium_ingots"
     }
   ],
   "result": {

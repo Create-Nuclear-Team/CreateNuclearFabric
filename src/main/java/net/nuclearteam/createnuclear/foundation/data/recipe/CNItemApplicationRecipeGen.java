@@ -16,7 +16,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 public class CNItemApplicationRecipeGen extends ItemApplicationRecipeGen {
 
     GeneratedRecipe REACTOR_CASING = itemApplication("reactor_casing_from_steel_and_brass_casing",
-            Ingredient.of(CNTags.forgeItemTag("ingots/steel")),
+            Ingredient.of(CNMaterialTags.STEEL.ingots()),
             AllBlocks.BRASS_CASING.get(),
             CNBlocks.REACTOR_CASING.get()
     );

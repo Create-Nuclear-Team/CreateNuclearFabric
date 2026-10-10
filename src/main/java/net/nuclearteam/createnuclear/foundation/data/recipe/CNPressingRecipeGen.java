@@ -14,7 +14,7 @@ public class CNPressingRecipeGen extends PressingRecipeGen {
 
     GeneratedRecipe
         GRAPHENE = create("graphene", b -> b
-            .require(Ingredient.of(CNTags.forgeItemTag("dusts/coal")))
+            .require(Ingredient.of(CNMaterialTags.COAL.dusts()))
             .output(CNItems.GRAPHENE)
         )
     ;

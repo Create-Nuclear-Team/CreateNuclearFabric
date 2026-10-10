@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.infrastructure.data;
 
+import net.nuclearteam.createnuclear.foundation.data.recipe.CNMaterialTags;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.builders.BlockBuilder;
@@ -74,15 +75,15 @@ public class CreateNuclearRegistrateTags {
     private static void genFluidTags(RegistrateTagsProvider<Fluid> provider) {
         TagGen.CreateTagsProvider<Fluid> prov = new TagGen.CreateTagsProvider<>(provider, Fluid::builtInRegistryHolder);
 
-        prov.tag(CNTags.forgeFluidTag("uranium"))
+        prov.tag(CNMaterialTags.URANIUM.fluid())
                 .addTag(CNFluidTags.URANIUM.tag)
         ;
 
-        prov.tag(CNTags.forgeFluidTag("thorium"))
+        prov.tag(CNMaterialTags.THORIUM.fluid())
                 .addTag(CNFluidTags.THORIUM.tag)
         ;
 
-        prov.tag(CNTags.forgeFluidTag("nitrogen"))
+        prov.tag(CNMaterialTags.NITROGEN.fluid())
                 .addTag(CNFluidTags.NITROGEN.tag)
         ;
 

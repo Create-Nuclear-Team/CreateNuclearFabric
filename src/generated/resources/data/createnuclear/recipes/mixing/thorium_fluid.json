@@ -3,7 +3,7 @@
   "heatRequirement": "heated",
   "ingredients": [
     {
-      "tag": "c:dusts/thorium"
+      "tag": "c:thorium_dusts"
     }
   ],
   "results": [

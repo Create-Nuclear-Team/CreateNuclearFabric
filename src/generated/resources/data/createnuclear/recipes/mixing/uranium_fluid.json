@@ -2,7 +2,7 @@
   "type": "create:mixing",
   "ingredients": [
     {
-      "tag": "c:dusts/uranium"
+      "tag": "c:uranium_dusts"
     }
   ],
   "results": [

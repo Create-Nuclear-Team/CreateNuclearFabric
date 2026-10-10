@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:storage_blocks/steel"
+      "tag": "c:steel_blocks"
     }
   ],
   "result": {

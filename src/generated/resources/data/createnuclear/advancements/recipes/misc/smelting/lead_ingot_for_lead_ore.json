@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:ores/lead"
+            "tag": "c:lead_ores"
           }
         ]
       },

@@ -17,18 +17,18 @@ public class CNMixingRecipeGen extends MixingRecipeGen {
 
     GeneratedRecipe
         STEEL = create("steel", b -> b
-            .require(CNTags.forgeItemTag("dusts/coal"))
+            .require(CNMaterialTags.COAL.dusts())
             .require(Tags.Items.INGOTS_IRON)
             .output(CNItems.STEEL_INGOT)
         ),
 
         URANIUM_FLUID = create("uranium_fluid", b -> b
-            .require(CNTags.forgeItemTag("dusts/uranium"))
+            .require(CNMaterialTags.URANIUM.dusts())
             .output(CNFluids.URANIUM.get(), 2025)
         ),
 
         THORIUM_FLUID = create("thorium_fluid", b -> b
-            .require(CNTags.forgeItemTag("dusts/thorium"))
+            .require(CNMaterialTags.THORIUM.dusts())
             .output(CNFluids.THORIUM.get(), 2025)
             .requiresHeat(HeatCondition.HEATED)
         ),

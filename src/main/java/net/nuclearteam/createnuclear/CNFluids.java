@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear;
 
+import net.nuclearteam.createnuclear.foundation.data.recipe.CNMaterialTags;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.fabric.SimpleFlowableFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
@@ -53,7 +54,7 @@ public class CNFluids {
             .build()
             .bucket((source, settings) -> new RadiationBucketItem(() -> source, settings, 20))
             .onRegister(CNFluids::registerFluidDispenseBehavior)
-            .tag(CNTags.forgeItemTag("buckets/uranium"))
+            .tag(CNMaterialTags.URANIUM.buckets())
             .lang("Uranium Bucket")
             .build()
             .register();
@@ -71,7 +72,7 @@ public class CNFluids {
             .build()
             .bucket()
             .onRegister(CNFluids::registerFluidDispenseBehavior)
-            .tag(CNTags.forgeItemTag("buckets/thorium"))
+            .tag(CNMaterialTags.THORIUM.buckets())
             .lang("Thorium Bucket")
             .build()
             .register();
@@ -89,7 +90,7 @@ public class CNFluids {
             .build()
             .bucket()
             .onRegister(CNFluids::registerFluidDispenseBehavior)
-            .tag(CNTags.forgeItemTag("buckets/nitrogen"))
+            .tag(CNMaterialTags.NITROGEN.buckets())
             .lang("Nitrogen Bucket")
             .build()
             .register();

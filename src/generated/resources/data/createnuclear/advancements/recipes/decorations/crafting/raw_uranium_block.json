@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:raw_materials/uranium"
+            "tag": "c:raw_uranium_ores"
           }
         ]
       },

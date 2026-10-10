@@ -12,7 +12,7 @@
       "item": "create:precision_mechanism"
     },
     "S": {
-      "tag": "c:ingots/steel"
+      "tag": "c:steel_ingots"
     }
   },
   "pattern": [

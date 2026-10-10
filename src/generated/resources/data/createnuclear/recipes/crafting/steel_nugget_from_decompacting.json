@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:ingots/steel"
+      "tag": "c:steel_ingots"
     }
   ],
   "result": {

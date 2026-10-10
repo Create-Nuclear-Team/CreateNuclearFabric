@@ -2,7 +2,7 @@
   "type": "create:pressing",
   "ingredients": [
     {
-      "tag": "c:dusts/coal"
+      "tag": "c:coal_dusts"
     }
   ],
   "results": [
