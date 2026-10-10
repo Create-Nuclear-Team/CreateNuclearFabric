@@ -19,6 +19,7 @@ import net.nuclearteam.createnuclear.content.contraptions.irradiated.cat.Irradia
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.IrradiatedChickenModel;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCowModel;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfModel;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.zombie.IrradiatedZombieModel;
 import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorModel;
 import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorRenderer;
 import net.nuclearteam.createnuclear.content.particles.IrradiatedParticles;
@@ -84,6 +85,7 @@ public class CreateNuclearClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_COW, IrradiatedCowModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_ZOMBIE, IrradiatedZombieModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.ANTI_IRRADIATION_ARMOR, AntiRadiationArmorModel::createBodyLayer);
     }
 

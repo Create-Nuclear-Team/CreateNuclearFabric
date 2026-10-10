@@ -14,6 +14,8 @@ import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.Irradia
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCowRenderer;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolf;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfRenderer;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.zombie.IrradiatedZombie;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.zombie.IrradiatedZombieRenderer;
 import net.nuclearteam.createnuclear.content.explosion.NuclearExplosionEntity;
 
 public class CNEntityType {
@@ -58,6 +60,16 @@ public class CNEntityType {
         .renderer(() -> IrradiatedCowRenderer::new)
         .lang("Irradiated Cow")
         .attributes(IrradiatedCow::createAttributes)
+        .register();
+
+    public static final EntityEntry<IrradiatedZombie> IRRADIATED_ZOMBIE = REGISTRATE
+        .entity("irradiated_zombie", IrradiatedZombie::new, MobCategory.MONSTER)
+        .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
+        .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
+        .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 1.95f)))
+        .renderer(() -> IrradiatedZombieRenderer::new)
+        .lang("Irradiated Zombie")
+        .attributes(IrradiatedZombie::createAttributes)
         .register();
 
     public static final EntityEntry<NuclearExplosionEntity> NUCLEAR_EXPLOSION = REGISTRATE
