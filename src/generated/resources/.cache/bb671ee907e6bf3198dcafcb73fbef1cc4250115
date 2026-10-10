@@ -1,4 +1,4 @@
-// 1.20.1	2026-09-26T15:37:39.2343558	Create Nuclear/CreateNuclear's Standard Recipes
+// 1.20.1	2026-10-10T15:00:30.0840811	Create Nuclear/CreateNuclear's Standard Recipes
 4bb3279f43b0bd71f048d2d6a5fba2a0954cd3a1 data\createnuclear\recipes\crafting\steel_ingot_from_compacting.json
 229dafab82da54169697898f94d3be266a77d5ff data\createnuclear\advancements\recipes\misc\blasting\lead_ingot_for_lead.json
 6e8a83dd9ce1ed273bedceb577670f07bc18b750 data\createnuclear\advancements\recipes\misc\crafting\thorium_ingot_from_compacting.json
@@ -28,8 +28,8 @@ f94ee3b4f8e546f6535b846025cfbf30dbcf1ed4 data\createnuclear\recipes\crafting\tho
 ad4541bf1f0994177d3f6ae830abb279c4d222f3 data\createnuclear\recipes\smelting\nitrogen_concentrate_for_nitrogen_concentrate.json
 9c7e53eb873ed9a840e07a3f7887d4cd86ba719d data\createnuclear\recipes\smelting\lead_ingot_for_lead_ore.json
 ff26bcacc06cd03bf163d088c1283ecb35962cd8 data\createnuclear\recipes\blasting\lead_ingot_for_lead_ore.json
-29f88414f393d8046af2a316d6501b9584f5bea2 data\createnuclear\recipes\smelting\lead_ingot_for_raw_lead.json
 d4162de75c52e6106a386dcf4c5c3bc5b74261d6 data\createnuclear\advancements\recipes\misc\smelting\lead_ingot_for_lead.json
+29f88414f393d8046af2a316d6501b9584f5bea2 data\createnuclear\recipes\smelting\lead_ingot_for_raw_lead.json
 6a08d8f5b76cd6cacae01fba86424ec412e5cfee data\createnuclear\advancements\recipes\misc\blasting\raw_uranium_for_uranium_ore.json
 700bad2cb4980551c639ba6104e39637c58cc411 data\createnuclear\advancements\recipes\misc\blasting\lead_ingot_for_lead_ore.json
 ecfe4877ed719c02863e50a2de99a54bca0a6672 data\createnuclear\recipes\blasting\nitrogen_concentrate_for_nitrogen_concentrate.json
