@@ -36,11 +36,6 @@ public class CNCrushingRecipeGen extends CrushingRecipeGen {
             .output(0.5f, CNItems.URANIUM_POWDER)
             .output(1f, Blocks.RED_SAND)),
 
-        RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b
-            .duration(400)
-            .output(1, AllItems.CRUSHED_URANIUM, 9)
-            .output(0.75f, AllItems.EXP_NUGGET, 9)),
-
         RAW_URANIUM_ITEM = create(() -> CNItems.RAW_URANIUM, b -> b
             .duration(400)
             .output(1, AllItems.CRUSHED_URANIUM, 1)

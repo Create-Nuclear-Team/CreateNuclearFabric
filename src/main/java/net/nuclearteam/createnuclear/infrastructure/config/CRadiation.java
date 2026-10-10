@@ -16,6 +16,7 @@ public class CRadiation extends ConfigBase {
     public final ConfigInt amplifierLevel0 = i(0, 0, 10, "amplifier_level_0", Comments.amplifierLevel0);
     public final ConfigInt amplifierLevel1 = i(1, 0, 10, "amplifier_level_1", Comments.amplifierLevel1);
     public final ConfigInt amplifierLevel2 = i(2, 0, 10, "amplifier_level_2", Comments.amplifierLevel2);
+    public final ConfigInt amplifierLevel3 = i(3, 0, 10, "amplifier_level_3", Comments.amplifierLevel3);
     public final ConfiguredLists configuredLists = nested(0, ConfiguredLists::new, Comments.list);
 
     @Override
@@ -31,6 +32,7 @@ public class CRadiation extends ConfigBase {
         static String amplifierLevel0 = "Effect amplifier for Radiation I (0 = level I).";
         static String amplifierLevel1 = "Effect amplifier for Radiation II (1 = level II).";
         static String amplifierLevel2 = "Effect amplifier for Radiation III (2 = level III).";
+        static String amplifierLevel3 = "Effect amplifier for Radiation IV (3 = level IV).";
         static String list = "Lists related to radiation configuration, for example the entity blacklist.";
         static String blackListEntity =
                 "List of entity IDs excluded from radiation effects. Use registry names like \"minecraft:armor_stand\".\n\n"

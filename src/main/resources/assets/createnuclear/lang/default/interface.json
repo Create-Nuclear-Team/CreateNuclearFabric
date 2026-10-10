@@ -1,7 +1,7 @@
 {
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uranium Group",
-  "biome.createnuclear.irradiated_land": "Irradiated Land",
+  "biome.createnuclear.irradiated_land": "Wasteland",
 
   "createnuclear.enriched.fan.recipe": "Bulk Enriching",
   "emi.category.createnuclear.fan_enriched": "Bulk Enriching",
@@ -92,5 +92,12 @@
   "createnuclear.notification.reactor.assembled": "Reactor has been assembled",
 
   "death.attack.createnuclear.radiation": "%1$s died from radiation",
-  "death.attack.createnuclear.fan_radiation": "%1$s died from radiation blast"
+  "death.attack.createnuclear.fan_radiation": "%1$s died from radiation blast",
+
+  "createnuclear.command.radiation.info.entity": "Selected entity: %s",
+  "createnuclear.command.radiation.info.radiation": "- Radiation: %s",
+  "createnuclear.command.radiation.info.last.biome": "- Last Biome: %s",
+  "createnuclear.command.radiation.info.last.biome.unknown": "Unknown Biome",
+  "createnuclear.command.radiation.info.contagion.dose": "- Contagion Dose: %s",
+  "createnuclear.command.radiation.info.contagion.ticks": "- Contagion Ticks: %s"
 }

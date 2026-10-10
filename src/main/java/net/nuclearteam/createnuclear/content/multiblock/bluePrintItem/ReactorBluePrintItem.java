@@ -43,7 +43,11 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
                 .withStyle(ChatFormatting.GRAY));
 
         // Adjust the tooltip text to hint at the available action
-        tooltip.add(Component.translatable("item.createnuclear.reactor_blueprint.tooltip_hint")
+        tooltip.add(Component.translatable(
+                    "item.createnuclear.reactor_blueprint.tooltip_hint",
+                    Component.keybind("key.sneak"),
+                    Component.keybind("key.use")
+                )
                 .withStyle(ChatFormatting.DARK_GRAY));
     }
 

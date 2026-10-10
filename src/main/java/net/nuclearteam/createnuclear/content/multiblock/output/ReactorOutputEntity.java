@@ -15,7 +15,6 @@ import net.nuclearteam.createnuclear.content.multiblock.pattern.ReactorPattern;
 import java.util.List;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
-    public int speed = 0;
     public float heat = 0;
 
     protected ReactorPattern pattern =  new ReactorPattern();
@@ -30,18 +29,6 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         super.addBehaviours(behaviours);
 
-    }
-
-    @Override
-    public void lazyTick() {
-        super.lazyTick();
-
-        determineSpeed();
-    }
-
-    public void determineSpeed() {
-        int deterSpeed = this.speed;
-        setSpeedAndUpdate(deterSpeed);
     }
 
     public void setSpeedAndUpdate(int speed) {

@@ -145,9 +145,14 @@ public final class RadiationCapability {
     }
 
     private static void applyEffects(LivingEntity entity, double radiation) {
-        final double radiationDesactive = 0;
         MobEffect radiationEffect = CNEffects.RADIATION.get();
-        if (radiation <= radiationDesactive) return;
+        if (radiation <= 0) {
+            // Only clear the ambient instance applied below: potions, food and mob attacks
+            // add non-ambient radiation that must run its full duration.
+            MobEffectInstance current = entity.getEffect(radiationEffect);
+            if (current != null && current.isAmbient()) entity.removeEffect(radiationEffect);
+            return;
+        }
 
         int amp;
         if (radiation < CNConfigs.server().radiation.radiationLevel1.get())
@@ -157,7 +162,7 @@ public final class RadiationCapability {
         else if (radiation < CNConfigs.server().radiation.radiationLevel3.get())
             amp = CNConfigs.server().radiation.amplifierLevel2.get();
         else
-            amp = CNConfigs.server().radiation.amplifierLevel2.get();
+            amp = CNConfigs.server().radiation.amplifierLevel3.get();
 
         MobEffectInstance current = entity.getEffect(radiationEffect);
         if (current != null && current.getAmplifier() != amp) {

@@ -20,12 +20,12 @@ public class CNPonderIndex {
                 .addStoryBoard("reactor/reactor_t1_ponder", CNPonderReactorScenes::t1)
                 .addStoryBoard("reactor/reactor_t2_ponder", CNPonderReactorScenes::t2)
                 .addStoryBoard("reactor/reactor_t3_ponder", CNPonderReactorScenes::t3)
-                .addStoryBoard("reactor/reactor_t1_ponder", CNPonderReactorScenes::ioPlacement);
+                .addStoryBoard("reactor/reactor_io_ponder", CNPonderReactorScenes::ioPlacement);
 
         HELPER.forComponents(CNItems.REACTOR_BLUEPRINT)
                 .addStoryBoard("reactor/reactor_t1_ponder", CNPonderReactorScenes::t1)
                 .addStoryBoard("reactor/reactor_t2_ponder", CNPonderReactorScenes::t2)
                 .addStoryBoard("reactor/reactor_t3_ponder", CNPonderReactorScenes::t3)
-                .addStoryBoard("reactor/reactor_t1_ponder", CNPonderReactorScenes::ioPlacement);
+                .addStoryBoard("reactor/reactor_io_ponder", CNPonderReactorScenes::ioPlacement);
     }
 }

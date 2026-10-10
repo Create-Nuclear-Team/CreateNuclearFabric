@@ -82,8 +82,6 @@ public class ReactorFluidInput extends MultiDirectionalReactorBlock implements I
 
 		if (heldItem.isEmpty())
 			return InteractionResult.PASS;
-		if (!player.isCreative())
-			return InteractionResult.PASS;
 
 		return PlayerInteractReactorFluidInput.interact(world, pos, player, hand, heldItem, onClient, ray);
 	}

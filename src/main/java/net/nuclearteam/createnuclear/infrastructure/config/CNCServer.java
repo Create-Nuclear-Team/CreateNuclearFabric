@@ -20,7 +20,7 @@ public class CNCServer extends ConfigBase {
         static String radiation = "Enable or disable radiation effects emitted by mod items. ";
         static String notify = "Notification settings for reactor warnings.";
         static String reactorHeat = "Heat thresholds for different reactor sizes";
-        static String biomeRestore = "";
+        static String biomeRestore = "Control how irradiated biomes are restored back to their original biome.";
 
     }
 }

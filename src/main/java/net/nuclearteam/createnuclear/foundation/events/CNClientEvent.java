@@ -9,5 +9,6 @@ public class CNClientEvent {
     public static void register() {
         HudRenderCallback.EVENT.register(HUD_RENDERER::onHudRender);
         HudRenderCallback.EVENT.register(IrradiatedOverlayRendererVision::renderOverlay);
+        CNFluidFogHandler.register();
     }
 }
