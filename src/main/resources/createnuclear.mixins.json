@@ -3,9 +3,19 @@
   "package": "net.nuclearteam.createnuclear.foundation.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CNBaseFireBlockMixin"
+    "CNBaseFireBlockMixin",
+    "LivingEntityAttributeMixin",
+    "SmithingTransformRecipeMixin",
+    "radiation.ItemStackMaxCountMixin",
+    "radiation.LivingEntityRadiationMixin"
+  ],
+  "client": [
+    "client.CameraAccessor",
+    "client.GameRendererMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.RadiationHeartMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:raw_thorium_blocks"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "createnuclear:raw_thorium"
+  }
+}

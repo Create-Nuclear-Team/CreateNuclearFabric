@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "c:storage_blocks/raw_uranium"
+            "tag": "c:raw_uranium_blocks"
           }
         ]
       },

@@ -1,46 +1,76 @@
 package net.nuclearteam.createnuclear.content.contraptions.irradiated.cat;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.VariantHolder;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.animal.CatVariant;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.CatVariantTags;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
-import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -82,11 +112,11 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new CatRelaxOnOwnerGoal(this));
         this.goalSelector.addGoal(4, this.temptGoal);
-        this.goalSelector.addGoal(5, new IrradiatedCatLieOnBedGoal(this, 1.1, 8));
+        this.goalSelector.addGoal(5, new CatLieOnBedGoal(this, 1.1, 8));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, false));
-        this.goalSelector.addGoal(7, new IrradiatedCatSitOnBlockGoal(this, 0.8));
+        this.goalSelector.addGoal(7, new CatSitOnBlockGoal(this, 0.8));
         this.goalSelector.addGoal(8, new LeapAtTargetGoal(this, 0.3F));
-        this.goalSelector.addGoal(9, new OcelotAttackGoal(this));
+        this.goalSelector.addGoal(9, new MeleeAttackGoal(this, 1.0, false));
         this.goalSelector.addGoal(10, new BreedGoal(this, 0.8));
         this.goalSelector.addGoal(11, new WaterAvoidingRandomStrollGoal(this, 0.8, 1.0000001E-5F));
         this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 10.0F));
@@ -207,7 +237,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
     }
 
     protected void usePlayerItem(Player player, InteractionHand hand, ItemStack stack) {
-        if (this.isFood(stack)) {
+        if (this.isBreedingItem(stack)) {
             this.playSound(SoundEvents.CAT_EAT, 1.0F, 1.0F);
         }
 
@@ -336,14 +366,14 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
             if (this.isTame() && this.isOwnedBy(player)) {
                 return InteractionResult.SUCCESS;
             } else {
-                return !this.isFood(itemStack) || !(this.getHealth() < this.getMaxHealth()) && this.isTame() ? InteractionResult.PASS : InteractionResult.SUCCESS;
+                return !this.isBreedingItem(itemStack) || !(this.getHealth() < this.getMaxHealth()) && this.isTame() ? InteractionResult.PASS : InteractionResult.SUCCESS;
             }
         } else {
             InteractionResult interactionResult;
             if (this.isTame()) {
                 if (this.isOwnedBy(player)) {
                     if (!(item instanceof DyeItem)) {
-                        if (item.isEdible() && this.isFood(itemStack) && this.getHealth() < this.getMaxHealth()) {
+                        if (item.isEdible() && this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
                             this.usePlayerItem(player, hand, itemStack);
                             this.heal((float)item.getFoodProperties().getNutrition());
                             return InteractionResult.CONSUME;
@@ -351,7 +381,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
 
                         interactionResult = super.mobInteract(player, hand);
                         if (!interactionResult.consumesAction() || this.isBaby()) {
-                            this.setOrderedToSit(!this.isOrderedToSit());
+                            this.setInSittingPose(!this.isInSittingPose());
                         }
 
                         return interactionResult;
@@ -368,11 +398,11 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
                         return InteractionResult.CONSUME;
                     }
                 }
-            } else if (this.isFood(itemStack)) {
+            } else if (this.isBreedingItem(itemStack)) {
                 this.usePlayerItem(player, hand, itemStack);
                 if (this.random.nextInt(3) == 0) {
                     this.tame(player);
-                    this.setOrderedToSit(true);
+                    this.setInSittingPose(true);
                     this.level().broadcastEntityEvent(this, (byte)7);
                 } else {
                     this.level().broadcastEntityEvent(this, (byte)6);
@@ -391,7 +421,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         }
     }
 
-    public boolean isFood(ItemStack stack) {
+    public boolean isBreedingItem(ItemStack stack) {
         return TEMPT_INGREDIENT.test(stack);
     }
 
@@ -471,7 +501,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         public boolean canUse() {
             if (!this.cat.isTame()) {
                 return false;
-            } else if (this.cat.isOrderedToSit()) {
+            } else if (this.cat.isInSittingPose()) {
                 return false;
             } else {
                 LivingEntity livingEntity = this.cat.getOwner();
@@ -521,7 +551,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         }
 
         public boolean canContinueToUse() {
-            return this.cat.isTame() && !this.cat.isOrderedToSit() && this.ownerPlayer != null && this.ownerPlayer.isSleeping() && this.goalPos != null && !this.spaceIsOccupied();
+            return this.cat.isTame() && !this.cat.isInSittingPose() && this.ownerPlayer != null && this.ownerPlayer.isSleeping() && this.goalPos != null && !this.spaceIsOccupied();
         }
 
         public void start() {

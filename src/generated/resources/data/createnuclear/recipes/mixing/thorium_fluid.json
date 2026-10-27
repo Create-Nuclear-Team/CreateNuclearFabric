@@ -1,0 +1,15 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "tag": "c:thorium_dusts"
+    }
+  ],
+  "results": [
+    {
+      "amount": 2025,
+      "fluid": "createnuclear:thorium"
+    }
+  ]
+}

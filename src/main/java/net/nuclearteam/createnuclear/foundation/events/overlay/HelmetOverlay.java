@@ -3,25 +3,24 @@ package net.nuclearteam.createnuclear.foundation.events.overlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.nuclearteam.createnuclear.CNTags;
+import net.minecraft.resources.ResourceLocation;
+import net.nuclearteam.createnuclear.CNTags.CNItemTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.foundation.utility.RenderHelper;
 
 /**
  * HUD overlay for displaying helmet condition based on durability.
  */
-public class HelmetOverlay  implements HudOverlay {
+public class HelmetOverlay implements HudOverlay {
     private static final ResourceLocation[] HELMET_TEXTURES = {
-            CreateNuclear.asResource("textures/misc/helmet_new.png"),
-            CreateNuclear.asResource("textures/misc/helmet_minor_damage.png"),
-            CreateNuclear.asResource("textures/misc/helmet_crack1.png"),
-            CreateNuclear.asResource("textures/misc/helmet_crack2.png"),
-            CreateNuclear.asResource("textures/misc/helmet_almost_broken.png")
+            CreateNuclear.asResource("textures/misc/helmet_vision/helmet_new.png"),
+            CreateNuclear.asResource("textures/misc/helmet_vision/helmet_minor_damage.png"),
+            CreateNuclear.asResource("textures/misc/helmet_vision/helmet_crack1.png"),
+            CreateNuclear.asResource("textures/misc/helmet_vision/helmet_crack2.png"),
+            CreateNuclear.asResource("textures/misc/helmet_vision/helmet_almost_broken.png")
     };
-    private static final float[] COVERAGE_FACTORS = {.5f, 1f, 1.05f, 1.45f, 1.98f};
     private static final int BASE_PRIORITY = 50;
 
     @Override
@@ -29,11 +28,13 @@ public class HelmetOverlay  implements HudOverlay {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return false;
         ItemStack helmet = player.getInventory().getArmor(EquipmentSlot.HEAD.getIndex());
-        return !helmet.isEmpty() && helmet.is(CNTags.CNItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag);
+        return !helmet.isEmpty() && helmet.is(CNItemTags.ANTI_RADIATION_ARMOR.tag)
+                && helmet.getItem() instanceof net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorItem.Helmet;
     }
 
     @Override
     public void render(GuiGraphics graphics, float partialTicks) {
+        if (!isActive()) return;
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
         ItemStack helmet = player.getInventory().getArmor(EquipmentSlot.HEAD.getIndex());
@@ -48,9 +49,6 @@ public class HelmetOverlay  implements HudOverlay {
                 : durabilityRatio >= 0.60f ? 2
                 : durabilityRatio >= 0.25f ? 3
                 : 4;
-
-        // Update radiation coverage based on helmet condition
-        RadiationOverlay.setCoverage(COVERAGE_FACTORS[index]);
 
         // Render helmet overlay texture
         RenderHelper.renderFirstPersonOverlay(graphics, HELMET_TEXTURES[index], 1f, 1f);

@@ -4,11 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 /**
  * Helper class for rendering full-screen overlays with optional scaling and caching.
  */
-@SuppressWarnings("unused")
 public class RenderHelper {
     private static float lastAlpha = Float.NaN;
     private static float lastCoverage = Float.NaN;
@@ -28,11 +28,11 @@ public class RenderHelper {
                                      float alpha, float coverage, boolean onlyFirstPerson) {
         boolean isFirstPerson = Minecraft.getInstance().options.getCameraType().isFirstPerson();
 
-        // If rendering is restricted to first-person, and we're not in it, skip
+        // If rendering is restricted to first-person and we're not in it, skip
         if (onlyFirstPerson && !isFirstPerson) return;
 
         // Skip rendering if parameters unchanged
-
+        
         lastAlpha = alpha;
         lastCoverage = coverage;
         lastFirstPerson = isFirstPerson;
@@ -64,8 +64,8 @@ public class RenderHelper {
     /**
      * Convenience overload: always renders in any camera mode, no scaling.
      */
-    public static void renderOverlay(GuiGraphics graphics, ResourceLocation texture, float alpha, float coverage) {
-        renderOverlay(graphics, texture, alpha, coverage, false);
+    public static void renderOverlay(GuiGraphics graphics, ResourceLocation texture, float alpha) {
+        renderOverlay(graphics, texture, alpha, 1f, false);
     }
 
     /**
@@ -98,13 +98,5 @@ public class RenderHelper {
         RenderSystem.disableBlend();
     }
 
-    public static void renderTextureOverlayTest(GuiGraphics guiGraphics, ResourceLocation shaderLocation, float alpha) {
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
-        guiGraphics.setColor(1.0f, 1.0f, 1.0f, alpha);
-        guiGraphics.blit(shaderLocation, 0, 0, -90, 0.0f, 0.0f, guiGraphics.guiWidth(), guiGraphics.guiHeight(), guiGraphics.guiWidth(), guiGraphics.guiHeight());
-        RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();
-        guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-    }
+
 }

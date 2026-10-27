@@ -1,8 +1,6 @@
 package net.nuclearteam.createnuclear;
 
-import com.simibubi.create.AllFluids;
-import com.simibubi.create.AllTags;
-import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
+import net.nuclearteam.createnuclear.foundation.data.recipe.CNMaterialTags;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.fabric.SimpleFlowableFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
@@ -10,39 +8,37 @@ import io.github.fabricators_of_create.porting_lib.fluids.FluidInteractionRegist
 import io.github.fabricators_of_create.porting_lib.fluids.FluidInteractionRegistry.InteractionInformation;
 import io.github.fabricators_of_create.porting_lib.fluids.FluidType;
 import io.github.fabricators_of_create.porting_lib.fluids.PortingLibFluids;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
-import net.fabricmc.fabric.api.transfer.v1.fluid.base.EmptyItemFluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
-import net.minecraft.core.Registry;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.MapColor;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
+import net.nuclearteam.createnuclear.content.radiation.RadiationBucketItem;
+import net.nuclearteam.createnuclear.content.radiation.capability.RadiationCapability;
+import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.CNTags.CNFluidTags;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CNFluids {
+    private static final double URANIUM_FLUID_DOSE = 5.0D;
     private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
-
 
     public static final FluidEntry<SimpleFlowableFluid.Flowing> URANIUM = REGISTRATE.fluid("uranium", CreateNuclear.asResource("fluid/uranium_still"), CreateNuclear.asResource("fluid/uranium_flow"))
             .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.uranium", 2500, 1600))
@@ -56,15 +52,87 @@ public class CNFluids {
             .block()
             .properties(p -> p.mapColor(MapColor.COLOR_GREEN))
             .build()
+            .bucket((source, settings) -> new RadiationBucketItem(() -> source, settings, 20))
+            .onRegister(CNFluids::registerFluidDispenseBehavior)
+            .tag(CNMaterialTags.URANIUM.buckets())
+            .lang("Uranium Bucket")
+            .build()
+            .register();
+
+    public static final FluidEntry<SimpleFlowableFluid.Flowing> THORIUM = REGISTRATE.fluid("thorium", CreateNuclear.asResource("fluid/thorium_still"), CreateNuclear.asResource("fluid/thorium_flow"))
+            .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.thorium", 200, 100))
+            .fluidProperties(p -> p.levelDecreasePerBlock(2)
+                    .tickRate(15)
+                    .flowSpeed(6)
+                    .blastResistance(100f))
+            .lang("Liquid Thorium")
+            .tag(CNFluidTags.THORIUM.tag)
+            .source(SimpleFlowableFluid.Source::new)
+            .block()
+            .build()
             .bucket()
             .onRegister(CNFluids::registerFluidDispenseBehavior)
+            .tag(CNMaterialTags.THORIUM.buckets())
+            .lang("Thorium Bucket")
+            .build()
+            .register();
+
+    public static final FluidEntry<SimpleFlowableFluid.Flowing> LIQUID_NITROGEN = REGISTRATE.fluid("nitrogen", CreateNuclear.asResource("fluid/nitrogen_still"), CreateNuclear.asResource("fluid/nitrogen_flow"))
+            .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.nitrogen", 1000, 1000))
+            .fluidProperties(p -> p.levelDecreasePerBlock(5)
+                    .tickRate(10)
+                    .flowSpeed(6)
+                    .blastResistance(100f))
+            .lang("Liquid Nitrogen")
+            .tag(CNFluidTags.NITROGEN.tag)
+            .source(SimpleFlowableFluid.Source::new)
+            .block()
+            .build()
+            .bucket()
+            .onRegister(CNFluids::registerFluidDispenseBehavior)
+            .tag(CNMaterialTags.NITROGEN.buckets())
+            .lang("Nitrogen Bucket")
             .build()
             .register();
 
     public static final FluidType URANIUM_FLUID_TYPE = new FluidType(FluidType.Properties.create());
+    public static final FluidType THORIUM_FLUID_TYPE = new FluidType(FluidType.Properties.create());
+    public static final FluidType NITROGEN_FLUID_TYPE = new FluidType(FluidType.Properties.create());
 
     public static void register() {
         Registry.register(PortingLibFluids.FLUID_TYPES, CreateNuclear.asResource("uranium"), URANIUM_FLUID_TYPE);
+        Registry.register(PortingLibFluids.FLUID_TYPES, CreateNuclear.asResource("thorium"), THORIUM_FLUID_TYPE);
+        Registry.register(PortingLibFluids.FLUID_TYPES, CreateNuclear.asResource("nitrogen"), NITROGEN_FLUID_TYPE);
+    }
+
+    public static void handleFluidEffect(LivingEntity entity) {
+        if (!entity.isAlive() || entity.isSpectator()) return;
+
+        if (entity.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014)) {
+            if (entity.tickCount % 20 == 0) {
+                RadiationCapability.applyContagion(entity, URANIUM_FLUID_DOSE, 100);
+            }
+        } else if (entity.updateFluidHeightAndDoFluidPushing(CNFluidTags.NITROGEN.tag, 0.014)) {
+            if (entity.isOnFire()) entity.clearFire();
+            if (entity instanceof Player player && player.isSwimming()) {
+                CNAdvancement.CRYOGENIC_BAPTISM.awardTo(player);
+            }
+
+            int currentTicks = entity.getTicksFrozen();
+            int maxTicks = entity.getTicksRequiredToFreeze();
+            int freezeSpeed = 3;
+            if (entity.level().isClientSide) {
+                entity.setTicksFrozen(Math.min(maxTicks + 1, currentTicks + freezeSpeed + 1));
+            } else {
+                entity.setTicksFrozen(Math.min(maxTicks + 2, currentTicks + freezeSpeed + 2));
+                if (entity.getTicksFrozen() >= maxTicks && entity.tickCount % 10 == 0) {
+                    entity.hurt(entity.damageSources().freeze(), 2.0F);
+                }
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1, true, false, false));
+            }
+        } else if (entity.updateFluidHeightAndDoFluidPushing(CNFluidTags.THORIUM.tag, 0.014)) {
+            entity.lavaHurt();
+        }
     }
 
     private record CreateNuclearAttributeHandler(Component name, int viscosity, boolean lighterThanAir) implements FluidVariantAttributeHandler {
@@ -95,7 +163,7 @@ public class CNFluids {
 
     public static void registerFluidInteractions() {
         FluidInteractionRegistry.addInteraction(PortingLibFluids.LAVA_TYPE, new InteractionInformation(
-                URANIUM.get().getFluidType(),
+                URANIUM_FLUID_TYPE,
                 fluidState -> {
                     if (fluidState.isSource()) {
                         return CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();
@@ -106,7 +174,7 @@ public class CNFluids {
         ));
 //
         FluidInteractionRegistry.addInteraction(PortingLibFluids.WATER_TYPE, new InteractionInformation(
-                URANIUM.get().getFluidType(),
+                URANIUM_FLUID_TYPE,
                 fluidState -> {
                     if (fluidState.isSource()) {
                         return CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();

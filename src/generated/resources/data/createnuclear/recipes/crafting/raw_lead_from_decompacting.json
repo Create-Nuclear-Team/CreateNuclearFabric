@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:storage_blocks/raw_lead"
+      "tag": "c:raw_lead_blocks"
     }
   ],
   "result": {

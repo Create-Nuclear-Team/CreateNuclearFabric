@@ -1,37 +1,39 @@
 package net.nuclearteam.createnuclear.foundation.advancement;
 
-
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.*;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
+import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.advancements.critereon.NbtPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.tags.TagKey;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-@MethodsReturnNonnullByDefault
-@SuppressWarnings({"unused", "DataFlowIssue", "ClassEscapesDefinedScope"})
+@SuppressWarnings("unused")
 public class CreateNuclearAdvancement {
 
-    static final ResourceLocation BACKGROUND = CreateNuclear.asResource("textures/block/steel_block.png");
+    static final ResourceLocation BACKGROUND = CreateNuclear.asResource("textures/gui/advancements/backgrounds/background_advancement.png");
     static final String LANG = "advancement." + CreateNuclear.MOD_ID + ".";
     static final String SECRET_SUFFIX = "\n\u00A77(Hidden Advancement)";
 
     private final Advancement.Builder builder;
-    private SimpleCreateTrigger builtinTrigger;
+    private SimpleCreateNuclearTrigger builtinTrigger;
     private CreateNuclearAdvancement parent;
 
     Advancement datagenResult;
@@ -71,6 +73,19 @@ public class CreateNuclearAdvancement {
         return titleKey() + ".desc";
     }
 
+    public boolean isAlreadyAwardedTo(Player player) {
+        if (!(player instanceof ServerPlayer sp))
+            return true;
+        Advancement advancement = sp.getServer()
+                .getAdvancements()
+                .getAdvancement(CreateNuclear.asResource(id));
+        if (advancement == null)
+            return true;
+        return sp.getAdvancements()
+                .getOrStartProgress(advancement)
+                .isDone();
+    }
+
     public void awardTo(Player player) {
         if (!(player instanceof ServerPlayer sp))
             return;
@@ -85,19 +100,6 @@ public class CreateNuclearAdvancement {
             builder.parent(parent.datagenResult);
         datagenResult = builder.save(t, CreateNuclear.asResource(id)
                 .toString());
-    }
-
-    public boolean isAlreadyAwardedTo(Player player) {
-        if (!(player instanceof ServerPlayer sp))
-            return true;
-        Advancement advancement = sp.getServer()
-                .getAdvancements()
-                .getAdvancement(CreateNuclear.asResource(id));
-        if (advancement == null)
-            return true;
-        return sp.getAdvancements()
-                .getOrStartProgress(advancement)
-                .isDone();
     }
 
     void provideLang(BiConsumer<String, String> consumer) {
@@ -175,9 +177,7 @@ public class CreateNuclearAdvancement {
         Builder whenIconCollected() {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(icon.getItem()));
         }
-        Builder whenItemEaten(Item item) {
-            return externalTrigger(ConsumeItemTrigger.TriggerInstance.usedItem(item));
-        }
+
         Builder whenItemCollected(ItemProviderEntry<?> item) {
             return whenItemCollected(item.asStack()
                     .getItem());

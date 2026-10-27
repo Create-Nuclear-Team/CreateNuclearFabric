@@ -1,0 +1,7 @@
+{
+  "render_type": "cutout",
+  "parent": "minecraft:block/template_fire_floor",
+  "textures": {
+    "fire": "createnuclear:block/enriching/fire/fire_1"
+  }
+}

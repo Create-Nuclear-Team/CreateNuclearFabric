@@ -1,19 +1,20 @@
 package net.nuclearteam.createnuclear.infrastructure.data;
 
+import net.nuclearteam.createnuclear.foundation.data.recipe.CNMaterialTags;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Fluid;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNEntityType;
 import net.nuclearteam.createnuclear.CNTags;
@@ -26,10 +27,6 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 @SuppressWarnings({"unused", "deprecated"})
 public class CreateNuclearRegistrateTags {
     private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
-
-    public static <T extends Block, P> NonNullFunction<BlockBuilder<T, P>, BlockBuilder<T, P>> shovelOnly() {
-        return b -> b.tag(BlockTags.MINEABLE_WITH_SHOVEL);
-    }
 
     public static void addGenerators() {
         REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, CreateNuclearRegistrateTags::genBlocksTags);
@@ -53,6 +50,10 @@ public class CreateNuclearRegistrateTags {
             .add(CNBlocks.ENRICHING_FIRE.get())
         ;
 
+        prov.tag(CNBlockTags.FAN_PROCESSING_CATALYSTS_SNOW_POWDER.tag)
+            .add(Blocks.POWDER_SNOW)
+        ;
+
 
         for (CNBlockTags tag : CNBlockTags.values()) {
             if (tag.alwaysDatagen) {
@@ -74,12 +75,24 @@ public class CreateNuclearRegistrateTags {
     private static void genFluidTags(RegistrateTagsProvider<Fluid> provider) {
         TagGen.CreateTagsProvider<Fluid> prov = new TagGen.CreateTagsProvider<>(provider, Fluid::builtInRegistryHolder);
 
-        prov.tag(CNTags.forgeFluidTag("uranium"))
+        prov.tag(CNMaterialTags.URANIUM.fluid())
                 .addTag(CNFluidTags.URANIUM.tag)
+        ;
+
+        prov.tag(CNMaterialTags.THORIUM.fluid())
+                .addTag(CNFluidTags.THORIUM.tag)
+        ;
+
+        prov.tag(CNMaterialTags.NITROGEN.fluid())
+                .addTag(CNFluidTags.NITROGEN.tag)
         ;
 
         prov.tag(FluidTags.LAVA)
                 .addTag(CNFluidTags.URANIUM.tag)
+        ;
+
+        prov.tag(FluidTags.WATER)
+                .addTag(CNFluidTags.NITROGEN.tag)
         ;
 
 
@@ -102,8 +115,4 @@ public class CreateNuclearRegistrateTags {
             }
         }
     }
-
-
-
-
 }

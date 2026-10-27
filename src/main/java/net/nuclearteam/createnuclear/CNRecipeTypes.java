@@ -4,17 +4,19 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import net.createmod.catnip.lang.Lang;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe;
+import net.nuclearteam.createnuclear.content.kinetics.fan.processing.SnowPowderRecipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -22,7 +24,8 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"unused", "unchecked"})
 public enum CNRecipeTypes implements IRecipeTypeInfo {
-    ENRICHED(EnrichedRecipe::new);
+    ENRICHED(EnrichedRecipe::new),
+    SNOW_POWDER(SnowPowderRecipe::new);
 
     private final ResourceLocation id;
     private final RecipeSerializer<?> serializerObject;

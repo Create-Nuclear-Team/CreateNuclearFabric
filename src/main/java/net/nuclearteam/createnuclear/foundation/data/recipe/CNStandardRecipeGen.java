@@ -11,18 +11,24 @@ import net.createmod.catnip.platform.CatnipServices;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.Items;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.tags.TagKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.CNTags;
@@ -43,7 +49,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
     GeneratedRecipe
         WHITE_CLOTH_FROM_STRING = create(ClothItem.Cloths.WHITE_CLOTH::getItem).unlockedBy(() -> Items.STRING)
             .viaShaped(b -> b
-               .define('#', Tags.Items.STRING)
+                .define('#', Items.STRING)
                 .pattern("###")
                 .pattern("###")
                 .showNotification(true)
@@ -58,23 +64,25 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             )
     ;
 
-    private final String CRAFTING_MATERIALS = enterFolder("crafting/materials");
-
     GeneratedRecipe
         LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
-            ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/lead"), () -> CNTags.forgeItemTag("ingots/lead"), () -> CNTags.forgeItemTag("storage_blocks/lead"))),
+            ImmutableList.of(() -> CNMaterialTags.LEAD.nuggets(), () -> CNMaterialTags.LEAD.ingots(), () -> CNMaterialTags.LEAD.storageBlocks().items())),
 
         STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
-            ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/steel"), () -> CNTags.forgeItemTag("ingots/steel"), () -> CNTags.forgeItemTag("storage_blocks/steel")))
+            ImmutableList.of(() -> CNMaterialTags.STEEL.nuggets(), () -> CNMaterialTags.STEEL.ingots(), () -> CNMaterialTags.STEEL.storageBlocks().items())),
+
+        THORIUM_COMPACTING = metalCompacting(ImmutableList.of(CNItems.THORIUM_NUGGET, CNItems.THORIUM_INGOT, CNBlocks.THORIUM_BLOCK),
+            ImmutableList.of(() -> CNMaterialTags.THORIUM.nuggets(), () -> CNMaterialTags.THORIUM.ingots(), () -> CNMaterialTags.THORIUM.storageBlocks().items()))
     ;
 
     private final String BLAST_FURNACE = enterFolder("blast_furnace");
 
     GeneratedRecipe
-        URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTags.forgeItemTag("ores/uranium"), "_for_uranium_ore", 4),
-        RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTags.forgeItemTag("ores/lead"), "_for_lead_ore", 1),
-        RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1),
-        CRUSHED_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, AllItems.CRUSHED_LEAD::get, "_for_crushed_lead", 1)
+        URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNMaterialTags.URANIUM.ores().items(), "_for_uranium_ore", 4),
+        RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNMaterialTags.LEAD.ores().items(), "_for_lead_ore", 1),
+        RAW_LEAD = blastFurnaceRecipeTags(CNItems.LEAD_INGOT::get, () -> CNMaterialTags.LEAD.rawMaterials(), "_for_raw_lead", 1),
+        CRUSHED_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, AllItems.CRUSHED_LEAD::get, "_for_lead", 1),
+        NITROGEN_CONCENTRATE = blastFurnaceRecipe(CNItems.NITROGEN_CONCENTRATE::get, CNItems.NITRATE::get, "_for_nitrogen_concentrate", 1)
     ;
 
 
@@ -209,7 +217,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             return register(consumer -> {
                 ShapedRecipeBuilder b = builder.apply(ShapedRecipeBuilder.shaped(category, result.get(), amount));
                 if (unlockedBy != null)
-                    b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
+                    b.unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(unlockedBy.get()));
                 b.save(consumer, createSimpleLocation(path));
             });
         }
@@ -218,7 +226,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             return register(consumer -> {
                 ShapelessRecipeBuilder b = builder.apply(ShapelessRecipeBuilder.shapeless(category, result.get(), amount));
                 if (unlockedBy != null)
-                    b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
+                    b.unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(unlockedBy.get()));
                 b.save(consumer, createSimpleLocation(path));
             });
         }
@@ -230,7 +238,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
                         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                                 Ingredient.of(base.get()), upgradeMaterial.get(), category, result.get()
                                         .asItem());
-                b.unlocks("has_item", inventoryTrigger(ItemPredicate.Builder.item()
+                b.unlocks("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
                         .of(base.get())
                         .build()));
                 b.save(consumer, createSimpleLocation(path));
@@ -325,7 +333,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
                             (int) (cookingTime * cookingTimeModifier), serializer));
 
                     if (unlockedBy != null)
-                        b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
+                        b.unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(unlockedBy.get()));
 
                     b.save(result -> {
                         consumer.accept(

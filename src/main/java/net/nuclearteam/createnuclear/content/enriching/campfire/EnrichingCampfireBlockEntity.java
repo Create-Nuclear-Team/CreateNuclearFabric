@@ -2,13 +2,12 @@ package net.nuclearteam.createnuclear.content.enriching.campfire;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import java.util.List;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.List;
 
 public class EnrichingCampfireBlockEntity extends SmartBlockEntity {
     public EnrichingCampfireBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
@@ -32,7 +31,7 @@ public class EnrichingCampfireBlockEntity extends SmartBlockEntity {
     }
 
     public void dowse() {
-        if (this.level != null) {
+        if (this.getLevel() != null) {
             this.markUpdated();
         }
     }
