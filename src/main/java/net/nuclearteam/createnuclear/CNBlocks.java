@@ -51,7 +51,7 @@ import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorContro
 import net.nuclearteam.createnuclear.content.multiblock.cooler.ReactorCooler;
 import net.nuclearteam.createnuclear.content.multiblock.core.ReactorCore;
 import net.nuclearteam.createnuclear.content.multiblock.frame.ReactorFrame;
-import net.nuclearteam.createnuclear.content.multiblock.frame.ReactorframeItem;
+import net.nuclearteam.createnuclear.content.multiblock.frame.ReactorFrameItem;
 import net.nuclearteam.createnuclear.content.multiblock.input.item.ReactorRodInput;
 import net.nuclearteam.createnuclear.content.multiblock.input.item.ReactorRodInputGenerator;
 import net.nuclearteam.createnuclear.content.multiblock.input.fluid.ReactorFluidInput;
@@ -130,7 +130,7 @@ public class CNBlocks {
                 .uvLock(false)
                 .build();
             }))
-            .item(ReactorframeItem::new)
+            .item(ReactorFrameItem::new)
             .model(AssetLookup.customBlockItemModel("reactor", "frame", "item"))
             .build()
             .register();

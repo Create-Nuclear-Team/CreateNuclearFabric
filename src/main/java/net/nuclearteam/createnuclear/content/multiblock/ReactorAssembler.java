@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNSoundEvents;
 import net.nuclearteam.createnuclear.api.multiblock.BlockPattern;
-import net.nuclearteam.createnuclear.api.multiblock.TypeMultiblock;
+import net.nuclearteam.createnuclear.api.multiblock.TypeMultiBlock;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.frame.ReactorFrameEntity;
 import net.nuclearteam.createnuclear.content.multiblock.input.fluid.ReactorFluidInputEntity;
@@ -37,7 +37,7 @@ public final class ReactorAssembler {
         ReactorControllerBlockEntity entity = getBlockEntity(level, pos);
         if (entity == null) return;
 
-        BlockPattern<TypeMultiblock> result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos, entity);
+        BlockPattern<TypeMultiBlock> result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos, entity);
         if (result == null) return;
 
         // Captured before setAssembled(true) below: assemble() is also reached from
@@ -71,7 +71,7 @@ public final class ReactorAssembler {
         ReactorControllerBlockEntity entity = getBlockEntity(level, pos);
         if (entity == null || !entity.isAssembled()) return;
 
-        BlockPattern<TypeMultiblock> result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos, entity);
+        BlockPattern<TypeMultiBlock> result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos, entity);
         if (result != null) return;
 
         sendMessageToPlayer(level, pos, CreateNuclearLang.translate("notification.reactor.disassembled"), true);

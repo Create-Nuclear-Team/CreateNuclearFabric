@@ -6,12 +6,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.api.multiblock.MultiBlockManagerBeta;
-import net.nuclearteam.createnuclear.api.multiblock.TypeMultiblock;
+import net.nuclearteam.createnuclear.api.multiblock.TypeMultiBlock;
 
 import java.util.function.Predicate;
 
 public class CNMultiblock {
-    public static final MultiBlockManagerBeta<TypeMultiblock> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
+    public static final MultiBlockManagerBeta<TypeMultiBlock> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
 
     private static final Predicate<BlockInWorld> blockInWorldAPredicate = state ->
             stateIs(CNBlocks.REACTOR_CASING.get()).test(state)
@@ -23,7 +23,7 @@ public class CNMultiblock {
 
     static {
         REGISTRATE_MULTIBLOCK.register("createnuclear:reactor5x5",
-                TypeMultiblock.REACTOR_T1,
+                TypeMultiBlock.REACTOR_T1,
                 SimpleMultiBlockAislePatternBuilder.start()
                         .aisle("OOOOO", "OAAAO", "OAAAO", "OAAAO", "OOOOO")
                         .aisle("OABAO", "ADDDA", "BDCDB", "ADDDA", "OABAO")
@@ -42,7 +42,7 @@ public class CNMultiblock {
         );
 
         REGISTRATE_MULTIBLOCK.register("createnuclear:reactor7x7",
-                TypeMultiblock.REACTOR_T2,
+                TypeMultiBlock.REACTOR_T2,
                 SimpleMultiBlockAislePatternBuilder.start()
                         .aisle("OOOOOOO", "OAAAAAO", "OAAAAAO", "OAAAAAO", "OAAAAAO", "OAAAAAO", "OOOOOOO")
                         .aisle("OABABAO", "ADDDDDA", "BDCDCDB", "ADDDDDA", "BDCDCDB", "ADDDDDA", "OABABAO")
@@ -63,7 +63,7 @@ public class CNMultiblock {
         );
 
         REGISTRATE_MULTIBLOCK.register("createnuclear:reactor9x9",
-                TypeMultiblock.REACTOR_T3,
+                TypeMultiBlock.REACTOR_T3,
                 SimpleMultiBlockAislePatternBuilder.start()
                         .aisle("OOOOOOOOO", "OAAAAAAAO", "OAAAAAAAO", "OAAAAAAAO", "OAAAAAAAO", "OAAAAAAAO", "OAAAAAAAO", "OAAAAAAAO", "OOOOOOOOO")
                         .aisle("OBAABAABO", "BDDDDDDDB", "ADCDCDCDA", "ADDDDDDDA", "BDCDCDCDB", "ADDDDDDDA", "ADCDCDCDA", "BDDDDDDDB", "OBAABAABO")

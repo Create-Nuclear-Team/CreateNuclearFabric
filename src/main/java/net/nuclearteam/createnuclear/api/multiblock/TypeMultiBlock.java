@@ -2,7 +2,7 @@ package net.nuclearteam.createnuclear.api.multiblock;
 
 import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
 
-public enum TypeMultiblock {
+public enum TypeMultiBlock {
     REACTOR_T1(5),
     REACTOR_T2(7),
     REACTOR_T3(9)
@@ -11,7 +11,7 @@ public enum TypeMultiblock {
     private final int size;
     private final String name;
 
-    TypeMultiblock(int size) {
+    TypeMultiBlock(int size) {
         this.size = size;
         this.name = CreateNuclearLang.asId(name());
     }
