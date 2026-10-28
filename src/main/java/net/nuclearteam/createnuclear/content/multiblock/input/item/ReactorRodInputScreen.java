@@ -36,4 +36,16 @@ public class ReactorRodInputScreen extends AbstractSimiContainerScreen<ReactorRo
         background.render(guiGraphics, x, y);
 
     }
+
+    // The player inventory is wider than the background, so its outer columns fall outside
+    // the window bounds and vanilla would treat clicks there as "outside" (THROW instead of QUICK_MOVE).
+    @Override
+    protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+        int invX = getLeftOfCentered(PLAYER_INVENTORY.getWidth());
+        int invY = topPos + background.height + 4;
+        if (mouseX >= invX && mouseX < invX + PLAYER_INVENTORY.getWidth()
+                && mouseY >= invY && mouseY < invY + PLAYER_INVENTORY.getHeight())
+            return false;
+        return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton);
+    }
 }
