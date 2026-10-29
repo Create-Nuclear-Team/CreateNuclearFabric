@@ -9,7 +9,13 @@ import net.minecraft.network.chat.Component;
 import net.nuclearteam.createnuclear.CNPackets;
 import net.nuclearteam.createnuclear.foundation.gui.CNGuiTextures;
 
+import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.Slot;
+import org.jetbrains.annotations.Nullable;
+
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
 
@@ -40,6 +46,69 @@ public class ReactorBluePrintItemScreen extends AbstractSimiContainerScreen<Reac
         renderPlayerInventory(guiGraphics, x+23, y+175);
 
         guiGraphics.drawString(font, title, x+26, y-12, 0x592424, false); // renders the screen title
+    }
+
+    // Hold left click and drag over the pattern grid to place (or erase, with an empty hand) several rods at once.
+    private final Set<Slot> paintedSlots = new HashSet<>();
+    private boolean painting = false;
+
+    private static boolean isPatternSlot(@Nullable Slot slot) {
+        return slot != null && slot.index >= 36;
+    }
+
+    @Nullable
+    private Slot getPatternSlotAt(double mouseX, double mouseY) {
+        double x = mouseX - leftPos;
+        double y = mouseY - topPos;
+        for (Slot slot : menu.slots) {
+            if (isPatternSlot(slot) && x >= slot.x - 1 && x < slot.x + 17 && y >= slot.y - 1 && y < slot.y + 17)
+                return slot;
+        }
+        return null;
+    }
+
+    private void paint(@Nullable Slot slot) {
+        if (isPatternSlot(slot) && paintedSlots.add(slot))
+            slotClicked(slot, slot.index, 0, ClickType.PICKUP);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        Slot slot = getPatternSlotAt(mouseX, mouseY);
+        if (button == 0 && isPatternSlot(slot)) {
+            painting = true;
+            paintedSlots.clear();
+            // An empty hand clears the slot immediately in super, so don't clear it a second time
+            if (menu.getCarried().isEmpty())
+                paintedSlots.add(slot);
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (painting && button == 0) {
+            paint(getPatternSlotAt(mouseX, mouseY));
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (painting && button == 0) {
+            painting = false;
+            paint(getPatternSlotAt(mouseX, mouseY));
+            paintedSlots.clear();
+            // With an empty hand, vanilla only consumes its pending "skip next release" flag here
+            if (menu.getCarried().isEmpty())
+                return super.mouseReleased(mouseX, mouseY, button);
+            // Otherwise cancel the vanilla drag state so releasing doesn't also click the slot under the cursor
+            isQuickCrafting = false;
+            quickCraftSlots.clear();
+            return true;
+        }
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override

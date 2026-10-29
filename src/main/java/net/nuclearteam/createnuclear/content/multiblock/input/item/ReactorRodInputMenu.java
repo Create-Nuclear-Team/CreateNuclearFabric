@@ -9,7 +9,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.core.BlockPos;
 import net.nuclearteam.createnuclear.CNMenus;
 
@@ -115,20 +114,5 @@ public class ReactorRodInputMenu extends MenuBase<ReactorRodInputEntity> {
 
     @Override
     protected void saveData(ReactorRodInputEntity contentHolder) {
-    }
-
-    @Override
-    public void clicked(int slotId, int button, ClickType clickType, Player player) {
-        if (clickType == ClickType.THROW) {
-            int[] targetSlotIds = {9, 18, 27, 0, 1, 28, 19, 10, 16, 17, 26, 25, 34, 35, 8, 7};
-            for (int id : targetSlotIds) {
-                if (slotId == id) {
-                    clickType = ClickType.PICKUP;
-                    super.clicked(slotId, button, clickType, player);
-                }
-            }
-            return;
-        }
-        super.clicked(slotId, button, clickType, player);
     }
 }
