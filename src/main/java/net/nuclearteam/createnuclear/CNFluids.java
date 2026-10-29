@@ -79,7 +79,7 @@ public class CNFluids {
 
     public static final FluidEntry<SimpleFlowableFluid.Flowing> LIQUID_NITROGEN = REGISTRATE.fluid("nitrogen", CreateNuclear.asResource("fluid/nitrogen_still"), CreateNuclear.asResource("fluid/nitrogen_flow"))
             .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.nitrogen", 1000, 1000))
-            .fluidProperties(p -> p.levelDecreasePerBlock(5)
+            .fluidProperties(p -> p.levelDecreasePerBlock(2)
                     .tickRate(10)
                     .flowSpeed(6)
                     .blastResistance(100f))
