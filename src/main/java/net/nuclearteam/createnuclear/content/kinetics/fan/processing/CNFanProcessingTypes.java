@@ -22,6 +22,9 @@ import net.nuclearteam.createnuclear.*;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe.EnrichedWrapper;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.SnowPowderRecipe.SnowPowderWrapper;
+import net.nuclearteam.createnuclear.content.particles.IrradiatedParticlesData;
+import net.nuclearteam.createnuclear.content.radiation.capability.RadiationCapability;
+import net.nuclearteam.createnuclear.foundation.damageTypes.CNDamageSources;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -65,6 +68,7 @@ public class CNFanProcessingTypes {
     }
 
     public static class EnrichedType implements FanProcessingType {
+        private static final double FAN_ENRICHING_DOSE = 5.0D;
         private static final EnrichedWrapper ENRICHED_WRAPPER = new EnrichedWrapper();
 
         @Override
@@ -113,13 +117,14 @@ public class CNFanProcessingTypes {
             particleAccess.setColor(Color.mixColors(0x0, 0x126568, random.nextFloat()));
             particleAccess.setAlpha(1f);
             if (random.nextFloat() < 1 / 128f) particleAccess.spawnExtraParticle(ParticleTypes.ASH, .125f);
-            if (random.nextFloat() < 1 / 32f) particleAccess.spawnExtraParticle(ParticleTypes.DOLPHIN, .125f);
+            if (random.nextFloat() < 1 / 32f) particleAccess.spawnExtraParticle(new IrradiatedParticlesData(), .125f);
         }
 
         @Override
         public void affectEntity(Entity entity, Level level) {
             if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 10, 0, true, true));
+                RadiationCapability.applyContagion(livingEntity, FAN_ENRICHING_DOSE, 10);
+                livingEntity.hurt(CNDamageSources.fanRadiation(level), 1);
             }
         }
     }
