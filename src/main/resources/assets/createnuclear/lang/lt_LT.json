@@ -1,7 +1,7 @@
 {
   "advancement.createnuclear.absolute_zero": "Absolute Zero",
   "advancement.createnuclear.absolute_zero.desc": "Mix cooled nitrogen concentrate to obtain liquid nitrogen",
-  "advancement.createnuclear.anti_radiation_armor": "Anti Radiation Armor",
+  "advancement.createnuclear.anti_radiation_armor": "Apsauginis kostiumas",
   "advancement.createnuclear.anti_radiation_armor.desc": "Pasigamink pirmą apsauginių šarvų dalį, kad apsisaugotum nuo radiacijos",
   "advancement.createnuclear.automatic_uranium": "Urano automatizacija",
   "advancement.createnuclear.automatic_uranium.desc": "Gauk urano miltelių, naudojant automatinę urano apdirbimo sistemą §7(Paslėptas Pasiekimas)",
@@ -33,7 +33,7 @@
   "advancement.createnuclear.graphene.desc": "Suspauskite anglies miltelius, kad pagamintumėte grafeną",
   "advancement.createnuclear.graphite_rod": "Nepamiršk šitų",
   "advancement.createnuclear.graphite_rod.desc": "Combine graphene and steel ingots in a mechanical crafter to make graphite rods",
-  "advancement.createnuclear.lead_ingot": "Lead Ingot",
+  "advancement.createnuclear.lead_ingot": "Švino luitas",
   "advancement.createnuclear.lead_ingot.desc": "Iškepk neapdorotą šviną, kad gautum švino luitą",
   "advancement.createnuclear.no_time_to_die": "No Time To Die",
   "advancement.createnuclear.no_time_to_die.desc": "Stop the reactor before the KABOOOM !",
