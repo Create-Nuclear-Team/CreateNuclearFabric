@@ -1,0 +1,25 @@
+{
+  "tag.item.createnuclear.cloth": "Cloth",
+  "tag.item.createnuclear.cooler": "Cooler",
+  "tag.item.createnuclear.fuel": "Fuel",
+  "tag.item.createnuclear.anti_radiation_armor": "Anti-Radiation Armor",
+  "tag.item.createnuclear.all_anti_radiation_armors": "All Anti-Radiation Armors",
+  "tag.item.createnuclear.stone_types.autunite": "Autunite Stone Types",
+
+  "tag.fluid.createnuclear.uranium": "Uranium",
+  "tag.fluid.createnuclear.thorium": "Thorium",
+  "tag.fluid.createnuclear.nitrogen": "Liquid Nitrogen",
+
+  "tag.item.c.storage_blocks": "Storage Blocks",
+  "tag.item.c.raw_materials": "Raw Materials",
+  "tag.item.c.rods": "Rods",
+  "tag.item.c.helmets": "Helmets",
+  "tag.item.c.chestplates": "Chestplates",
+  "tag.item.c.leggings": "Leggings",
+  "tag.item.c.boots": "Boots",
+
+  "tag.item.minecraft.all.campfires": "All Campfires",
+  "tag.item.minecraft.campfires": "Campfires",
+
+  "tag.item.trinkets.head.face": "Head Face"
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "createnuclear:raw_uranium_block",
+    "createnuclear:raw_lead_block",
+    "createnuclear:raw_thorium_block",
+    "createnuclear:lead_block",
+    "createnuclear:thorium_block",
+    "createnuclear:steel_block"
+  ]
+}
